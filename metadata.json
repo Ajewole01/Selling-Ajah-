@@ -1,0 +1,6 @@
+{
+  "name": "Selling Ajah",
+  "description": "Premium Nigerian real estate and luxury lifestyle platform for properties, shortlets, and car rentals in Ajah, Lekki, and Lagos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light theme default luxury tokens */
+  --color-canvas: #FAF9F6;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F3F2EE;
+  --color-surface-secondary: #EBEAE5;
+  --color-card: #FFFFFF;
+  --color-card-border: rgba(0, 0, 0, 0.08);
+  --color-input: #F4F4F0;
+  --color-navbar: rgba(255, 255, 255, 0.94);
+  --color-modal: #FFFFFF;
+  --color-gold: #C29B27;
+  --color-gold-accent: #D4AF37;
+  --color-gold-hover: #A8831A;
+  --text-primary: #121212;
+  --text-secondary: #474742;
+  --text-muted: #73736C;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.14);
+  --border-strong: rgba(0, 0, 0, 0.26);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+  --scrollbar-track: #F2F1ED;
+  --scrollbar-thumb: #D1D0C9;
+  --scrollbar-hover: #B8B7B0;
+}
+
+.dark {
+  /* Dark theme luxury tokens */
+  --color-canvas: #050505;
+  --color-surface: #0E0E0E;
+  --color-surface-elevated: #161616;
+  --color-surface-secondary: #1F1F1F;
+  --color-card: #0F0F0F;
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-input: #141414;
+  --color-navbar: rgba(5, 5, 5, 0.94);
+  --color-modal: #0D0D0D;
+  --color-gold: #D4AF37;
+  --color-gold-accent: #D4AF37;
+  --color-gold-hover: #E5C358;
+  --text-primary: #F5F5F0;
+  --text-secondary: rgba(245, 245, 240, 0.78);
+  --text-muted: rgba(245, 245, 240, 0.50);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.25);
+  --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.6);
+  --shadow-elevated: 0 12px 40px -4px rgba(0, 0, 0, 0.8);
+  --scrollbar-track: #050505;
+  --scrollbar-thumb: #1c1c1c;
+  --scrollbar-hover: #2b2b2b;
+}
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-display: "Cinzel", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-gold-accent: var(--color-gold-accent);
+  --color-gold: var(--color-gold);
+  --color-canvas: var(--color-canvas);
+  --color-card: var(--color-card);
+  --color-elevated: var(--color-surface-elevated);
+  --color-surface: var(--color-surface);
+  --color-input: var(--color-input);
+  --color-ivory: var(--text-primary);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-canvas);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+/* Custom scrollbar matching active theme palette */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
+/* Global Light Mode Surface and Typography Mappings */
+html.light body,
+html[data-theme="light"] body {
+  background-color: var(--color-canvas);
+  color: var(--text-primary);
+}
+
+/* Light mode overrides for foundational dark backgrounds */
+html.light .bg-\[\#050505\],
+html.light .bg-\[\#080808\],
+html.light .bg-\[\#0a0a0a\],
+html.light .bg-\[\#0A0A0A\] {
+  background-color: var(--color-canvas) !important;
+}
+
+html.light .bg-\[\#0D0D0D\],
+html.light .bg-\[\#0d0d0d\],
+html.light .bg-\[\#0F0F0F\],
+html.light .bg-\[\#111111\],
+html.light .bg-\[\#121212\],
+html.light .bg-\[\#141414\] {
+  background-color: var(--color-surface) !important;
+}
+
+html.light .bg-\[\#1A1A1A\],
+html.light .bg-\[\#1a1a1a\],
+html.light .bg-\[\#1E1E1E\],
+html.light .bg-\[\#1f1f1f\],
+html.light .bg-\[\#222222\] {
+  background-color: var(--color-surface-elevated) !important;
+}
+
+/* Navbar background in light mode */
+html.light .navbar-surface,
+html.light header.bg-\[\#050505\]\/95,
+html.light header.bg-\[\#050505\]\/92,
+html.light header.bg-\[\#050505\]\/90,
+html.light header.bg-\[\#050505\] {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Light mode text colors */
+html.light .text-\[\#F5F5F0\],
+html.light .text-\[\#f5f5f0\] {
+  color: var(--text-primary) !important;
+}
+
+/* Invert default white text in light mode unless intentionally preserved */
+html.light .text-white:not([data-preserve-white]):not(.badge-text):not(.gold-cta-text):not(.dark-btn-text):not(.bg-emerald-500 *):not(.bg-rose-500 *):not(.bg-amber-500 *):not(.bg-[#D4AF37] *):not(.bg-black *):not(.bg-slate-900 *):not(.bg-black\/60 *):not(.bg-black\/70 *):not(.bg-black\/80 *) {
+  color: var(--text-primary) !important;
+}
+
+html.light .text-white\/90,
+html.light .text-white\/80,
+html.light .text-white\/70,
+html.light .text-white\/75 {
+  color: var(--text-secondary) !important;
+}
+
+html.light .text-white\/60,
+html.light .text-white\/50,
+html.light .text-white\/40,
+html.light .text-white\/30 {
+  color: var(--text-muted) !important;
+}
+
+/* Light mode borders */
+html.light .border-white\/5,
+html.light .border-white\/10 {
+  border-color: var(--border-subtle) !important;
+}
+
+html.light .border-white\/15,
+html.light .border-white\/20,
+html.light .border-white\/25 {
+  border-color: var(--border-medium) !important;
+}
+
+/* Light mode button: Find Property (was bg-white text-black in dark mode) */
+html.light #navbar-find-property-btn,
+html.light .btn-find-property-contrast {
+  background-color: #121212 !important;
+  color: #FFFFFF !important;
+}
+html.light #navbar-find-property-btn:hover,
+html.light .btn-find-property-contrast:hover {
+  background-color: #C29B27 !important;
+  color: #000000 !important;
+}
+
+/* WhatsApp CTA button in light mode */
+html.light #navbar-whatsapp-cta {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #121212 !important;
+}
+html.light #navbar-whatsapp-cta:hover {
+  border-color: #C29B27 !important;
+  color: #C29B27 !important;
+}
+
+/* Form input backgrounds and borders in light mode */
+html.light input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+html.light textarea,
+html.light select {
+  background-color: var(--color-input);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Luxury Motion & Editorial Polish */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .ease-luxury {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .duration-luxury {
+    transition-duration: 600ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+

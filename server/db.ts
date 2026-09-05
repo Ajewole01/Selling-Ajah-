@@ -1,0 +1,1236 @@
+import fs from 'fs';
+import path from 'path';
+import { Property, ServicedApartment, LuxuryVehicle, Enquiry, Testimonial, FaqItem, SiteSettings, AdminUser } from '../src/types.js';
+
+export interface DatabaseSchema {
+  properties: Property[];
+  apartments: ServicedApartment[];
+  vehicles: LuxuryVehicle[];
+  enquiries: Enquiry[];
+  testimonials: Testimonial[];
+  faqs: FaqItem[];
+  settings: SiteSettings;
+  users: (AdminUser & { passwordHash: string })[];
+}
+
+const DATA_DIR = path.join(process.cwd(), 'data');
+const DB_FILE = path.join(DATA_DIR, 'db.json');
+
+const INITIAL_PROPERTIES: Property[] = [
+  {
+    id: 'prop-1',
+    title: 'Ultra-Modern 5 Bedroom Fully Detached Duplex with Swimming Pool & Cinema',
+    slug: 'ultra-modern-5-bedroom-duplex-pool-cinema-ajah',
+    refNumber: 'SA-AJH-001',
+    shortDescription: 'Exquisite contemporary masterpiece featuring smart home automation, Olympic-sized swimming pool, private cinema, and spacious BQ in a secure gated estate in Ajah.',
+    fullDescription: 'Experience architectural brilliance in this custom-designed 5 bedroom fully detached luxury home. Situated inside an elite access-controlled private estate in Ajah, just 3 minutes off the Lekki-Epe Expressway. This home boasts 3-metre high ceilings, floor-to-ceiling Spanish porcelain tiling, fully integrated Italian fitted kitchen with Bosch appliances, private 8-seater cinema, Olympic swimming pool with waterfall feature, rooftop entertainment terrace overlooking the lagoon breeze, and dedicated two-room staff quarters.',
+    propertyType: 'Detached Duplex',
+    listingType: 'sale',
+    price: 185000000,
+    previousPrice: 195000000,
+    location: 'Ajah, Lekki-Epe Expressway, Lagos',
+    area: 'Ajah',
+    address: 'Atlantic View Palm Estate, Off Lekki-Epe Expressway, Ajah, Lagos',
+    bedrooms: 5,
+    bathrooms: 6,
+    toilets: 7,
+    parkingSpaces: 5,
+    propertySize: '520 sqm',
+    landSize: '650 sqm',
+    amenities: [
+      'Private Swimming Pool',
+      '8-Seater Private Cinema',
+      'Smart Home Automation',
+      'Fitted Italian Kitchen',
+      '24/7 Uniformed Security',
+      'Central Water Treatment',
+      'Rooftop Lounge',
+      '2-Room Boys Quarters',
+      'CCTV & Video Intercom',
+      'Stamped Concrete Compound'
+    ],
+    features: [
+      'Governor\'s Consent Title',
+      'Fully Serviced Estate',
+      'Pop Ceilings with LED Ambient Lights',
+      'Walk-in Closets with Sensor Lighting',
+      'Solar Inverter Backup Ready',
+      'Treated Borehole System'
+    ],
+    googleMapsUrl: 'https://maps.google.com/?q=Ajah,Lagos,Nigeria',
+    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    mainImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: true,
+    seoTitle: 'Ultra-Modern 5 Bedroom Duplex with Pool & Cinema for Sale in Ajah',
+    seoDescription: 'Buy a luxury 5 bedroom fully detached duplex with cinema and swimming pool in Ajah, Lagos. Verified Governor\'s Consent title with Selling Ajah.',
+    createdAt: '2026-08-15T10:00:00.000Z',
+    updatedAt: '2026-08-20T14:30:00.000Z'
+  },
+  {
+    id: 'prop-2',
+    title: 'Contemporary 4 Bedroom Semi-Detached Duplex with BQ',
+    slug: 'contemporary-4-bedroom-semi-detached-duplex-abraham-adesanya',
+    refNumber: 'SA-ABA-002',
+    shortDescription: 'Brand new 4 bedroom semi-detached home located in a serene private gated close near Abraham Adesanya roundabout with perimeter electric fencing.',
+    fullDescription: 'An exceptional family home offering generous living spaces, top-tier sanitary wares, and immaculate craftsmanship. Located in a tranquil private residential community just off Abraham Adesanya, this 4 bedroom semi-detached home offers smooth access to Jubilee Bridge, Lekki Regional Road, and Sangotedo. Features high-end light fixtures, custom pantry, Jacuzzi in primary suite, and ample parking for 4 cars.',
+    propertyType: 'Semi Detached',
+    listingType: 'sale',
+    price: 115000000,
+    previousPrice: 125000000,
+    location: 'Abraham Adesanya, Ajah, Lagos',
+    area: 'Abraham Adesanya',
+    address: 'Grace Court, Off Ogombo Road, Abraham Adesanya, Ajah',
+    bedrooms: 4,
+    bathrooms: 4,
+    toilets: 5,
+    parkingSpaces: 4,
+    propertySize: '380 sqm',
+    landSize: '420 sqm',
+    amenities: [
+      'All Rooms En-suite',
+      'Fully Fitted Kitchen with Heat Extractor',
+      'Dedicated BQ',
+      'Jacuzzi & Walk-in Shower',
+      'Children Play Area',
+      'Electric Security Fencing',
+      'Street Solar Lighting'
+    ],
+    features: [
+      'C of O in Process / Approved Layout',
+      'Good Drainage Network',
+      'Flood-free Elevation',
+      'Modern Chandeliers'
+    ],
+    googleMapsUrl: 'https://maps.google.com/?q=Abraham+Adesanya,Ajah,Lagos',
+    mainImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: true,
+    seoTitle: '4 Bedroom Semi Detached Duplex for Sale in Abraham Adesanya, Ajah',
+    seoDescription: 'Beautiful 4 bedroom semi-detached duplex with BQ in Abraham Adesanya, Ajah. Selling Ajah verified property.',
+    createdAt: '2026-08-18T12:00:00.000Z',
+    updatedAt: '2026-08-25T11:00:00.000Z'
+  },
+  {
+    id: 'prop-3',
+    title: 'Luxury 3 Bedroom Terrace Duplex with Smart Automation',
+    slug: 'luxury-3-bedroom-terrace-duplex-orchid-road',
+    refNumber: 'SA-ORC-003',
+    shortDescription: 'Sleek architectural terrace home with smart locks, fitted Scandinavian kitchen, and private backyard on Orchid Road, Lekki/Ajah.',
+    fullDescription: 'Designed for young professionals, executives, and smart investors seeking strong rental yields. This 3 bedroom terrace on Orchid Road represents the gold standard in contemporary urban living. Comes with automated lighting, biometric door locks, private garden terrace, and access to a residents club with gym and communal swimming pool.',
+    propertyType: 'Terrace',
+    listingType: 'sale',
+    price: 88000000,
+    location: 'Orchid Road, Chevron/Ajah, Lagos',
+    area: 'Orchid Road',
+    address: 'The Haven Enclave, Orchid Road, Lagos',
+    bedrooms: 3,
+    bathrooms: 3,
+    toilets: 4,
+    parkingSpaces: 2,
+    propertySize: '260 sqm',
+    landSize: '300 sqm',
+    amenities: [
+      'Smart Door Lock & Lights',
+      'Estate Swimming Pool',
+      'Fully Equipped Residents Gym',
+      'Fitted Microwave & Oven',
+      '24hr Clean Power Grid'
+    ],
+    features: [
+      'Governor\'s Consent',
+      'High Rental Yield (₦6M/yr estimated)',
+      'Fiber Optic High Speed Internet Ready'
+    ],
+    mainImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: true,
+    seoTitle: 'Smart 3 Bedroom Terrace for Sale on Orchid Road, Lagos',
+    seoDescription: 'Own a luxury 3 bedroom terrace duplex on Orchid Road. High rental yield and modern smart amenities with Selling Ajah.',
+    createdAt: '2026-08-22T08:00:00.000Z',
+    updatedAt: '2026-08-22T08:00:00.000Z'
+  },
+  {
+    id: 'prop-4',
+    title: 'Exquisite 5 Bedroom Waterfront Mansion in Victoria Garden City (VGC)',
+    slug: 'exquisite-5-bedroom-waterfront-mansion-vgc-lagos',
+    refNumber: 'SA-VGC-004',
+    shortDescription: 'Palatial luxury mansion on a double corner piece with private boat jetty, infinity pool, elevator, and lush landscaped gardens in prestigious VGC.',
+    fullDescription: 'A trophy residence of peerless grandeur in Victoria Garden City (VGC). Crafted for the discerning elite, this waterfront mansion offers a private private boat slipway and jetty directly connecting to the Lagos lagoon. Highlights include a glass panoramic passenger elevator, 12-seater executive banquet dining room, temperature-controlled wine cellar, rooftop helipad access platform, 100KVA silent generator house, and perimeter military-grade CCTV surveillance.',
+    propertyType: 'Mansion',
+    listingType: 'sale',
+    price: 450000000,
+    previousPrice: 480000000,
+    location: 'Victoria Garden City (VGC), Lekki/Ajah, Lagos',
+    area: 'VGC',
+    address: 'Waterfront Crescent, Road 14, Victoria Garden City, Lagos',
+    bedrooms: 5,
+    bathrooms: 6,
+    toilets: 7,
+    parkingSpaces: 8,
+    propertySize: '850 sqm',
+    landSize: '1100 sqm',
+    amenities: [
+      'Private Lagoon Jetty & Slipway',
+      'Glass Panoramic Elevator',
+      'Infinity Edge Swimming Pool',
+      'Private Cinema & Game Room',
+      'Tennis Court Access',
+      'Wine Cellar & Wet Bar',
+      'Solar Farm & 100KVA Backup Power'
+    ],
+    features: [
+      'Federal Certificate of Occupancy (C of O)',
+      'Maximum Security Estate with Strict Access Protocols',
+      'Paved Waterway Access to Lekki & Ikoyi'
+    ],
+    mainImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: true,
+    seoTitle: '5 Bedroom Waterfront Luxury Mansion for Sale in VGC Lekki Lagos',
+    seoDescription: 'Prestigious waterfront 5 bedroom luxury mansion in VGC with private jetty, elevator, and pool. Available exclusively via Selling Ajah.',
+    createdAt: '2026-08-01T14:00:00.000Z',
+    updatedAt: '2026-08-10T09:00:00.000Z'
+  },
+  {
+    id: 'prop-5',
+    title: 'Serviced 2 Bedroom Luxury Penthouse for Rent in Chevron Toll Gate',
+    slug: 'serviced-2-bedroom-luxury-penthouse-rent-chevron',
+    refNumber: 'SA-CHV-005',
+    shortDescription: 'Brand new luxury penthouse with wraparound terrace balcony, fully fitted kitchen, 24-hour electricity, and elevator access.',
+    fullDescription: 'Perched on the top floor of a newly commissioned modern mid-rise residential tower in Chevron, this penthouse offers spectacular 360-degree views stretching across Lekki and the conservation area. Fully serviced with round-the-clock power, dedicated facility management, subterranean parking, swimming pool, and on-site gymnasium.',
+    propertyType: 'Penthouse',
+    listingType: 'rent',
+    price: 5500000,
+    pricePeriod: 'per annum',
+    location: 'Chevron Toll Gate, Lekki, Lagos',
+    area: 'Chevron',
+    address: 'Tower View Heights, Chevron Alternative Route, Lekki',
+    bedrooms: 2,
+    bathrooms: 2,
+    toilets: 3,
+    parkingSpaces: 2,
+    propertySize: '180 sqm',
+    amenities: [
+      '24/7 Uninterrupted Electricity',
+      'High Speed Elevator',
+      'Rooftop Swimming Pool',
+      'Fully Equipped Fitness Gym',
+      'Wraparound Horizon Balcony',
+      'Dedicated Facility Manager'
+    ],
+    features: [
+      'Service Charge: ₦800,000/yr',
+      'Power Metered Pay-As-You-Use',
+      'High Security Keycard Access'
+    ],
+    mainImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: false,
+    seoTitle: 'Serviced 2 Bedroom Penthouse for Rent in Chevron Lekki',
+    seoDescription: 'Rent a luxury 2 bedroom penthouse in Chevron, Lekki. 24/7 power, elevator, and pool with Selling Ajah.',
+    createdAt: '2026-08-28T16:00:00.000Z',
+    updatedAt: '2026-08-28T16:00:00.000Z'
+  },
+  {
+    id: 'prop-6',
+    title: 'Executive 4 Bedroom Duplex with Swimming Pool for Rent',
+    slug: 'executive-4-bedroom-duplex-pool-rent-ikota',
+    refNumber: 'SA-IKO-006',
+    shortDescription: 'Gated haven with private swimming pool, green turf, security post, and 2-room BQ in prestigious Ikota Villa Estate.',
+    fullDescription: 'A truly magnificent rental property in Ikota Villa Estate, renowned for serene neighborhood living and instant expressway connectivity. Boasting a private swimming pool, automated gate, massive living lounge with double volume ceiling, and all bedrooms completely en-suite.',
+    propertyType: 'Detached Duplex',
+    listingType: 'rent',
+    price: 7500000,
+    pricePeriod: 'per annum',
+    location: 'Ikota Villa Estate, Lekki/Ajah, Lagos',
+    area: 'Ikota',
+    address: 'Emerald Drive, Ikota Villa Estate, Lagos',
+    bedrooms: 4,
+    bathrooms: 4,
+    toilets: 5,
+    parkingSpaces: 4,
+    propertySize: '400 sqm',
+    amenities: [
+      'Private Swimming Pool',
+      'Automated Sliding Gate',
+      'All En-suite Bedrooms with Water Heaters',
+      'Generous Master Bedroom with Balcony',
+      'Industrial Water Filtration Unit'
+    ],
+    features: [
+      'Family Friendly Community',
+      'Tarred Roads & Functional Streetlights',
+      'Prompt On-site Estate Patrols'
+    ],
+    mainImage: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: true,
+    seoTitle: '4 Bedroom Duplex with Pool for Rent in Ikota Villa Estate',
+    seoDescription: 'Rent an executive 4 bedroom duplex with private pool in Ikota, Lekki/Ajah Lagos. Contact Selling Ajah today.',
+    createdAt: '2026-08-30T10:00:00.000Z',
+    updatedAt: '2026-08-30T10:00:00.000Z'
+  },
+  {
+    id: 'prop-7',
+    title: 'Prime 600sqm Dry Residential Land with Governor\'s Consent',
+    slug: 'prime-600sqm-residential-land-sangotedo-ajah',
+    refNumber: 'SA-SAN-007',
+    shortDescription: '100% dry and build-ready plot located inside an upscale gated scheme 2 minutes behind Novare Mall (Shoprite), Sangotedo.',
+    fullDescription: 'Rare investment plot measuring 600 square metres in a fully developed luxury gated estate directly behind Novare Mall Sangotedo. Free from government acquisition and family disputes, backed by clean Governor\'s Consent. Excellent terrain, instant allocation, and immediate construction allowed. Perfect for building a detached family duplex or block of luxury rental units.',
+    propertyType: 'Land',
+    listingType: 'sale',
+    price: 48000000,
+    previousPrice: 52000000,
+    location: 'Sangotedo, Ajah, Lagos',
+    area: 'Sangotedo',
+    address: 'Heritage Park Estate, Behind Novare Mall, Sangotedo, Ajah',
+    bedrooms: 0,
+    bathrooms: 0,
+    toilets: 0,
+    parkingSpaces: 0,
+    landSize: '600 sqm',
+    amenities: [
+      '100% Dry Land - No Raft Needed',
+      'Perimeter Fencing & Access Gate',
+      'Paved Estate Access Roads',
+      'Underground Electrical Cabling',
+      'Drainage Infrastructure Installed'
+    ],
+    features: [
+      'Clean Governor\'s Consent Title',
+      'Survey Plan & Deed of Assignment',
+      'Instant Physical Allocation'
+    ],
+    mainImage: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1524813686514-a57563d77d66?auto=format&fit=crop&w=1200&q=80'
+    ],
+    status: 'available',
+    isFeatured: false,
+    seoTitle: '600sqm Dry Land for Sale in Sangotedo Ajah with Governor\'s Consent',
+    seoDescription: 'Buy dry land in Sangotedo near Novare Mall Ajah. Clean title and instant allocation with Selling Ajah.',
+    createdAt: '2026-08-25T11:00:00.000Z',
+    updatedAt: '2026-08-25T11:00:00.000Z'
+  }
+];
+
+const INITIAL_APARTMENTS: ServicedApartment[] = [
+  {
+    id: 'apt-1',
+    name: 'The Onyx Waterfront Penthouse',
+    slug: 'the-onyx-waterfront-penthouse-lekki',
+    location: 'Lekki Phase 1 / Admiralty Way, Lagos',
+    area: 'Lekki Phase 1',
+    address: 'Admiralty Towers, Waterfront, Lekki Phase 1, Lagos',
+    pricePerNight: 185000,
+    bedrooms: 3,
+    bathrooms: 3,
+    maxGuests: 6,
+    amenities: [
+      '24/7 Guaranteed Electricity (Dual Generators + Inverter)',
+      'Superfast Starlink High-Speed Internet',
+      'Private Chef on Request',
+      'Panoramic Lagoon Balcony',
+      'Smart 65" 4K TVs with Netflix & DSTV Premium',
+      'Infinity Pool & Gym Access',
+      'Daily Housekeeping & Laundry'
+    ],
+    rules: [
+      'Strictly no smoking inside apartment (Designated balcony permitted)',
+      'No loud music past 10:00 PM',
+      'Valid Government ID required at check-in',
+      'Parties require prior written approval'
+    ],
+    checkInTime: '2:00 PM',
+    checkOutTime: '11:00 AM',
+    isAvailable: true,
+    status: 'available',
+    isFeatured: true,
+    description: 'Immerse yourself in opulent Lagos living with this flagship 3-bedroom waterfront penthouse. Offering jaw-dropping lagoon vistas, designer bespoke furniture, plush memory foam king beds, and round-the-clock power. Ideal for executive retreats, diaspora returnees, and discerning travelers.',
+    mainImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80'
+    ],
+    seoTitle: 'The Onyx Waterfront Penthouse - 3 Bedroom Shortlet Lekki Lagos',
+    seoDescription: 'Book luxury 3 bedroom waterfront penthouse in Lekki Phase 1. 24/7 power, Starlink WiFi, and private balcony. Selling Ajah.',
+    createdAt: '2026-08-10T10:00:00.000Z'
+  },
+  {
+    id: 'apt-2',
+    name: 'Lumière Serene 2-Bedroom Executive Shortlet',
+    slug: 'lumiere-serene-2-bedroom-executive-shortlet-ajah',
+    location: 'Ajah Promenade, Off Lekki-Epe Expressway, Lagos',
+    area: 'Ajah',
+    address: 'Block 4, Royal Vista Heights, Ajah Promenade, Lagos',
+    pricePerNight: 95000,
+    bedrooms: 2,
+    bathrooms: 2,
+    maxGuests: 4,
+    amenities: [
+      'Uninterrupted 24/7 Power',
+      'High-Speed Fiber Internet',
+      'Fully Stocked Gourmet Kitchen',
+      'Washing Machine & Dryer',
+      'Secure Covered Parking',
+      'Gated Security with Armed Guards',
+      'Smart Lighting & Ambient Sound'
+    ],
+    rules: [
+      'No smoking indoors',
+      'Quiet hours 11:00 PM - 7:00 AM',
+      'Maximum 4 overnight guests'
+    ],
+    checkInTime: '3:00 PM',
+    checkOutTime: '12:00 PM',
+    isAvailable: true,
+    status: 'available',
+    isFeatured: true,
+    description: 'A cozy yet sophisticated sanctuary in the heart of Ajah. Boasting tasteful minimalist décor, premium hotel-grade linens, fully equipped kitchen with Nespresso machine, and dedicated workspace perfect for remote professionals.',
+    mainImage: '/src/assets/images/regenerated_image_1788542609416.jpg',
+    gallery: [
+      '/src/assets/images/regenerated_image_1788542609416.jpg',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80'
+    ],
+    seoTitle: 'Lumiere 2 Bedroom Serviced Shortlet in Ajah Lagos',
+    seoDescription: 'Book a peaceful 2 bedroom serviced apartment in Ajah with 24/7 power and superfast internet. Selling Ajah.',
+    createdAt: '2026-08-14T10:00:00.000Z'
+  },
+  {
+    id: 'apt-3',
+    name: 'The Palms 4-Bedroom Luxury Villa with Private Pool',
+    slug: 'the-palms-4-bedroom-villa-private-pool-chevron',
+    location: 'Chevron Alternative Route, Lekki, Lagos',
+    area: 'Chevron',
+    address: 'Palm View Close, Chevron Alternative Route, Lagos',
+    pricePerNight: 260000,
+    bedrooms: 4,
+    bathrooms: 5,
+    maxGuests: 8,
+    amenities: [
+      'Private Swimming Pool & Sun Deck',
+      'Snooker / Pool Table & Lounge Bar',
+      '24/7 Stable Electricity with Backup',
+      'Chef Kitchen with Double Door Fridge',
+      'Complimentary Airport Chauffeur on 5+ Nights Stay',
+      'In-house Butler Service Available'
+    ],
+    rules: [
+      'Security deposit of ₦100,000 (Refundable upon checkout)',
+      'Parties permitted with event fee package',
+      'Respect estate quiet hours'
+    ],
+    checkInTime: '2:00 PM',
+    checkOutTime: '11:00 AM',
+    isAvailable: true,
+    status: 'available',
+    isFeatured: true,
+    description: 'The ultimate luxury shortlet experience for families and VIP groups. Features a private outdoor pool, cabana, outdoor BBQ grill, indoor snooker lounge, and expansive open-plan living room.',
+    mainImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
+    ],
+    seoTitle: 'The Palms 4 Bedroom Villa Shortlet with Private Pool Chevron Lekki',
+    seoDescription: 'Rent a luxury 4-bedroom villa with private pool in Chevron, Lekki. Perfect for luxury vacation and family stays with Selling Ajah.',
+    createdAt: '2026-08-20T10:00:00.000Z'
+  }
+];
+
+const INITIAL_VEHICLES: LuxuryVehicle[] = [
+  {
+    id: 'veh-1',
+    name: '2024 Mercedes-Benz G63 AMG Bi-Turbo V8',
+    slug: '2024-mercedes-benz-g63-amg-rental-lagos',
+    brand: 'Mercedes-Benz',
+    model: 'G63 AMG',
+    year: 2024,
+    category: 'SUV',
+    dailyRate: 350000,
+    hourlyRate: 50000,
+    transmission: 'Automatic',
+    seats: 5,
+    fuelType: 'Petrol',
+    color: 'Obsidian Black Metallic with Red Designo Interior',
+    features: [
+      'Professional Protocol Chauffeur Included',
+      'Burmester High-End 3D Surround Sound',
+      'Executive Chilled Mini Bar Console',
+      'Privacy Dark Tinted Glass',
+      'Police Escort Protocol Available on Request',
+      'Full Comprehensive Insurance Included'
+    ],
+    requirements: [
+      'Valid Government Issued Identification / International Passport',
+      'Security Deposit or Corporate Guarantee Letter',
+      'Fuel policy: Return with same fuel level or paid recharge'
+    ],
+    status: 'available',
+    isAvailable: true,
+    isFeatured: true,
+    mainImage: 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+    ],
+    description: 'Command the roads of Lagos with the undisputed king of luxury SUVs. The 2024 G63 AMG delivers an iconic presence, thunderous V8 bi-turbo power, and supreme interior opulence. Available with our highly trained executive chauffeur.',
+    shortDescription: 'The pinnacle of road presence. 2024 G63 AMG with chauffeur, red Designo leather, and VIP security escort options in Lagos.',
+    seoTitle: 'Rent 2024 Mercedes-Benz G63 AMG in Lagos | Selling Ajah Luxury Cars',
+    seoDescription: 'Rent the 2024 Mercedes-Benz G63 AMG in Ajah, Lekki, and Lagos. Chauffeur driven with protocol security options.',
+    createdAt: '2026-08-05T12:00:00.000Z'
+  },
+  {
+    id: 'veh-2',
+    name: '2023 Range Rover Autobiography Long Wheelbase (LWB)',
+    slug: '2023-range-rover-autobiography-lwb-rental-lagos',
+    brand: 'Land Rover',
+    model: 'Range Rover Autobiography',
+    year: 2023,
+    category: 'SUV',
+    dailyRate: 300000,
+    hourlyRate: 45000,
+    transmission: 'Automatic',
+    seats: 4,
+    fuelType: 'Petrol',
+    color: 'Carpathian Grey with Perlino Semi-Aniline Leather',
+    features: [
+      'Executive Class Rear Comfort Airline Seats with Hot Stone Massage',
+      'Active Noise Cancellation Cabin',
+      'Rear Seat Entertainment 11.4" Screens',
+      'Panoramic Sliding Sunroof with Electronic Blind',
+      'Chauffeur Driven by Selling Ajah Certified Chauffeurs'
+    ],
+    requirements: [
+      'Valid ID Card / Passport',
+      'Minimum booking: 1 day',
+      'Lagos state usage (Interstate travel available upon special request)'
+    ],
+    status: 'available',
+    isAvailable: true,
+    isFeatured: true,
+    mainImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80'
+    ],
+    description: 'Impeccable British refinement tailored for executive transfers, weddings, and high-profile meetings across Lekki, Ikoyi, Victoria Island, and Ajah.',
+    shortDescription: 'Ultimate executive luxury with rear massage airline seating and noise cancelling cabin.',
+    seoTitle: 'Rent 2023 Range Rover Autobiography in Lagos | Selling Ajah',
+    seoDescription: 'Executive Range Rover Autobiography rental in Ajah and Lekki Lagos. Book with professional chauffeur.',
+    createdAt: '2026-08-08T14:00:00.000Z'
+  },
+  {
+    id: 'veh-3',
+    name: '2024 Lexus LX600 VIP 4-Seater Executive',
+    slug: '2024-lexus-lx600-vip-executive-rental-lagos',
+    brand: 'Lexus',
+    model: 'LX600 VIP',
+    year: 2024,
+    category: 'Executive',
+    dailyRate: 280000,
+    hourlyRate: 40000,
+    transmission: 'Automatic',
+    seats: 4,
+    fuelType: 'Petrol',
+    color: 'Pearl White with Tan Leather',
+    features: [
+      'Ultra Luxury 4-Seat VIP Configuration',
+      'Ottoman Reclining Rear Passenger Seat',
+      'Mark Levinson Reference 25-Speaker Audio',
+      'Twin-Turbo V6 Power & Air Suspension Glide',
+      'Chauffeur Driven'
+    ],
+    requirements: [
+      'Valid National ID or Passport',
+      'Trip itinerary details'
+    ],
+    status: 'available',
+    isAvailable: true,
+    isFeatured: true,
+    mainImage: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
+    ],
+    description: 'The pinnacle of Japanese precision and bulletproof reliability blended with peerless luxury. The LX600 VIP model turns Lagos traffic into a relaxing spa-like sanctuary.',
+    shortDescription: '4-seater VIP executive cabin with ottoman footrest and Mark Levinson sound system.',
+    seoTitle: 'Rent 2024 Lexus LX600 VIP in Lagos | Selling Ajah',
+    seoDescription: 'Lexus LX600 VIP car hire in Ajah and Lekki. Executive comfort and certified chauffeur service.',
+    createdAt: '2026-08-12T16:00:00.000Z'
+  },
+  {
+    id: 'veh-4',
+    name: '2023 Rolls-Royce Ghost Extended Series',
+    slug: '2023-rolls-royce-ghost-extended-rental-lagos',
+    brand: 'Rolls-Royce',
+    model: 'Ghost Extended',
+    year: 2023,
+    category: 'Premium',
+    dailyRate: 850000,
+    hourlyRate: 120000,
+    transmission: 'Automatic',
+    seats: 4,
+    fuelType: 'Petrol',
+    color: 'English White with Seashell & Navy Starlight Headliner',
+    features: [
+      'Shooting Star Fiber-Optic Ceiling',
+      'Electrically Operating Suicide Doors',
+      'Champagne Cooler with Flutes',
+      'Lambswool Footmats & Handcrafted Veneer',
+      'White-Glove VIP Chauffeur & Armed Mobile Police Escort'
+    ],
+    requirements: [
+      '72-Hour Advance Booking Required',
+      'Official Security Clearance Verification'
+    ],
+    status: 'available',
+    isAvailable: true,
+    isFeatured: false,
+    mainImage: 'https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1631295868223-63265b40d9e4?auto=format&fit=crop&w=1200&q=80'
+    ],
+    description: 'The definitive automotive statement for high-society weddings, presidential delegations, and luxury lifestyle events across Lagos.',
+    shortDescription: 'Starlight headliner, bespoke champagne fridge, and white-glove security protocol.',
+    seoTitle: 'Rent 2023 Rolls-Royce Ghost in Lagos | Selling Ajah',
+    seoDescription: 'Hire a Rolls-Royce Ghost Extended in Lagos. Elite luxury vehicle rental with Selling Ajah.',
+    createdAt: '2026-08-01T09:00:00.000Z'
+  }
+];
+
+const INITIAL_TESTIMONIALS: Testimonial[] = [
+  {
+    id: 'test-1',
+    name: 'Dr. Adebayo Adeleke',
+    role: 'Consultant Surgeon (London, UK)',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+    rating: 5,
+    text: 'Selling Ajah made buying my 5-bedroom home in VGC completely effortless while I was based in London. They provided video inspections, deed verifications at Alausa, and managed every step with absolute transparency. Highly recommended!',
+    serviceOrProperty: 'VGC Waterfront Mansion Purchase',
+    isFeatured: true,
+    createdAt: '2026-08-10T12:00:00.000Z'
+  },
+  {
+    id: 'test-2',
+    name: 'Chioma Nwosu',
+    role: 'Fintech VP & Serial Entrepreneur',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80',
+    rating: 5,
+    text: 'We hosted our executive team summit at The Onyx Penthouse and hired a 2024 G63 AMG. The level of hospitality, 24/7 uninterrupted power, clean Starlink connection, and polite security escort was world-class.',
+    serviceOrProperty: 'Shortlet & Luxury Car Rental',
+    isFeatured: true,
+    createdAt: '2026-08-18T15:00:00.000Z'
+  },
+  {
+    id: 'test-3',
+    name: 'Engr. Babatunde Fashanu',
+    role: 'Oil & Gas Infrastructure Director',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+    rating: 5,
+    text: 'I have worked with many property brokers on the Lekki axis, but Selling Ajah stands apart. Their local knowledge of Sangotedo, Abraham Adesanya, and Chevron is encyclopedic. No inflated prices, just authentic verified titles.',
+    serviceOrProperty: 'Duplex Acquisition in Abraham Adesanya',
+    isFeatured: true,
+    createdAt: '2026-08-25T11:00:00.000Z'
+  }
+];
+
+const INITIAL_FAQS: FaqItem[] = [
+  {
+    id: 'faq-1',
+    category: 'Buying',
+    question: 'How do you verify the title documents for properties listed in Ajah and Lekki?',
+    answer: 'Every property listed on Selling Ajah undergoes thorough legal due diligence. Our legal advisory team conducts title searches at the Lagos State Lands Bureau (Alausa, Ikeja), confirming whether a property carries a valid Governor\'s Consent, Certificate of Occupancy (C of O), Gazette, or approved layout status before it is published.'
+  },
+  {
+    id: 'faq-2',
+    category: 'Buying',
+    question: 'Can I inspect properties virtually if I reside outside Nigeria?',
+    answer: 'Yes! Over 40% of our clients are in the diaspora (UK, US, Canada, Europe, Middle East). We provide live 4K video walkthroughs over WhatsApp or Zoom, unedited drone footage of the neighborhood access roads, and continuous updates throughout the transaction.'
+  },
+  {
+    id: 'faq-3',
+    category: 'Shortlets',
+    question: 'Are electricity and high-speed internet guaranteed 24/7 in your serviced apartments?',
+    answer: 'Yes. All our serviced apartments and penthouses operate with redundant power configurations: primary public utility, commercial silent diesel generators, and automated solar inverters to ensure zero seconds of power downtime. High-speed Starlink or dedicated enterprise fiber optics are standard in every unit.'
+  },
+  {
+    id: 'faq-4',
+    category: 'Cars',
+    question: 'Are your luxury rental vehicles chauffeur-driven or self-drive?',
+    answer: 'For safety, VIP protocol, and seamless navigation across Lagos roads, our luxury fleet (including Mercedes G63 AMG, Range Rover Autobiography, and Rolls-Royce) comes standard with certified executive chauffeurs. Chauffeur services, protocol escorts, and airport pickups can be tailored to your schedule.'
+  },
+  {
+    id: 'faq-5',
+    category: 'General',
+    question: 'What are the payment terms and booking procedures?',
+    answer: 'For property purchases, payments are made directly into verified escrow or vendor bank accounts following signed Contracts of Sale. For shortlets and car rentals, dates are secured upon payment confirmation with instant digital receipts and booking vouchers issued.'
+  }
+];
+
+const INITIAL_SETTINGS: SiteSettings = {
+  businessName: 'Selling Ajah',
+  phone: '+234 810 901 2192',
+  whatsapp: '+234 810 901 2192',
+  email: 'info@sellingajah.com',
+  officeAddress: 'Suite 4B, Admiralty Way / Lekki-Epe Expressway, Beside Ajah Jubilee Bridge, Lagos, Nigeria',
+  businessHours: 'Monday - Saturday: 8:00 AM - 7:00 PM | Sunday: By Appointment',
+  socialLinks: {
+    instagram: 'https://instagram.com/sellingajah',
+    facebook: 'https://facebook.com/sellingajah',
+    twitter: 'https://x.com/sellingajah',
+    linkedin: 'https://linkedin.com/company/sellingajah',
+    youtube: 'https://youtube.com/@sellingajah'
+  },
+  defaultSeoTitle: 'Selling Ajah | Premium Properties, Shortlets & Luxury Rentals in Lagos',
+  defaultSeoDescription: 'Discover verified luxury homes for sale, properties for rent, serviced shortlets, and executive car rentals across Ajah, Lekki, and Lagos.',
+  heroHeadline: 'Find Your Place in Ajah.',
+  heroSubheadline: 'Discover verified luxury properties, premium serviced shortlets, and executive car rentals across Ajah, Lekki, and greater Lagos.'
+};
+
+const INITIAL_ENQUIRIES: Enquiry[] = [
+  {
+    id: 'enq-1',
+    name: 'Olumide Bakare',
+    phone: '+234 803 111 2233',
+    email: 'olumide.b@example.com',
+    whatsapp: '+234 803 111 2233',
+    service: 'property_sale',
+    listingType: 'property',
+    listingId: 'prop-1',
+    listingTitle: 'Ultra-Modern 5 Bedroom Fully Detached Duplex with Swimming Pool & Cinema',
+    message: 'Hello Selling Ajah team, I saw this property on your website and would like to schedule an inspection this Saturday morning by 11:00 AM. Please let me know the gate protocol.',
+    budget: '₦180,000,000',
+    preferredLocation: 'Ajah',
+    date: '2026-09-02T14:20:00.000Z',
+    status: 'new',
+    notes: 'Followed up via WhatsApp, confirmed inspection for Saturday.'
+  },
+  {
+    id: 'enq-2',
+    name: 'Khadija Bello',
+    phone: '+234 818 999 8877',
+    email: 'k.bello@example.com',
+    whatsapp: '+234 818 999 8877',
+    service: 'shortlet',
+    listingType: 'apartment',
+    listingId: 'apt-1',
+    listingTitle: 'The Onyx Waterfront Penthouse',
+    message: 'Looking to book this waterfront penthouse for 4 nights starting next Friday for a small family gathering. Is there a chef available?',
+    budget: '₦740,000',
+    preferredLocation: 'Lekki Phase 1',
+    date: '2026-09-03T09:15:00.000Z',
+    status: 'in_progress',
+    notes: 'Informed client about private chef fee (₦35,000/day).'
+  }
+];
+
+const INITIAL_USERS: (AdminUser & { passwordHash: string })[] = [
+  {
+    id: 'usr-1',
+    username: 'admin',
+    name: 'Administrator',
+    email: 'admin@sellingajah.com',
+    role: 'super_admin',
+    passwordHash: 'admin' // In production hashed, demo simplified for instant access
+  },
+  {
+    id: 'usr-2',
+    username: 'manager',
+    name: 'Content Manager',
+    email: 'manager@sellingajah.com',
+    role: 'admin',
+    passwordHash: 'manager'
+  }
+];
+
+// Helper to load or initialize DB
+export class Database {
+  private data: DatabaseSchema;
+
+  constructor() {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+
+    if (fs.existsSync(DB_FILE)) {
+      try {
+        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+        this.data = JSON.parse(raw);
+        if (this.data.settings) {
+          if (!this.data.settings.whatsapp || this.data.settings.whatsapp.includes('812 345 6789') || this.data.settings.whatsapp.includes('2348123456789')) {
+            this.data.settings.whatsapp = '+234 810 901 2192';
+          }
+          if (!this.data.settings.phone || this.data.settings.phone.includes('812 345 6789') || this.data.settings.phone.includes('2348123456789')) {
+            this.data.settings.phone = '+234 810 901 2192';
+          }
+        }
+      } catch (err) {
+        console.error('Error reading db.json, re-initializing seed data', err);
+        this.data = this.createInitialData();
+        this.save();
+      }
+    } else {
+      this.data = this.createInitialData();
+      this.save();
+    }
+  }
+
+  private createInitialData(): DatabaseSchema {
+    return {
+      properties: INITIAL_PROPERTIES,
+      apartments: INITIAL_APARTMENTS,
+      vehicles: INITIAL_VEHICLES,
+      enquiries: INITIAL_ENQUIRIES,
+      testimonials: INITIAL_TESTIMONIALS,
+      faqs: INITIAL_FAQS,
+      settings: INITIAL_SETTINGS,
+      users: INITIAL_USERS
+    };
+  }
+
+  public save(): void {
+    try {
+      fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf-8');
+    } catch (err) {
+      console.error('Failed to write db.json:', err);
+    }
+  }
+
+  public getProperties(filter?: { listingType?: string; area?: string; status?: string; minPrice?: number; maxPrice?: number; bedrooms?: number; featured?: boolean }): Property[] {
+    let list = this.data.properties;
+    if (filter) {
+      if (filter.listingType && filter.listingType !== 'all') {
+        list = list.filter(p => p.listingType.toLowerCase() === filter.listingType?.toLowerCase());
+      }
+      if (filter.area && filter.area !== 'all') {
+        list = list.filter(p => p.area.toLowerCase().includes(filter.area!.toLowerCase()) || p.location.toLowerCase().includes(filter.area!.toLowerCase()));
+      }
+      if (filter.status && filter.status !== 'all') {
+        list = list.filter(p => p.status.toLowerCase() === filter.status?.toLowerCase());
+      }
+      if (filter.minPrice) {
+        list = list.filter(p => p.price >= filter.minPrice!);
+      }
+      if (filter.maxPrice) {
+        list = list.filter(p => p.price <= filter.maxPrice!);
+      }
+      if (filter.bedrooms) {
+        list = list.filter(p => p.bedrooms >= filter.bedrooms!);
+      }
+      if (filter.featured !== undefined) {
+        list = list.filter(p => p.isFeatured === filter.featured);
+      }
+    }
+    return list;
+  }
+
+  public getPropertyBySlug(slug: string): Property | undefined {
+    return this.data.properties.find(p => p.slug === slug || p.id === slug);
+  }
+
+  public createProperty(prop: Omit<Property, 'id' | 'createdAt' | 'updatedAt'>): Property {
+    const newProp: Property = {
+      ...prop,
+      id: 'prop-' + Date.now(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    this.data.properties.unshift(newProp);
+    this.save();
+    return newProp;
+  }
+
+  public updateProperty(id: string, updates: Partial<Property>): Property | null {
+    const idx = this.data.properties.findIndex(p => p.id === id);
+    if (idx === -1) return null;
+    this.data.properties[idx] = {
+      ...this.data.properties[idx],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.save();
+    return this.data.properties[idx];
+  }
+
+  public deleteProperty(id: string): boolean {
+    const initLen = this.data.properties.length;
+    this.data.properties = this.data.properties.filter(p => p.id !== id);
+    if (this.data.properties.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  public duplicateProperty(id: string): Property | null {
+    const p = this.data.properties.find(item => item.id === id);
+    if (!p) return null;
+    const duplicated: Property = {
+      ...p,
+      id: 'prop-' + Date.now(),
+      title: `${p.title} (Copy)`,
+      slug: `${p.slug}-copy-${Math.floor(Math.random() * 1000)}`,
+      refNumber: `SA-CPY-${Math.floor(100 + Math.random() * 900)}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      status: 'draft'
+    };
+    this.data.properties.unshift(duplicated);
+    this.save();
+    return duplicated;
+  }
+
+  // APARTMENTS
+  public getApartments(filter?: { area?: string; maxGuests?: number; featured?: boolean; status?: string }): ServicedApartment[] {
+    let list = this.data.apartments;
+    if (filter) {
+      if (filter.area && filter.area !== 'all') {
+        list = list.filter(a => a.area.toLowerCase().includes(filter.area!.toLowerCase()) || a.location.toLowerCase().includes(filter.area!.toLowerCase()));
+      }
+      if (filter.maxGuests) {
+        list = list.filter(a => a.maxGuests >= filter.maxGuests!);
+      }
+      if (filter.featured !== undefined) {
+        list = list.filter(a => a.isFeatured === filter.featured);
+      }
+      if (filter.status && filter.status !== 'all') {
+        list = list.filter(a => a.status === filter.status);
+      }
+    }
+    return list;
+  }
+
+  public getApartmentBySlug(slug: string): ServicedApartment | undefined {
+    return this.data.apartments.find(a => a.slug === slug || a.id === slug);
+  }
+
+  public createApartment(apt: Omit<ServicedApartment, 'id' | 'createdAt'>): ServicedApartment {
+    const newApt: ServicedApartment = {
+      ...apt,
+      id: 'apt-' + Date.now(),
+      createdAt: new Date().toISOString()
+    };
+    this.data.apartments.unshift(newApt);
+    this.save();
+    return newApt;
+  }
+
+  public updateApartment(id: string, updates: Partial<ServicedApartment>): ServicedApartment | null {
+    const idx = this.data.apartments.findIndex(a => a.id === id);
+    if (idx === -1) return null;
+    this.data.apartments[idx] = { ...this.data.apartments[idx], ...updates };
+    this.save();
+    return this.data.apartments[idx];
+  }
+
+  public deleteApartment(id: string): boolean {
+    const initLen = this.data.apartments.length;
+    this.data.apartments = this.data.apartments.filter(a => a.id !== id);
+    if (this.data.apartments.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // VEHICLES
+  public getVehicles(filter?: { category?: string; brand?: string; featured?: boolean; status?: string }): LuxuryVehicle[] {
+    let list = this.data.vehicles;
+    if (filter) {
+      if (filter.category && filter.category !== 'all') {
+        list = list.filter(v => v.category.toLowerCase() === filter.category?.toLowerCase());
+      }
+      if (filter.brand && filter.brand !== 'all') {
+        list = list.filter(v => v.brand.toLowerCase() === filter.brand?.toLowerCase());
+      }
+      if (filter.featured !== undefined) {
+        list = list.filter(v => v.isFeatured === filter.featured);
+      }
+      if (filter.status && filter.status !== 'all') {
+        list = list.filter(v => v.status === filter.status);
+      }
+    }
+    return list;
+  }
+
+  public getVehicleBySlug(slug: string): LuxuryVehicle | undefined {
+    return this.data.vehicles.find(v => v.slug === slug || v.id === slug);
+  }
+
+  public createVehicle(veh: Omit<LuxuryVehicle, 'id' | 'createdAt'>): LuxuryVehicle {
+    const newVeh: LuxuryVehicle = {
+      ...veh,
+      id: 'veh-' + Date.now(),
+      createdAt: new Date().toISOString()
+    };
+    this.data.vehicles.unshift(newVeh);
+    this.save();
+    return newVeh;
+  }
+
+  public updateVehicle(id: string, updates: Partial<LuxuryVehicle>): LuxuryVehicle | null {
+    const idx = this.data.vehicles.findIndex(v => v.id === id);
+    if (idx === -1) return null;
+    this.data.vehicles[idx] = { ...this.data.vehicles[idx], ...updates };
+    this.save();
+    return this.data.vehicles[idx];
+  }
+
+  public deleteVehicle(id: string): boolean {
+    const initLen = this.data.vehicles.length;
+    this.data.vehicles = this.data.vehicles.filter(v => v.id !== id);
+    if (this.data.vehicles.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // ENQUIRIES
+  public getEnquiries(): Enquiry[] {
+    return this.data.enquiries;
+  }
+
+  public createEnquiry(enq: Omit<Enquiry, 'id' | 'date'>): Enquiry {
+    const newEnq: Enquiry = {
+      ...enq,
+      id: 'enq-' + Date.now(),
+      date: new Date().toISOString()
+    };
+    this.data.enquiries.unshift(newEnq);
+    this.save();
+    return newEnq;
+  }
+
+  public updateEnquiry(id: string, updates: Partial<Enquiry>): Enquiry | null {
+    const idx = this.data.enquiries.findIndex(e => e.id === id);
+    if (idx === -1) return null;
+    this.data.enquiries[idx] = { ...this.data.enquiries[idx], ...updates };
+    this.save();
+    return this.data.enquiries[idx];
+  }
+
+  public deleteEnquiry(id: string): boolean {
+    const initLen = this.data.enquiries.length;
+    this.data.enquiries = this.data.enquiries.filter(e => e.id !== id);
+    if (this.data.enquiries.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // TESTIMONIALS
+  public getTestimonials(): Testimonial[] {
+    return this.data.testimonials;
+  }
+
+  public createTestimonial(test: Omit<Testimonial, 'id' | 'createdAt'>): Testimonial {
+    const newTest: Testimonial = {
+      ...test,
+      id: 'test-' + Date.now(),
+      createdAt: new Date().toISOString()
+    };
+    this.data.testimonials.unshift(newTest);
+    this.save();
+    return newTest;
+  }
+
+  public updateTestimonial(id: string, updates: Partial<Testimonial>): Testimonial | null {
+    const idx = this.data.testimonials.findIndex(t => t.id === id);
+    if (idx === -1) return null;
+    this.data.testimonials[idx] = { ...this.data.testimonials[idx], ...updates };
+    this.save();
+    return this.data.testimonials[idx];
+  }
+
+  public deleteTestimonial(id: string): boolean {
+    const initLen = this.data.testimonials.length;
+    this.data.testimonials = this.data.testimonials.filter(t => t.id !== id);
+    if (this.data.testimonials.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // FAQS
+  public getFaqs(): FaqItem[] {
+    return this.data.faqs;
+  }
+
+  public createFaq(faq: Omit<FaqItem, 'id'>): FaqItem {
+    const newFaq: FaqItem = {
+      ...faq,
+      id: 'faq-' + Date.now()
+    };
+    this.data.faqs.push(newFaq);
+    this.save();
+    return newFaq;
+  }
+
+  // SETTINGS
+  public getSettings(): SiteSettings {
+    return this.data.settings;
+  }
+
+  public updateSettings(settings: Partial<SiteSettings>): SiteSettings {
+    this.data.settings = { ...this.data.settings, ...settings };
+    this.save();
+    return this.data.settings;
+  }
+
+  // AUTH & USERS
+  public authenticate(identifier: string, pass: string): AdminUser | null {
+    const user = this.data.users.find(
+      u => (u.username.toLowerCase() === identifier.toLowerCase() || u.email.toLowerCase() === identifier.toLowerCase()) && u.passwordHash === pass
+    );
+    if (!user) return null;
+    return {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: `token-${user.id}-${Date.now()}`
+    };
+  }
+
+  public getUsers(): AdminUser[] {
+    return this.data.users.map(({ passwordHash, ...rest }) => rest);
+  }
+
+  public createUser(user: { username: string; name: string; email: string; role: 'super_admin' | 'admin'; password: string }): AdminUser {
+    const newUser = {
+      id: 'usr-' + Date.now(),
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      passwordHash: user.password
+    };
+    this.data.users.push(newUser);
+    this.save();
+    return {
+      id: newUser.id,
+      username: newUser.username,
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role
+    };
+  }
+
+  public deleteUser(id: string): boolean {
+    if (this.data.users.length <= 1) return false; // keep at least one
+    const initLen = this.data.users.length;
+    this.data.users = this.data.users.filter(u => u.id !== id);
+    if (this.data.users.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // STATS
+  public getStats() {
+    const totalProps = this.data.properties.length;
+    const forSale = this.data.properties.filter(p => p.listingType === 'sale' && p.status === 'available').length;
+    const forRent = this.data.properties.filter(p => p.listingType === 'rent' && p.status === 'available').length;
+    const shortlets = this.data.apartments.filter(a => a.isAvailable).length;
+    const vehicles = this.data.vehicles.filter(v => v.isAvailable).length;
+    const totalEnquiries = this.data.enquiries.length;
+    const newEnquiries = this.data.enquiries.filter(e => e.status === 'new').length;
+    const featuredListings = this.data.properties.filter(p => p.isFeatured).length;
+
+    return {
+      totalProperties: totalProps,
+      propertiesForSale: forSale,
+      propertiesForRent: forRent,
+      availableShortlets: shortlets,
+      availableVehicles: vehicles,
+      totalEnquiries,
+      newEnquiries,
+      featuredListings,
+      recentProperties: this.data.properties.slice(0, 5),
+      recentEnquiries: this.data.enquiries.slice(0, 5)
+    };
+  }
+
+  // GLOBAL SEARCH
+  public search(query: string) {
+    const q = query.toLowerCase().trim();
+    if (!q) {
+      return { properties: [], apartments: [], vehicles: [] };
+    }
+
+    const matchedProps = this.data.properties.filter(p => 
+      p.title.toLowerCase().includes(q) ||
+      p.location.toLowerCase().includes(q) ||
+      p.area.toLowerCase().includes(q) ||
+      p.propertyType.toLowerCase().includes(q) ||
+      p.listingType.toLowerCase().includes(q) ||
+      p.amenities.some(a => a.toLowerCase().includes(q))
+    );
+
+    const matchedApts = this.data.apartments.filter(a =>
+      a.name.toLowerCase().includes(q) ||
+      a.location.toLowerCase().includes(q) ||
+      a.area.toLowerCase().includes(q) ||
+      a.amenities.some(am => am.toLowerCase().includes(q))
+    );
+
+    const matchedVehs = this.data.vehicles.filter(v =>
+      v.name.toLowerCase().includes(q) ||
+      v.brand.toLowerCase().includes(q) ||
+      v.model.toLowerCase().includes(q) ||
+      v.category.toLowerCase().includes(q) ||
+      v.features.some(f => f.toLowerCase().includes(q))
+    );
+
+    return {
+      properties: matchedProps,
+      apartments: matchedApts,
+      vehicles: matchedVehs,
+      totalCount: matchedProps.length + matchedApts.length + matchedVehs.length
+    };
+  }
+}
+
+export const db = new Database();
