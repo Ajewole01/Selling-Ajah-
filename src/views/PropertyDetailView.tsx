@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Property } from '../types';
 import { formatNaira, formatWhatsAppUrl } from '../utils/formatters';
 import { ShareModal } from '../components/ShareModal';
 import { PropertyCard } from '../components/PropertyCard';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 import {
   MapPin,
   Bed,
@@ -33,6 +34,8 @@ interface PropertyDetailViewProps {
 
 export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) => {
   const { navigate, isFavorite, toggleFavorite, addToast, settings, openAiModal } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   const [property, setProperty] = useState<Property | null>(null);
   const [similarProperties, setSimilarProperties] = useState<Property[]>([]);
@@ -186,7 +189,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
       : loanPrincipal / totalMonths;
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-28 transition-colors duration-200">
+    <div ref={pageRef} className="sa-detail sa-detail--property min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-28 transition-colors duration-200">
       {/* Back breadcrumb */}
       <div className="border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#0a0a0a] py-3.5 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-white/60">

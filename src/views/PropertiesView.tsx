@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { Property } from '../types';
 import { PropertyCard } from '../components/PropertyCard';
@@ -14,6 +14,7 @@ import {
   Building2,
   ChevronDown
 } from 'lucide-react';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 interface PropertiesViewProps {
   initialListingType?: 'sale' | 'rent';
@@ -53,6 +54,8 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'newest'>('featured');
   const [layout, setLayout] = useState<'grid' | 'list'>('grid');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   useEffect(() => {
     setLoading(true);
@@ -140,9 +143,9 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
+    <div ref={pageRef} className="sa-catalogue sa-catalogue--properties min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       {/* Page Header Banner */}
-      <div className="bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
+      <div className="sa-catalogue__masthead bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>

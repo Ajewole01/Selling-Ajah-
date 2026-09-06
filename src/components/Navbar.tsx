@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-300 navbar-surface ${
+      className={`sa-navbar ${currentPath === '/' ? 'sa-navbar--home' : ''} ${isScrolled ? 'is-scrolled' : ''} sticky top-0 z-40 w-full transition-all duration-300 navbar-surface ${
         isScrolled
           ? 'bg-white/95 dark:bg-[#050505]/98 backdrop-blur-md border-b border-black/10 dark:border-white/10 shadow-2xl py-2 sm:py-2.5'
           : 'bg-white/92 dark:bg-[#050505]/92 backdrop-blur-sm border-b border-black/10 dark:border-white/10 py-2.5 sm:py-3.5'

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { ServicedApartment } from '../types';
 import { formatNaira, formatWhatsAppUrl } from '../utils/formatters';
 import { ShareModal } from '../components/ShareModal';
 import apt2Image from '../assets/images/regenerated_image_1788542609416.jpg';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 import {
   Key,
   MapPin,
@@ -31,6 +32,8 @@ interface ShortletDetailViewProps {
 
 export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) => {
   const { navigate, addToast, settings, openAiModal } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   const [apartment, setApartment] = useState<ServicedApartment | null>(null);
   const [loading, setLoading] = useState(true);
@@ -155,7 +158,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#070a10] text-neutral-900 dark:text-slate-100 pb-28 transition-colors duration-200">
+    <div ref={pageRef} className="sa-detail sa-detail--stay min-h-screen bg-[#FAF9F5] dark:bg-[#070a10] text-neutral-900 dark:text-slate-100 pb-28 transition-colors duration-200">
       {/* Breadcrumb */}
       <div className="border-b border-black/8 dark:border-slate-800/80 bg-white dark:bg-slate-950/60 py-3 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-slate-400">

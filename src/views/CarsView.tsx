@@ -1,20 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { LuxuryVehicle } from '../types';
 import { VehicleCard } from '../components/VehicleCard';
+import { formatNaira, formatWhatsAppUrl } from '../utils/formatters';
 import {
+  ArrowDownRight,
+  ArrowRight,
+  ArrowUpRight,
   Car,
+  MessageSquare,
   Search,
-  UserCheck,
-  ShieldCheck,
   Sparkles,
-  Plane,
   X,
-  Clock
 } from 'lucide-react';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 export const CarsView: React.FC = () => {
-  const { openAiModal } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
+  const { openAiModal, navigate, settings } = useApp();
   const [vehicles, setVehicles] = useState<LuxuryVehicle[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -56,125 +60,47 @@ export const CarsView: React.FC = () => {
     { label: 'Ultra Luxury', value: 'Ultra Luxury' }
   ];
 
+  const heroVehicle = vehicles.find(vehicle => vehicle.isFeatured) || vehicles[0];
+  const whatsappUrl = formatWhatsAppUrl(
+    settings.whatsapp,
+    'Hello Selling Ajah, I would like to enquire about your luxury vehicle fleet.'
+  );
+
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
-      {/* Header Banner */}
-      <div className="bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-[11px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1.5 font-mono">
-                <Car className="w-3.5 h-3.5" />
-                <span>Executive Mobility Fleet</span>
-              </div>
-              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white">
-                Luxury Car Rentals in Ajah & Lagos
-              </h1>
-              <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/60 mt-1 max-w-xl font-light">
-                Arrive with unyielding authority. Premium SUVs and executive sedans complete with professional, security-vetted chauffeurs.
-              </p>
-            </div>
-
-            <button
-              onClick={() => openAiModal('I need a luxury rental car with chauffeur')}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#D4AF37]/15 hover:bg-[#D4AF37]/25 border border-[#D4AF37]/30 text-[#D4AF37] text-xs font-semibold transition-all shadow-sm shrink-0"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Ask AI Fleet Assistant</span>
-            </button>
-          </div>
-
-          {/* Service Pillars */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-6 border-t border-black/8 dark:border-white/10">
-            <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-white/70">
-              <UserCheck className="w-4 h-4 text-[#D4AF37]" />
-              <span>Professional Vetted Chauffeurs</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-white/70">
-              <Plane className="w-4 h-4 text-[#D4AF37]" />
-              <span>VIP Airport Meet & Greets</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-white/70">
-              <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-              <span>Optional Armed Security Escort</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-white/70">
-              <Clock className="w-4 h-4 text-[#D4AF37]" />
-              <span>Flexible Daily & Weekly Retainers</span>
-            </div>
+    <div ref={pageRef} className="sa-cars-page sa-catalogue--cars min-h-screen pb-24 transition-colors duration-200">
+      <section className="sa-cars-hero">
+        {heroVehicle ? <img src={heroVehicle.mainImage} alt={heroVehicle.name} className="sa-cars-hero__image" fetchPriority="high" /> : <div className="sa-cars-hero__placeholder" />}
+        <div className="sa-cars-hero__shade" />
+        <div className="sa-cars-hero__grid" aria-hidden="true" />
+        <div className="sa-cars-hero__content">
+          <p className="sa-cars-eyebrow"><Car size={14} /> Executive mobility</p>
+          <h1>Luxury moves<br /><em>differently.</em></h1>
+          <p>Explore a curated selection of executive and luxury vehicles available across Ajah and Lagos.</p>
+          <div className="sa-cars-hero__actions">
+            <button onClick={() => document.getElementById('cars-collection')?.scrollIntoView({ behavior: 'smooth' })} className="sa-cars-button sa-cars-button--light">Explore vehicles <ArrowDownRight size={17} /></button>
+            <a href={whatsappUrl} target="_blank" rel="noreferrer" className="sa-cars-hero__link"><MessageSquare size={16} /> Enquire on WhatsApp</a>
           </div>
         </div>
-      </div>
+        {heroVehicle && <div className="sa-cars-hero__vehicle"><span>{heroVehicle.brand}</span><strong>{heroVehicle.model}</strong><small>{formatNaira(heroVehicle.dailyRate)} / day</small></div>}
+        <div className="sa-cars-hero__footer"><span>01 — Fleet</span><ArrowDownRight size={18} /><span>Ajah / Lagos</span></div>
+      </section>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        {/* Filter Bar */}
-        <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm dark:shadow-none">
-          <div className="relative flex-1 w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 dark:text-white/40" />
-            <input
-              type="text"
-              value={keyword}
-              onChange={e => setKeyword(e.target.value)}
-              placeholder="Search fleet by brand or model (e.g., G63, Range Rover, Lexus LX600)..."
-              className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-[#D4AF37]"
-            />
-            {keyword && (
-              <button
-                onClick={() => setKeyword('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-white/40 hover:text-neutral-900 dark:hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </div>
+      <section className="sa-cars-intro sa-cars-wrap">
+        <p className="sa-cars-eyebrow sa-cars-eyebrow--dark">A considered way to move</p>
+        <div className="sa-cars-intro__layout"><h2>Executive mobility<br /><em>for the way Lagos moves.</em></h2><p>Choose from a focused collection of luxury SUVs, executive vehicles and premium cars. Browse the fleet, open a vehicle dossier, then send a direct enquiry for dates and arrangements.</p></div>
+        <div className="sa-cars-principles"><div><span>01</span><strong>Curated fleet</strong><p>Selected vehicles presented with the details available for each model.</p></div><div><span>02</span><strong>Direct enquiry</strong><p>Move from vehicle discovery to a personal WhatsApp or booking enquiry.</p></div><div><span>03</span><strong>Lagos access</strong><p>A focused rental collection for Ajah, Lekki and wider Lagos journeys.</p></div></div>
+      </section>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-            {categories.map(c => (
-              <button
-                key={c.value}
-                onClick={() => setCategory(c.value)}
-                className={`px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
-                  category === c.value
-                    ? 'bg-[#D4AF37] text-black shadow-md'
-                    : 'bg-neutral-100 dark:bg-[#050505] text-neutral-700 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white border border-black/10 dark:border-white/10'
-                }`}
-              >
-                {c.label}
-              </button>
-            ))}
-          </div>
-        </div>
+      <section id="cars-collection" className="sa-cars-collection sa-cars-wrap">
+        <div className="sa-cars-section-heading"><div><p className="sa-cars-eyebrow sa-cars-eyebrow--dark">The collection</p><h2>Choose your<br /><em>next drive.</em></h2></div><button onClick={() => openAiModal('Help me choose a luxury rental vehicle')} className="sa-cars-text-button"><Sparkles size={15} /> Ask the concierge</button></div>
+        <div className="sa-cars-filter-rail"><label><Search size={16} /><input value={keyword} onChange={e => setKeyword(e.target.value)} placeholder="Search by brand or model" />{keyword && <button onClick={() => setKeyword('')} aria-label="Clear search"><X size={15} /></button>}</label><div className="sa-cars-categories">{categories.map(c => <button key={c.value} onClick={() => setCategory(c.value)} className={category === c.value ? 'is-active' : ''}>{c.label}</button>)}</div></div>
+        {loading ? <div className="sa-cars-loading">Loading the collection</div> : filteredVehicles.length === 0 ? <div className="sa-cars-empty"><Car size={32} /><h3>No vehicles found</h3><p>Try another model, brand or category.</p><button onClick={() => { setCategory('all'); setKeyword(''); }} className="sa-cars-button">Reset filters</button></div> : <div className="sa-cars-featured-grid">{filteredVehicles.map((vehicle, index) => <VehicleCard key={vehicle.id} vehicle={vehicle} featured={index === 0 && !keyword && category === 'all'} />)}</div>}
+      </section>
 
-        {/* Fleet Grid */}
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="h-80 rounded-2xl bg-neutral-200 dark:bg-[#111111] animate-pulse border border-black/8 dark:border-white/10" />
-            ))}
-          </div>
-        ) : filteredVehicles.length === 0 ? (
-          <div className="py-20 text-center bg-white dark:bg-[#111111] rounded-3xl border border-black/8 dark:border-white/10 p-8 shadow-sm dark:shadow-none">
-            <Car className="w-12 h-12 text-[#D4AF37]/40 mx-auto mb-4" />
-            <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-2">No vehicles found</h3>
-            <button
-              onClick={() => {
-                setCategory('all');
-                setKeyword('');
-              }}
-              className="px-5 py-2 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white text-xs font-semibold mt-4 uppercase tracking-wider transition-colors"
-            >
-              Reset Filters
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVehicles.map(veh => (
-              <VehicleCard key={veh.id} vehicle={veh} />
-            ))}
-          </div>
-        )}
-      </div>
+      <section className="sa-cars-process"><div className="sa-cars-wrap"><p className="sa-cars-eyebrow">The simple route</p><div className="sa-cars-process__head"><h2>From browsing<br /><em>to moving.</em></h2><p>Every vehicle page keeps the next step clear: inspect the details, choose your dates, and send an enquiry.</p></div><div className="sa-cars-steps"><div><span>01</span><h3>Browse the fleet</h3><p>Explore the current collection by category, brand or model.</p></div><div><span>02</span><h3>Select a vehicle</h3><p>Open the vehicle dossier for verified rental information and available details.</p></div><div><span>03</span><h3>Send your enquiry</h3><p>Use WhatsApp or the reservation form to share your dates and requirements.</p></div></div></div></section>
+
+      <section className="sa-cars-media"><div className="sa-cars-media__image" style={{ backgroundImage: `url(${heroVehicle?.gallery?.[1] || heroVehicle?.mainImage || 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2200&q=85'})` }} /><div className="sa-cars-media__copy"><p className="sa-cars-eyebrow">The road ahead</p><h2>Arrive with<br /><em>intention.</em></h2></div></section>
+      <section className="sa-cars-cta"><div><p className="sa-cars-eyebrow">Private vehicle enquiries</p><h2>Ready when<br /><em>you are.</em></h2><p>Tell us which vehicle caught your eye and when you need it. Our existing enquiry and WhatsApp channels are ready when you are.</p><div className="sa-cars-hero__actions"><a href={whatsappUrl} target="_blank" rel="noreferrer" className="sa-cars-button sa-cars-button--light"><MessageSquare size={16} /> Talk on WhatsApp</a><button onClick={() => navigate('/contact')} className="sa-cars-hero__link">Contact the team <ArrowRight size={16} /></button></div></div></section>
     </div>
   );
 };

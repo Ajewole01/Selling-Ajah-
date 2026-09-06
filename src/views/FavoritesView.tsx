@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Property } from '../types';
 import { PropertyCard } from '../components/PropertyCard';
 import { Heart, Building2, ArrowRight, MessageSquare, Trash2 } from 'lucide-react';
 import { formatWhatsAppUrl, formatNaira } from '../utils/formatters';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 export const FavoritesView: React.FC = () => {
   const { favorites, clearFavorites, navigate, settings } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +34,7 @@ export const FavoritesView: React.FC = () => {
   const whatsappPortfolioUrl = formatWhatsAppUrl(settings.whatsapp, whatsappPortfolioMsg);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
+    <div ref={pageRef} className="sa-editorial-page sa-favorites min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       {/* Header Banner */}
       <div className="bg-white dark:bg-[#0a0a0a] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

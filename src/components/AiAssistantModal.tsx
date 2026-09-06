@@ -204,8 +204,8 @@ I can assist with:
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
-      <div
-        className="w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-[#0E0E0E] border border-black/10 dark:border-white/10 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
+    <div
+        className="sa-concierge-modal w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-[#0E0E0E] border border-black/10 dark:border-white/10 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Editorial Header */}

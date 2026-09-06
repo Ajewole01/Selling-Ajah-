@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import {
   MapPin,
@@ -18,9 +18,12 @@ import {
 } from 'lucide-react';
 import { formatWhatsAppUrl } from '../utils/formatters';
 import { FAQItem } from '../types';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 export const ContactView: React.FC = () => {
   const { settings, addToast } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   const [faqs, setFaqs] = useState<FAQItem[]>([]);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -87,7 +90,7 @@ export const ContactView: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
+    <div ref={pageRef} className="sa-editorial-page sa-contact min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       
       {/* Header Banner */}
       <section className="pt-16 pb-14 border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#080808] transition-colors">

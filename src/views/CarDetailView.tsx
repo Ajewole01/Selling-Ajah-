@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { LuxuryVehicle } from '../types';
 import { formatNaira, formatWhatsAppUrl } from '../utils/formatters';
 import { ShareModal } from '../components/ShareModal';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 import {
   Car,
   UserCheck,
@@ -27,6 +28,8 @@ interface CarDetailViewProps {
 
 export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
   const { navigate, addToast, settings } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   const [vehicle, setVehicle] = useState<LuxuryVehicle | null>(null);
   const [loading, setLoading] = useState(true);
@@ -133,7 +136,7 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-28 transition-colors duration-200">
+    <div ref={pageRef} className="sa-detail sa-car-brochure sa-detail--car min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-28 transition-colors duration-200">
       
       {/* Breadcrumb Header */}
       <div className="border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#080808] py-3.5 transition-colors">
@@ -145,7 +148,7 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
             <ChevronLeft className="w-4 h-4" />
             <span>Back to fleet</span>
           </button>
-          <span className="text-[#D4AF37] font-mono font-medium">Chauffeur-Driven Luxury Fleet</span>
+          <span className="text-[#D4AF37] font-mono font-medium">Vehicle dossier · {vehicle.category}</span>
         </div>
       </div>
 
@@ -167,7 +170,7 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
               {vehicle.name}
             </h1>
             <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/60 font-light">
-              Executive Security-Vetted Chauffeur Included • Lagos Island & Mainland Coverage
+              {vehicle.brand} {vehicle.model} · {vehicle.year} · Available for direct enquiry
             </p>
           </div>
 

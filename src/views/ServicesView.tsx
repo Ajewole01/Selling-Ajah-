@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import {
   Building2,
@@ -14,9 +14,12 @@ import {
 } from 'lucide-react';
 import { formatWhatsAppUrl } from '../utils/formatters';
 import { motion, AnimatePresence } from 'motion/react';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 export const ServicesView: React.FC = () => {
   const { navigate, openRequestModal, settings } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
 
   const services = [
     {
@@ -110,7 +113,7 @@ export const ServicesView: React.FC = () => {
   const activeService = services[activeServiceIndex];
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
+    <div ref={pageRef} className="sa-editorial-page sa-services min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       
       {/* Header Banner */}
       <section className="border-b border-black/8 dark:border-white/10 pt-14 pb-16 bg-white dark:bg-[#080808] transition-colors">

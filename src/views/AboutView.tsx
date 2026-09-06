@@ -1,213 +1,53 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { ArrowRight, ArrowUpRight, Instagram, MessageSquare } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import {
-  Compass,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Building2,
-  Sparkles,
-  MapPin,
-  MessageSquare
-} from 'lucide-react';
 import { formatWhatsAppUrl } from '../utils/formatters';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
+
+const brands = [
+  ['01', 'Dolyn Real Estate', "Premium property sales across Lagos' most prestigious addresses: Lekki, Ikoyi, VI, and beyond.", '@Thedolynglobal', 'https://instagram.com/thedolynglobal'],
+  ['02', 'Dolyn Rentals', 'Long-term residential and commercial leasing with expert management from start to finish.', '@Dolynrentals', 'https://instagram.com/dolynrentals'],
+  ['03', 'Selling Ajah', 'Your go-to source for the best property deals in the fast-growing Ajah corridor and beyond.', '@sellingajah', 'https://www.instagram.com/sellingajah/'],
+  ['04', 'Dolyn Interiors', 'Bespoke interior decoration that turns empty spaces into breathtaking, magazine-worthy homes.', '@Thedolynglobal', 'https://instagram.com/thedolynglobal'],
+  ['05', 'Dolyn Luxury Car Rentals', 'Premium vehicles for weddings, corporate events, airport transfers, and special occasions.', '@Thedolynglobal', 'https://instagram.com/thedolynglobal'],
+  ['06', 'Dolyn Lagos Land', 'Verified land acquisition across prime Lagos corridors, including the fast-growing Ajah axis.', '@DolynlagosLand', 'https://instagram.com/dolynlagosland']
+] as const;
+
+const values = [
+  ['I', 'Excellence', 'Every property and service meets the highest standard with no compromises.'],
+  ['II', 'Integrity', 'Honesty is non-negotiable. Every deal is handled with complete transparency.'],
+  ['III', 'Trust', 'Earned through consistent delivery and genuine care for every single client.'],
+  ['IV', 'Innovation', 'We embrace technology to give clients a decisive edge in the market.']
+] as const;
 
 export const AboutView: React.FC = () => {
-  const { navigate, openRequestModal, settings } = useApp();
+  const { navigate, settings } = useApp();
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
+  const whatsappUrl = formatWhatsAppUrl(settings.whatsapp, 'Hello Selling Ajah, I would like to speak with the team.');
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
-      
-      {/* 1. Large Selling Ajah Statement */}
-      <section className="pt-16 sm:pt-24 pb-16 sm:pb-20 border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#080808] transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-2 mb-4 font-mono">
-              <span className="w-6 h-[1.5px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
-                Editorial Brand Story
-              </span>
-            </div>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-neutral-900 dark:text-white leading-[1.08] mb-8">
-              We believe finding a home in Ajah should feel inspiring, transparent, and refined.
-            </h1>
-            <p className="text-base sm:text-xl text-neutral-600 dark:text-white/70 font-light leading-relaxed max-w-3xl">
-              Selling Ajah was established to bridge the gap between contemporary architecture and discerning property seekers across the Lekki Peninsula corridor.
-            </p>
-          </div>
-        </div>
+    <div ref={pageRef} className="sa-about-page sa-editorial-page min-h-screen pb-24">
+      <section className="sa-about-founder-hero">
+        <div className="sa-about-founder-portrait"><img src="/assets/images/founder-chisom.jpg" alt="Dr. Amb. Chisom Chiejina, Founder and CEO of DOLYN Global Investments Ltd" /></div>
+        <div className="sa-about-founder-copy"><p className="sa-about-eyebrow">The story behind Selling Ajah</p><h1>A Vision Built on<br /><em>The Power of Trust</em></h1><div className="sa-about-founder-meta"><strong>Dr. Amb. Chisom Chiejina</strong><span>Founder & CEO</span><span>DOLYN Global Investments Ltd</span></div><p className="sa-about-hero-note">Before Selling Ajah became a focused property platform, there was a wider story of trust, service and real-estate experience.</p></div>
       </section>
 
-      {/* 2. Architectural & Lagos Imagery Showcase */}
-      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-8 rounded-3xl overflow-hidden shadow-xl aspect-[16/9] bg-neutral-900">
-            <img
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
-              alt="Selling Ajah Coastal Architecture"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="md:col-span-4 rounded-3xl overflow-hidden shadow-xl aspect-[4/3] md:aspect-auto bg-neutral-900">
-            <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
-              alt="Luxury Living in Ajah"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
+      <section className="sa-about-story sa-about-wrap"><div className="sa-about-section-label"><span>01</span><p>Where it started</p></div><div className="sa-about-story-copy"><h2>Before Selling Ajah,<br /><em>there was DOLYN.</em></h2><div className="sa-about-prose"><p>Amb. Chisom Chiejina is a Nigerian-based realtor who founded THE DOLYN GLOBAL INVESTMENT LIMITED with one clear purpose: to provide exceptional leasing, sales, and property management services that clients can trust completely.</p><p>Born and raised in Benin, Nigeria, Chisom's passion for real estate is fuelled by her desire to guide buyers to the best value for their dream home, and to give sellers a smooth, stress-free journey to closing.</p><p>With deep expertise in communication, sales, and market intelligence, she has her fingers firmly on the pulse of the Lagos property market.</p></div><blockquote>“Think money, think real estate with Chisom.”</blockquote><p className="sa-about-prose sa-about-prose--short">Beyond real estate, Chisom partners with NGOs to fight poverty by investing in the younger generation.</p></div></section>
 
-      {/* 3. Company Story & Purpose */}
-      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          <div className="lg:col-span-5">
-            <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] mb-2 font-mono">
-              The Origin
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white leading-tight">
-              An Elevated Approach to Peninsula Real Estate
-            </h2>
-          </div>
+      <section className="sa-about-group"><div className="sa-about-wrap sa-about-group-grid"><div><p className="sa-about-eyebrow">The foundation</p><h2>Built Around Trust,<br /><em>Service and Opportunity.</em></h2><p className="sa-about-group-kicker">The Power of Trust</p></div><div className="sa-about-prose"><p>DOLYN was created to connect people with exceptional properties and lifestyle services, making luxury real estate attainable for every client, with integrity at the centre of every deal.</p><p>Its vision is to become Africa's most trusted and innovative real estate brand, celebrated for world-class service, verified listings, and investment opportunities that build generational wealth.</p></div></div><div className="sa-about-wrap sa-about-mission-grid"><div><span>Mission</span><p>To connect people with exceptional properties and lifestyle services, making luxury real estate attainable for every client, with integrity at the centre of every deal.</p></div><div><span>Vision</span><p>To become Africa's most trusted and innovative real estate brand, celebrated for world-class service, verified listings, and investment opportunities that build generational wealth.</p></div></div><div className="sa-about-wrap sa-about-credentials sa-about-credentials--group"><span>SCUML Certified</span><span>LASRERA Registered</span><span>REDAN Member</span></div></section>
 
-          <div className="lg:col-span-7 space-y-6 text-sm sm:text-base text-neutral-600 dark:text-white/70 font-light leading-relaxed">
-            <p>
-              The urban landscape of Ajah and the greater Lekki axis is evolving rapidly. From tranquil waterfront residential clusters in Badore to bustling contemporary developments around Abraham Adesanya and Sangotedo, the peninsula represents one of the most vibrant growth nodes in West Africa.
-            </p>
-            <p>
-              However, navigating real estate listings often entails fragmented information, inconsistent property representations, and communication delays. Selling Ajah was conceived as a curated destination where architectural photography, upfront details, and genuine advisory intersect.
-            </p>
-            <p>
-              Whether you are an overseas buyer looking for a vacation retreat, an executive seeking a secure family home, or a visitor desiring turnkey shortlet hospitality, we provide clear pathways and dedicated support.
-            </p>
-          </div>
-        </div>
-      </section>
+      <section className="sa-about-bridge sa-about-wrap"><div className="sa-about-section-label"><span>02</span><p>Why Ajah?</p></div><div className="sa-about-bridge-copy"><h2>A Growing Market<br /><em>Needed a Sharper Focus.</em></h2><div className="sa-about-prose"><p>Selling Ajah was born from a simple idea: give one of Lagos' most active property corridors the focused attention it deserves.</p><p>Building on DOLYN's experience in real estate, the brand was created to concentrate attention on property opportunities around Ajah and its surrounding communities. It gives that part of the market a dedicated identity rather than making it only one small category inside the broader DOLYN business.</p></div></div></section>
 
-      {/* 4. Core Mission & Local Expertise */}
-      <section className="py-16 sm:py-20 bg-neutral-100/70 dark:bg-[#080808] border-y border-black/8 dark:border-white/10 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] mb-2 font-mono">
-              Local Mastery
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white">
-              Rooted in the Nuances of Ajah
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-500 dark:text-white/60 mt-2 font-light">
-              We focus on the micro-geographies that make each neighborhood distinctive.
-            </p>
-          </div>
+      <section className="sa-about-selling"><div className="sa-about-wrap sa-about-selling-grid"><div><p className="sa-about-eyebrow">A DOLYN brand</p><h2>Meet<br /><em>Selling Ajah.</em></h2></div><div className="sa-about-selling-copy"><p>Selling Ajah is DOLYN's focused property platform for discovering opportunities across the Ajah corridor and beyond.</p><p>It creates a more focused experience for people searching for properties for sale, homes for rent, shortlet stays, property opportunities and related lifestyle services available through the wider DOLYN ecosystem.</p><div className="sa-about-actions"><button onClick={() => navigate('/properties')}>Explore Properties <ArrowRight size={16} /></button><button onClick={() => navigate('/contact')}>Speak With Us <ArrowRight size={16} /></button></div></div></div></section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-              <div className="font-mono text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-2">01 // Access & Topography</div>
-              <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white mb-2">Estate Infrastructure</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Evaluating drainage infrastructure, road network paved conditions, and rainy-season access across all property enclaves before recommendation.
-              </p>
-            </div>
+      <section className="sa-about-brands sa-about-wrap"><div className="sa-about-section-label"><span>03</span><p>The DOLYN family</p></div><div className="sa-about-brands-heading"><h2>Six Brands.<br /><em>One Vision.</em></h2><p>DOLYN has grown into a collection of specialist brands, each serving a different part of the property and lifestyle market while sharing the same commitment to quality and trust.</p></div><div className="sa-about-brands-list">{brands.map(([number, name, description, handle, link]) => <article key={name} className={name === 'Selling Ajah' ? 'is-current' : ''}><span className="sa-about-brand-number">{number}</span><div><h3>{name}</h3><p>{description}</p><a href={link} target="_blank" rel="noreferrer"><Instagram size={14} /> {handle} <ArrowUpRight size={14} /></a></div></article>)}</div><div className="sa-about-instagram"><span><Instagram size={16} /> Follow us on Instagram</span><a href="https://instagram.com/thedolynglobal" target="_blank" rel="noreferrer">@Thedolynglobal</a><a href="https://instagram.com/dolynrentals" target="_blank" rel="noreferrer">@Dolynrentals</a><a href="https://www.instagram.com/sellingajah/" target="_blank" rel="noreferrer">@sellingajah</a><a href="https://instagram.com/dolynlagosland" target="_blank" rel="noreferrer">@DolynlagosLand</a></div></section>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-              <div className="font-mono text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-2">02 // Developer Due Diligence</div>
-              <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white mb-2">Quality & Finishing</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Direct relationships with established developers and private property owners to verify building construction standards and finishing materials.
-              </p>
-            </div>
+      <section className="sa-about-video"><div className="sa-about-wrap"><div className="sa-about-video-heading"><div><p className="sa-about-eyebrow">The story, in her words</p><h2>Hear From<br /><em>Chisom Directly</em></h2></div><p>Hear Dr. Amb. Chisom Chiejina share the story behind DOLYN, the values that shaped the company, and the vision behind the brands it has built.</p></div><div className="sa-about-video-frame"><video controls preload="metadata" poster="/assets/images/dolyn-video-thumbnail.png"><source src="/assets/images/dolyn-founder-story.mp4" type="video/mp4" />Your browser does not support the founder story video.</video></div><p className="sa-about-caption">Dr. Amb. Chisom Chiejina<br /><span>Founder & CEO, DOLYN Global Investments Ltd</span></p></div></section>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-              <div className="font-mono text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-2">03 // Transparent Conveyance</div>
-              <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white mb-2">Clear Records</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Facilitating buyer access to survey records, title classifications, and coordinates for legal conveyance reviews without ambiguity.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="sa-about-values sa-about-wrap"><div className="sa-about-section-label"><span>04</span><p>What drives us</p></div><div className="sa-about-values-content"><h2>The Values Behind<br /><em>Every DOLYN Brand.</em></h2><div className="sa-about-values-list">{values.map(([roman, title, copy]) => <article key={roman}><span>{roman}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div></section>
 
-      {/* 5. Trust Principles */}
-      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-12">
-          <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] mb-2 font-mono">
-            Guiding Philosophy
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white">
-            Our Guiding Standards
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex gap-4 p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-            <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-1" />
-            <div>
-              <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white mb-1">Authentic Visuals</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                We photograph and film real spaces. What you see online reflects the true dimensions, natural light, and finishes of the residence.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-            <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-1" />
-            <div>
-              <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white mb-1">Responsive Advisory</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Real conversations via WhatsApp, phone, and scheduled video inspections. We prioritize your timeline and peace of mind.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-            <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-1" />
-            <div>
-              <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white mb-1">Bespoke Concierge</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Beyond standard listings, we connect clients with serviced luxury shortlets and chauffeured vehicles for an integrated lifestyle solution.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10">
-            <CheckCircle2 className="w-5 h-5 text-[#D4AF37] shrink-0 mt-1" />
-            <div>
-              <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white mb-1">Respect for Privacy</h3>
-              <p className="text-xs text-neutral-600 dark:text-white/60 font-light leading-relaxed">
-                Discreet handling of high-value transactions, private inspections, and executive client confidentiality at every touchpoint.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Closing Editorial CTA */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-sm">
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white mb-4">
-            Begin Your Ajah Journey
-          </h2>
-          <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/60 font-light leading-relaxed mb-8 max-w-xl mx-auto">
-            Whether inquiring about an active listing or requesting custom sourcing, our advisors are ready to assist.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={() => navigate('/properties')}
-              className="px-6 py-3.5 rounded-full bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-wider transition-colors shadow-md font-mono"
-            >
-              Browse Properties
-            </button>
-            <a
-              href={formatWhatsAppUrl(settings.whatsapp, "Hello Selling Ajah, I'd like to consult with an advisor.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-neutral-900 dark:text-white font-semibold text-xs uppercase tracking-wider transition-colors font-mono"
-            >
-              WhatsApp Consultation
-            </a>
-          </div>
-        </div>
-      </section>
+      <section className="sa-about-final"><div><p className="sa-about-eyebrow">Built by DOLYN. Focused on Ajah.</p><h2>Find Your Place<br /><em>With Selling Ajah.</em></h2><p>Backed by the values and real-estate experience of DOLYN, Selling Ajah gives property seekers and investors a focused way to explore opportunities across Ajah and beyond.</p><div className="sa-about-actions"><button onClick={() => navigate('/properties')}>Explore Properties <ArrowRight size={16} /></button><a href={whatsappUrl} target="_blank" rel="noreferrer">Talk To Us <MessageSquare size={16} /></a></div></div></section>
     </div>
   );
 };

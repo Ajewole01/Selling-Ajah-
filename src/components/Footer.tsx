@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
   const whatsappUrl = formatWhatsAppUrl(settings.whatsapp, "Hello Selling Ajah, I would like to make an enquiry.");
 
   return (
-    <footer className="bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/70 border-t border-black/8 dark:border-white/10 pt-16 pb-24 lg:pb-12 transition-colors">
+    <footer className="sa-footer bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/70 border-t border-black/8 dark:border-white/10 pt-16 pb-24 lg:pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Call to Action Banner */}
         <div className="relative rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 p-8 sm:p-10 mb-16 overflow-hidden shadow-lg dark:shadow-2xl transition-colors">

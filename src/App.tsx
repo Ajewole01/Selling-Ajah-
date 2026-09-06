@@ -8,6 +8,7 @@ import { ToastContainer } from './components/Toast';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { CustomPropertyRequestModal } from './components/CustomPropertyRequestModal';
 import { AiAssistantModal } from './components/AiAssistantModal';
+import { CursorFollower } from './components/CursorFollower';
 
 // Views
 import { HomeView } from './views/HomeView';
@@ -172,6 +173,7 @@ const AppContent: React.FC = () => {
       <CustomPropertyRequestModal />
       <AiAssistantModal />
       <ToastContainer />
+      <CursorFollower />
     </div>
   );
 };

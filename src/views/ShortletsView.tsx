@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { ServicedApartment } from '../types';
 import { ApartmentCard } from '../components/ApartmentCard';
@@ -13,8 +13,11 @@ import {
   SlidersHorizontal,
   X
 } from 'lucide-react';
+import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
 export const ShortletsView: React.FC = () => {
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEditorialMotion(pageRef);
   const { navigate, openAiModal, settings } = useApp();
   const [apartments, setApartments] = useState<ServicedApartment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,9 +57,9 @@ export const ShortletsView: React.FC = () => {
   }, [apartments, selectedArea, selectedGuests, keyword]);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
+    <div ref={pageRef} className="sa-catalogue sa-catalogue--stays min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       {/* Header Banner */}
-      <div className="bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
+      <div className="sa-catalogue__masthead bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
