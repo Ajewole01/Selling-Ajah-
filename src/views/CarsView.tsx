@@ -12,6 +12,7 @@ import {
   Search,
   Sparkles,
   X,
+  AlertCircle
 } from 'lucide-react';
 import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
@@ -25,18 +26,29 @@ export const CarsView: React.FC = () => {
   const [category, setCategory] = useState('all');
   const [keyword, setKeyword] = useState('');
 
-  useEffect(() => {
+  const [loadError, setLoadError] = useState(false);
+
+  const fetchVehicles = () => {
     setLoading(true);
+    setLoadError(false);
     fetch('/api/vehicles')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load vehicles');
+        return res.json();
+      })
       .then(data => {
         setVehicles(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('Error fetching vehicles:', err);
+        setLoadError(true);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchVehicles();
   }, []);
 
   const filteredVehicles = useMemo(() => {
@@ -94,7 +106,33 @@ export const CarsView: React.FC = () => {
       <section id="cars-collection" className="sa-cars-collection sa-cars-wrap">
         <div className="sa-cars-section-heading"><div><p className="sa-cars-eyebrow sa-cars-eyebrow--dark">The collection</p><h2>Choose your<br /><em>next drive.</em></h2></div><button onClick={() => openAiModal('Help me choose a luxury rental vehicle')} className="sa-cars-text-button"><Sparkles size={15} /> Ask the concierge</button></div>
         <div className="sa-cars-filter-rail"><label><Search size={16} /><input value={keyword} onChange={e => setKeyword(e.target.value)} placeholder="Search by brand or model" />{keyword && <button onClick={() => setKeyword('')} aria-label="Clear search"><X size={15} /></button>}</label><div className="sa-cars-categories">{categories.map(c => <button key={c.value} onClick={() => setCategory(c.value)} className={category === c.value ? 'is-active' : ''}>{c.label}</button>)}</div></div>
-        {loading ? <div className="sa-cars-loading">Loading the collection</div> : filteredVehicles.length === 0 ? <div className="sa-cars-empty"><Car size={32} /><h3>No vehicles found</h3><p>Try another model, brand or category.</p><button onClick={() => { setCategory('all'); setKeyword(''); }} className="sa-cars-button">Reset filters</button></div> : <div className="sa-cars-featured-grid">{filteredVehicles.map((vehicle, index) => <VehicleCard key={vehicle.id} vehicle={vehicle} featured={index === 0 && !keyword && category === 'all'} />)}</div>}
+        {loading ? (
+          <div className="sa-cars-loading">Loading the collection</div>
+        ) : loadError ? (
+          <div className="sa-cars-empty border border-rose-500/20">
+            <AlertCircle size={32} className="text-amber-500 mx-auto" />
+            <h3>Unable to load luxury fleet</h3>
+            <p>We encountered a temporary connection issue. Please retry or contact our concierge.</p>
+            <button onClick={fetchVehicles} className="sa-cars-button">
+              Retry Loading
+            </button>
+          </div>
+        ) : filteredVehicles.length === 0 ? (
+          <div className="sa-cars-empty">
+            <Car size={32} />
+            <h3>No vehicles found</h3>
+            <p>Try another model, brand or category.</p>
+            <button onClick={() => { setCategory('all'); setKeyword(''); }} className="sa-cars-button">
+              Reset filters
+            </button>
+          </div>
+        ) : (
+          <div className="sa-cars-featured-grid">
+            {filteredVehicles.map((vehicle, index) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} featured={index === 0 && !keyword && category === 'all'} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="sa-cars-process"><div className="sa-cars-wrap"><p className="sa-cars-eyebrow">The simple route</p><div className="sa-cars-process__head"><h2>From browsing<br /><em>to moving.</em></h2><p>Every vehicle page keeps the next step clear: inspect the details, choose your dates, and send an enquiry.</p></div><div className="sa-cars-steps"><div><span>01</span><h3>Browse the fleet</h3><p>Explore the current collection by category, brand or model.</p></div><div><span>02</span><h3>Select a vehicle</h3><p>Open the vehicle dossier for verified rental information and available details.</p></div><div><span>03</span><h3>Send your enquiry</h3><p>Use WhatsApp or the reservation form to share your dates and requirements.</p></div></div></div></section>

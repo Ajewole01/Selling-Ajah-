@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { AdminUser, Property, ServicedApartment, LuxuryVehicle, SiteSettings } from '../types';
+import { AdminUser, SiteSettings } from '../types';
 import { OFFICIAL_CONTACT } from '../constants/contact';
 
 export interface ToastMessage {
@@ -215,14 +215,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const updateSettings = useCallback((newSettings: Partial<SiteSettings>) => {
     setSettings(prev => {
       const merged = { ...prev, ...newSettings };
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+
+      if (currentUser?.token) {
+        headers.Authorization = `Bearer ${currentUser.token}`;
+      }
+
       fetch('/api/settings', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(merged)
-      }).catch(err => console.error('Error saving settings:', err));
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`Settings update failed with status ${res.status}`);
+          }
+        })
+        .catch(err => console.error('Error saving settings:', err));
+
       return merged;
     });
-  }, []);
+  }, [currentUser?.token]);
 
   return (
     <AppContext.Provider

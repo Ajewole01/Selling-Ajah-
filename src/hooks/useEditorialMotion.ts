@@ -38,6 +38,54 @@ export function useEditorialMotion<T extends HTMLElement>(root: RefObject<T | nu
       });
       const mediaImage = node.querySelector<HTMLElement>('.sa-cars-media__image');
       if (mediaImage) gsap.to(mediaImage, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: mediaImage, start: 'top bottom', end: 'bottom top', scrub: true } });
+
+      // Viewport-fixed image reveal inside scrolling mask window (.sa-locations)
+      const locationsSection = node.querySelector<HTMLElement>('#locations-fixed-window, .sa-locations');
+      const fixedLayer = node.querySelector<HTMLElement>('#locations-fixed-viewport-layer, .sa-locations-fixed-viewport-layer');
+      if (locationsSection && fixedLayer) {
+        // Initial visibility check to ensure proper state on fresh load or mid-page reload
+        const rect = locationsSection.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          fixedLayer.classList.add('is-visible');
+        } else {
+          fixedLayer.classList.remove('is-visible');
+        }
+
+        // Toggle fixed layer visibility purely at viewport boundaries without continuous scroll translation
+        ScrollTrigger.create({
+          trigger: locationsSection,
+          start: 'top bottom',
+          end: 'bottom top',
+          onEnter: () => fixedLayer.classList.add('is-visible'),
+          onEnterBack: () => fixedLayer.classList.add('is-visible'),
+          onLeave: () => fixedLayer.classList.remove('is-visible'),
+          onLeaveBack: () => fixedLayer.classList.remove('is-visible'),
+        });
+      }
+
+      // About page editorial reveals
+      const aboutPortrait = node.querySelector<HTMLElement>('.sa-about-founder-portrait img');
+      if (aboutPortrait) {
+        gsap.from(aboutPortrait, { scale: 1.08, duration: 1.5, ease: 'power2.out' });
+      }
+      const aboutFounderCopy = node.querySelector<HTMLElement>('.sa-about-founder-copy');
+      if (aboutFounderCopy) {
+        gsap.from(aboutFounderCopy.children, { y: 24, opacity: 0, duration: 0.85, stagger: 0.1, ease: 'power3.out', delay: 0.15 });
+      }
+      gsap.utils.toArray<HTMLElement>('.sa-about-brands-list article', node).forEach(item => {
+        gsap.from(item, { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 88%', once: true } });
+      });
+      gsap.utils.toArray<HTMLElement>('.sa-about-values-list article', node).forEach(item => {
+        gsap.from(item, { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 88%', once: true } });
+      });
+      const aboutVideo = node.querySelector<HTMLElement>('.sa-about-video-frame');
+      if (aboutVideo) {
+        gsap.from(aboutVideo, { y: 28, opacity: 0, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: aboutVideo, start: 'top 85%', once: true } });
+      }
+      gsap.utils.toArray<HTMLElement>('.sa-about-mission-grid > div', node).forEach(item => {
+        gsap.from(item, { y: 20, opacity: 0, duration: 0.75, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 86%', once: true } });
+      });
+
       gsap.utils.toArray<HTMLElement>('.sa-reveal', node).forEach(item => {
         gsap.from(item, { y: 38, opacity: 0, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 88%', once: true } });
       });

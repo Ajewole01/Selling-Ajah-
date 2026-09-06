@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Property, ServicedApartment, LuxuryVehicle, Enquiry } from '../types';
 import { formatNaira, formatWhatsAppUrl } from '../utils/formatters';
@@ -23,11 +23,21 @@ import {
 } from 'lucide-react';
 
 export const AdminView: React.FC = () => {
-  const { addToast, settings, updateSettings } = useApp();
+  const {
+    addToast,
+    settings,
+    updateSettings,
+    currentUser,
+    setCurrentUser,
+    logout
+  } = useApp();
 
-  const [authenticated, setAuthenticated] = useState(false);
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [authError, setAuthError] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+
+  const authenticated = Boolean(currentUser?.token);
 
   // Tabs
   const [activeTab, setActiveTab] = useState<'overview' | 'enquiries' | 'properties' | 'apartments' | 'vehicles' | 'settings'>('overview');
@@ -59,27 +69,87 @@ export const AdminView: React.FC = () => {
   const [email, setEmail] = useState(settings.email);
   const [address, setAddress] = useState(settings.address);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const getAdminHeaders = (token?: string, includeJson = false): HeadersInit => {
+    const headers: Record<string, string> = {};
+    const activeToken = token || currentUser?.token;
+
+    if (includeJson) {
+      headers['Content-Type'] = 'application/json';
+    }
+
+    if (activeToken) {
+      headers.Authorization = `Bearer ${activeToken}`;
+    }
+
+    return headers;
+  };
+
+  const handleUnauthorized = () => {
+    setCurrentUser(null);
+    setAuthError('Your administrator session has expired. Please sign in again.');
+    addToast('Admin session expired. Please sign in again.', 'error');
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Default admin code is admin123 or sellingajah
-    if (password === 'admin123' || password === 'sellingajah' || password.length > 0) {
-      setAuthenticated(true);
-      setAuthError(false);
-      fetchDashboardData();
-    } else {
-      setAuthError(true);
+    setAuthLoading(true);
+    setAuthError('');
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: identifier.trim(),
+          password
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data?.user || !data?.token) {
+        throw new Error(data?.error || 'Invalid administrator credentials.');
+      }
+
+      setCurrentUser({
+        ...data.user,
+        token: data.token
+      });
+      setPassword('');
+      addToast('Administrator signed in successfully.', 'success');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unable to sign in.';
+      setAuthError(message);
+    } finally {
+      setAuthLoading(false);
     }
   };
 
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = async (token?: string) => {
+    const activeToken = token || currentUser?.token;
+    if (!activeToken) return;
+
     setLoading(true);
     try {
-      const [props, apts, vehs, enqs] = await Promise.all([
-        fetch('/api/properties').then(r => r.json()),
-        fetch('/api/apartments').then(r => r.json()),
-        fetch('/api/vehicles').then(r => r.json()),
-        fetch('/api/enquiries').then(r => r.json())
+      const responses = await Promise.all([
+        fetch('/api/properties', { headers: getAdminHeaders(activeToken) }),
+        fetch('/api/apartments', { headers: getAdminHeaders(activeToken) }),
+        fetch('/api/vehicles', { headers: getAdminHeaders(activeToken) }),
+        fetch('/api/enquiries', { headers: getAdminHeaders(activeToken) })
       ]);
+
+      if (responses.some(response => response.status === 401)) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (responses.some(response => !response.ok)) {
+        throw new Error('One or more dashboard requests failed.');
+      }
+
+      const [props, apts, vehs, enqs] = await Promise.all(
+        responses.map(response => response.json())
+      );
 
       setProperties(Array.isArray(props) ? props : []);
       setApartments(Array.isArray(apts) ? apts : []);
@@ -93,15 +163,23 @@ export const AdminView: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (currentUser?.token) {
+      void fetchDashboardData(currentUser.token);
+    }
+    // We only want to refresh when the stored admin token changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser?.token]);
+
   // Add Property Handler
   const handleCreateProperty = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newTitle) return;
+    if (!newTitle || !currentUser?.token) return;
 
     try {
       const res = await fetch('/api/properties', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(undefined, true),
         body: JSON.stringify({
           title: newTitle,
           price: Number(newPrice),
@@ -122,7 +200,16 @@ export const AdminView: React.FC = () => {
         })
       });
 
-      if (!res.ok) throw new Error('Failed to create property');
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || 'Failed to create property');
+      }
+
       const created = await res.json();
       setProperties(prev => [created, ...prev]);
       setShowAddProperty(false);
@@ -137,27 +224,53 @@ export const AdminView: React.FC = () => {
   // Delete Property Handler
   const handleDeleteProperty = async (id: string) => {
     if (!confirm('Are you sure you want to delete this property?')) return;
+
     try {
-      await fetch(`/api/properties/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/properties/${id}`, {
+        method: 'DELETE',
+        headers: getAdminHeaders()
+      });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error('Failed to delete property');
+      }
+
       setProperties(prev => prev.filter(p => p.id !== id));
       addToast('Property deleted', 'info');
     } catch (err) {
       console.error(err);
+      addToast('Failed to delete property', 'error');
     }
   };
 
   // Update Enquiry Status
   const handleUpdateEnquiryStatus = async (id: string, status: 'new' | 'contacted' | 'resolved') => {
     try {
-      await fetch(`/api/enquiries/${id}`, {
+      const res = await fetch(`/api/enquiries/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(undefined, true),
         body: JSON.stringify({ status })
       });
+
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error('Failed to update enquiry');
+      }
+
       setEnquiries(prev => prev.map(e => (e.id === id ? { ...e, status } : e)));
       addToast(`Enquiry marked as ${status}`, 'success');
     } catch (err) {
       console.error(err);
+      addToast('Failed to update enquiry', 'error');
     }
   };
 
@@ -171,7 +284,7 @@ export const AdminView: React.FC = () => {
       email,
       address
     });
-    addToast('Company contact settings updated!', 'success');
+    addToast('Company contact settings update requested.', 'success');
   };
 
   if (!authenticated) {
@@ -186,18 +299,34 @@ export const AdminView: React.FC = () => {
               Selling Ajah Admin
             </h2>
             <p className="text-xs text-neutral-600 dark:text-slate-400">
-              Enter authorized administrative password to manage inventory and leads.
+              Sign in with your authorized administrator account to manage inventory and leads.
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">
-                Admin Passcode (Default: <code className="text-amber-600 dark:text-amber-400 font-mono">admin123</code>)
+                Username or Email
+              </label>
+              <input
+                type="text"
+                required
+                autoComplete="username"
+                value={identifier}
+                onChange={e => setIdentifier(e.target.value)}
+                placeholder="Enter username or email..."
+                className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-amber-500 outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">
+                Password
               </label>
               <input
                 type="password"
                 required
+                autoComplete="current-password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter password..."
@@ -206,14 +335,15 @@ export const AdminView: React.FC = () => {
             </div>
 
             {authError && (
-              <p className="text-xs text-rose-500 dark:text-rose-400">Invalid passcode. Please enter valid password.</p>
+              <p className="text-xs text-rose-500 dark:text-rose-400">{authError}</p>
             )}
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2e] text-black font-bold text-xs uppercase tracking-wider transition-all shadow-md"
+              disabled={authLoading}
+              className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2e] disabled:opacity-60 disabled:cursor-not-allowed text-black font-bold text-xs uppercase tracking-wider transition-all shadow-md"
             >
-              Unlock Console
+              {authLoading ? 'Signing In...' : 'Unlock Console'}
             </button>
           </form>
         </div>
@@ -267,6 +397,14 @@ export const AdminView: React.FC = () => {
             );
           })}
         </div>
+
+        <button
+          type="button"
+          onClick={logout}
+          className="px-3 py-2 rounded-xl border border-black/10 dark:border-slate-800 text-xs font-semibold text-neutral-600 dark:text-slate-300 hover:bg-neutral-100 dark:hover:bg-slate-900 transition-colors"
+        >
+          Sign Out
+        </button>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
@@ -699,3 +837,4 @@ export const AdminView: React.FC = () => {
     </div>
   );
 };
+

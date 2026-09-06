@@ -48,18 +48,18 @@ export const Footer: React.FC = () => {
     <footer className="sa-footer bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/70 border-t border-black/8 dark:border-white/10 pt-16 pb-24 lg:pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Call to Action Banner */}
-        <div className="relative rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 p-8 sm:p-10 mb-16 overflow-hidden shadow-lg dark:shadow-2xl transition-colors">
-          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+        <div id="footer-cta-banner" style={{ backgroundColor: '#c6a15b' }} className="relative rounded-2xl bg-[#c6a15b] border border-black/8 dark:border-white/10 p-8 sm:p-10 mb-16 overflow-hidden shadow-lg dark:shadow-2xl transition-colors">
+          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-black/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
-              <span className="text-[#D4AF37] text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
-                <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+              <span id="footer-advisors-badge" style={{ color: '#222222' }} className="text-[#222222] text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                <ShieldCheck className="w-4 h-4 text-[#222222]" />
                 Trusted Lagos Property Advisors
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+              <h3 id="footer-custom-search-heading" style={{ color: '#000000' }} className="font-serif text-2xl sm:text-3xl font-bold text-[#000000] mb-2">
                 Looking for a specific property or land in Ajah?
               </h3>
-              <p className="text-neutral-600 dark:text-white/60 text-sm max-w-2xl font-light">
+              <p id="footer-custom-search-description" style={{ color: '#333333' }} className="text-[#333333] text-sm max-w-2xl font-light">
                 Our local advisory team curates exclusive off-market listings and residential options tailored precisely to your budget and architectural specifications.
               </p>
             </div>
