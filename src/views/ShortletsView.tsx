@@ -11,7 +11,8 @@ import {
   Users,
   Sparkles,
   SlidersHorizontal,
-  X
+  X,
+  AlertCircle
 } from 'lucide-react';
 import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
@@ -27,18 +28,29 @@ export const ShortletsView: React.FC = () => {
   const [selectedGuests, setSelectedGuests] = useState('all');
   const [keyword, setKeyword] = useState('');
 
-  useEffect(() => {
+  const [loadError, setLoadError] = useState(false);
+
+  const fetchApartments = () => {
     setLoading(true);
+    setLoadError(false);
     fetch('/api/apartments')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load apartments');
+        return res.json();
+      })
       .then(data => {
         setApartments(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('Error fetching apartments:', err);
+        setLoadError(true);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchApartments();
   }, []);
 
   const filteredApartments = useMemo(() => {
@@ -160,6 +172,22 @@ export const ShortletsView: React.FC = () => {
             {[1, 2, 3].map(i => (
               <div key={i} className="h-80 rounded-2xl bg-neutral-200 dark:bg-[#111111] animate-pulse border border-black/8 dark:border-white/10" />
             ))}
+          </div>
+        ) : loadError ? (
+          <div className="py-20 text-center bg-white dark:bg-slate-900/40 rounded-3xl border border-rose-500/20 p-8 shadow-sm dark:shadow-none">
+            <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+            <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-2">
+              Unable to load serviced apartments
+            </h3>
+            <p className="text-xs sm:text-sm text-neutral-600 dark:text-slate-400 max-w-md mx-auto mb-6">
+              We encountered a temporary connection issue loading shortlet stays. Please try again or reach out on WhatsApp.
+            </p>
+            <button
+              onClick={fetchApartments}
+              className="px-5 py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold uppercase tracking-wider shadow-sm transition-colors"
+            >
+              Retry Loading
+            </button>
           </div>
         ) : filteredApartments.length === 0 ? (
           <div className="py-20 text-center bg-white dark:bg-slate-900/40 rounded-3xl border border-black/8 dark:border-slate-800 p-8 shadow-sm dark:shadow-none">

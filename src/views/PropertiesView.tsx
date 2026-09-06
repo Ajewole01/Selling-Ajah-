@@ -12,7 +12,8 @@ import {
   RotateCcw,
   Sparkles,
   Building2,
-  ChevronDown
+  ChevronDown,
+  AlertCircle
 } from 'lucide-react';
 import { useEditorialMotion } from '../hooks/useEditorialMotion';
 
@@ -57,18 +58,29 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
   const pageRef = useRef<HTMLDivElement>(null);
   useEditorialMotion(pageRef);
 
-  useEffect(() => {
+  const [loadError, setLoadError] = useState(false);
+
+  const fetchProperties = () => {
     setLoading(true);
+    setLoadError(false);
     fetch('/api/properties')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load listings');
+        return res.json();
+      })
       .then(data => {
         setProperties(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error('Error fetching properties:', err);
+        setLoadError(true);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchProperties();
   }, []);
 
   // Filter properties client-side
@@ -386,6 +398,22 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
             {[1, 2, 3, 4, 5, 6].map(i => (
               <div key={i} className="h-80 rounded-2xl bg-neutral-200 dark:bg-[#111111] animate-pulse border border-black/5 dark:border-white/5" />
             ))}
+          </div>
+        ) : loadError ? (
+          <div className="py-20 text-center bg-white dark:bg-[#111111] rounded-3xl border border-rose-500/20 p-8 shadow-sm dark:shadow-none">
+            <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+            <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-2">
+              Unable to load listings
+            </h3>
+            <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 max-w-md mx-auto mb-6">
+              We encountered a temporary issue retrieving the property listings. Please try again or reach out to our concierge.
+            </p>
+            <button
+              onClick={fetchProperties}
+              className="px-5 py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold uppercase tracking-wider shadow-sm transition-colors"
+            >
+              Retry Loading
+            </button>
           </div>
         ) : filteredProperties.length === 0 ? (
           <div className="py-20 text-center bg-white dark:bg-[#111111] rounded-3xl border border-black/8 dark:border-white/10 p-8 shadow-sm dark:shadow-none">
