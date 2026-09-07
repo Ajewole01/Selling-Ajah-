@@ -12,14 +12,14 @@ export const ToastContainer: React.FC = () => {
       {toasts.map(toast => {
         let icon = <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />;
         let borderClass = 'border-emerald-500/30';
-        let bgClass = 'bg-white/95 dark:bg-neutral-900/95';
+        let bgClass = 'bg-white/95 dark:bg-brand-black-soft/95';
 
         if (toast.type === 'error') {
           icon = <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />;
           borderClass = 'border-rose-500/30';
         } else if (toast.type === 'info') {
-          icon = <Info className="w-5 h-5 text-[#D4AF37] shrink-0" />;
-          borderClass = 'border-[#D4AF37]/30';
+          icon = <Info className="w-5 h-5 text-brand-gold shrink-0" />;
+          borderClass = 'border-brand-gold/30';
         }
 
         return (

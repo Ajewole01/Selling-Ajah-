@@ -42,17 +42,17 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className="w-full max-w-sm bg-white dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-2xl shadow-2xl p-5 animate-in zoom-in-95 duration-200"
+        className="w-full max-w-sm bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 rounded-2xl shadow-2xl p-5 animate-in zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between pb-3 border-b border-black/8 dark:border-white/10 mb-4">
           <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-            <Share2 className="w-4 h-4 text-[#D4AF37]" />
+            <Share2 className="w-4 h-4 text-brand-gold" />
             Share Listing
           </h3>
           <button
             onClick={onClose}
-            className="p-1 rounded text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+            className="p-1 rounded text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -65,7 +65,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         <div className="grid grid-cols-2 gap-2.5 mb-4">
           <button
             onClick={handleWhatsApp}
-            className="flex items-center justify-center gap-2 p-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-colors"
+            className="flex items-center justify-center gap-2 p-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-colors cursor-pointer"
           >
             <MessageSquare className="w-4 h-4" />
             <span>WhatsApp</span>
@@ -73,14 +73,14 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
           <button
             onClick={handleTwitter}
-            className="flex items-center justify-center gap-2 p-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors"
+            className="flex items-center justify-center gap-2 p-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition-colors cursor-pointer"
           >
             <Twitter className="w-4 h-4" />
             <span>Twitter / X</span>
           </button>
         </div>
 
-        <div className="flex items-center gap-2 bg-neutral-50 dark:bg-black/60 p-2 rounded-xl border border-black/10 dark:border-white/10">
+        <div className="flex items-center gap-2 bg-neutral-50 dark:bg-brand-black-deep p-2 rounded-xl border border-black/10 dark:border-white/10">
           <input
             type="text"
             readOnly
@@ -89,7 +89,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           />
           <button
             onClick={handleCopy}
-            className="p-2 rounded-lg bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-semibold transition-colors shrink-0"
+            className="p-2 rounded-lg bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-semibold transition-colors shrink-0 cursor-pointer"
             title="Copy link"
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}

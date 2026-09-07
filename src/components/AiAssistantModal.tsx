@@ -205,13 +205,13 @@ I can assist with:
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
     <div
-        className="sa-concierge-modal w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-[#0E0E0E] border border-black/10 dark:border-white/10 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
+        className="sa-concierge-modal w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-brand-black border border-black/10 dark:border-brand-gold/20 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Editorial Header */}
-        <div className="p-4 sm:p-5 border-b border-black/8 dark:border-white/10 bg-neutral-50 dark:bg-[#080808] flex items-center justify-between">
+        <div className="p-4 sm:p-5 border-b border-black/8 dark:border-white/10 bg-neutral-50 dark:bg-brand-black-deep flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -250,7 +250,7 @@ I can assist with:
                 className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}
               >
                 {!isUser && (
-                  <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#D4AF37]">
+                  <div className="w-7 h-7 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center shrink-0 mt-0.5 text-brand-gold">
                     <Bot className="w-4 h-4" />
                   </div>
                 )}
@@ -260,8 +260,8 @@ I can assist with:
                   <div
                     className={`rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
                       isUser
-                        ? 'bg-[#D4AF37] text-black font-semibold rounded-tr-none shadow-md shadow-[#D4AF37]/15'
-                        : 'bg-neutral-100 dark:bg-[#161616] text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-white/10 rounded-tl-none whitespace-pre-line font-light'
+                        ? 'bg-brand-gold text-brand-black-deep font-semibold rounded-tr-none shadow-md shadow-brand-gold/15'
+                        : 'bg-neutral-100 dark:bg-brand-charcoal text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-white/10 rounded-tl-none whitespace-pre-line font-light'
                     }`}
                   >
                     {msg.text}
@@ -279,7 +279,7 @@ I can assist with:
                         <div
                           key={card.id}
                           onClick={() => handleCardClick(card)}
-                          className="bg-white dark:bg-[#111111] border border-black/10 dark:border-white/10 hover:border-[#D4AF37] rounded-2xl overflow-hidden cursor-pointer group transition-all shadow-md flex flex-col"
+                          className="bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 hover:border-brand-gold rounded-2xl overflow-hidden cursor-pointer group transition-all shadow-md flex flex-col"
                         >
                           <div className="relative aspect-[16/9] overflow-hidden bg-neutral-900">
                             <img
@@ -287,13 +287,13 @@ I can assist with:
                               alt=""
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
-                            <div className="absolute top-2 left-2 bg-black/85 text-[10px] uppercase font-bold text-[#D4AF37] px-2 py-0.5 rounded font-mono">
+                            <div className="absolute top-2 left-2 bg-black/85 text-[10px] uppercase font-bold text-brand-gold px-2 py-0.5 rounded font-mono">
                               {card.type}
                             </div>
                           </div>
                           <div className="p-3 flex-1 flex flex-col justify-between">
                             <div>
-                              <h5 className="font-serif text-xs font-bold text-neutral-900 dark:text-white group-hover:text-[#D4AF37] line-clamp-1 mb-1">
+                              <h5 className="font-serif text-xs font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold line-clamp-1 mb-1">
                                 {card.title}
                               </h5>
                               <p className="text-[10px] text-neutral-500 dark:text-white/50 truncate mb-1">
@@ -306,11 +306,11 @@ I can assist with:
                               )}
                             </div>
                             <div className="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/10">
-                              <span className="text-xs font-bold text-[#D4AF37] font-mono">
+                              <span className="text-xs font-bold text-brand-gold font-mono">
                                 {card.formattedPrice}
                               </span>
                               <span className="text-[10px] text-neutral-600 dark:text-neutral-300 flex items-center gap-0.5 font-medium">
-                                View <ArrowUpRight className="w-3 h-3 text-[#D4AF37]" />
+                                View <ArrowUpRight className="w-3 h-3 text-brand-gold" />
                               </span>
                             </div>
                           </div>
@@ -326,7 +326,7 @@ I can assist with:
                         <button
                           key={idx}
                           onClick={() => handleActionClick(btn)}
-                          className="text-[11px] bg-white hover:bg-neutral-50 dark:bg-[#161616] dark:hover:bg-[#202020] text-neutral-800 dark:text-[#D4AF37] px-3.5 py-1.5 rounded-full border border-black/10 dark:border-[#D4AF37]/30 transition-all shadow-sm font-mono cursor-pointer"
+                          className="text-[11px] bg-white hover:bg-neutral-50 dark:bg-brand-charcoal dark:hover:bg-brand-graphite text-neutral-800 dark:text-brand-gold px-3.5 py-1.5 rounded-full border border-black/10 dark:border-brand-gold/30 transition-all shadow-sm font-mono cursor-pointer"
                         >
                           {btn.label}
                         </button>
@@ -336,7 +336,7 @@ I can assist with:
                 </div>
 
                 {isUser && (
-                  <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/20 border border-[#D4AF37]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#D4AF37]">
+                  <div className="w-7 h-7 rounded-lg bg-brand-gold/20 border border-brand-gold/30 flex items-center justify-center shrink-0 mt-0.5 text-brand-gold">
                     <User className="w-4 h-4" />
                   </div>
                 )}
@@ -346,11 +346,11 @@ I can assist with:
 
           {loading && (
             <div className="flex gap-3">
-              <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0 text-[#D4AF37]">
+              <div className="w-7 h-7 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center shrink-0 text-brand-gold">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-neutral-100 dark:bg-[#161616] text-neutral-600 dark:text-neutral-300 border border-black/5 dark:border-white/10 rounded-2xl rounded-tl-none px-4 py-3 text-xs flex items-center gap-2 font-mono">
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#D4AF37]" />
+              <div className="bg-neutral-100 dark:bg-brand-charcoal text-neutral-600 dark:text-neutral-300 border border-black/5 dark:border-white/10 rounded-2xl rounded-tl-none px-4 py-3 text-xs flex items-center gap-2 font-mono">
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-gold" />
                 <span>Consulting verified Ajah inventory...</span>
               </div>
             </div>
@@ -358,10 +358,10 @@ I can assist with:
 
           {/* Inline Lead Capture Box */}
           {showLeadForm && (
-            <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-[#111111] border border-[#D4AF37]/40 shadow-xl my-3">
+            <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-brand-black-soft border border-brand-gold/40 shadow-xl my-3">
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-serif text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                  <ShieldCheck className="w-4 h-4 text-brand-gold" />
                   Request Private Advisor Callback
                 </h4>
                 <button
@@ -379,7 +379,7 @@ I can assist with:
                   placeholder="Your Full Name"
                   value={leadName}
                   onChange={e => setLeadName(e.target.value)}
-                  className="w-full bg-white dark:bg-[#080808] border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <input
@@ -388,20 +388,20 @@ I can assist with:
                     placeholder="WhatsApp Phone"
                     value={leadPhone}
                     onChange={e => setLeadPhone(e.target.value)}
-                    className="w-full bg-white dark:bg-[#080808] border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                   />
                   <input
                     type="email"
                     placeholder="Email (optional)"
                     value={leadEmail}
                     onChange={e => setLeadEmail(e.target.value)}
-                    className="w-full bg-white dark:bg-[#080808] border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={leadSubmitting}
-                  className="w-full py-3 px-4 rounded-full bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer"
+                  className="w-full py-3 px-4 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer"
                 >
                   {leadSubmitting ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -418,7 +418,7 @@ I can assist with:
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 border-t border-black/8 dark:border-white/10 bg-neutral-50 dark:bg-[#080808]">
+        <div className="p-4 border-t border-black/8 dark:border-white/10 bg-neutral-50 dark:bg-brand-black-deep">
           <form
             onSubmit={e => {
               e.preventDefault();
@@ -432,13 +432,13 @@ I can assist with:
               value={inputText}
               onChange={e => setInputText(e.target.value)}
               placeholder="Inquire on duplexes, shortlets, or luxury mobility..."
-              className="flex-1 bg-white dark:bg-[#141414] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-[#D4AF37] transition-colors"
+              className="flex-1 bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-brand-gold transition-colors"
             />
             <button
               id="send-ai-message-btn"
               type="submit"
               disabled={!inputText.trim() || loading}
-              className="p-3 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] disabled:opacity-40 disabled:hover:bg-[#D4AF37] text-black transition-colors shrink-0 cursor-pointer"
+              className="p-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep disabled:opacity-40 disabled:hover:bg-brand-gold text-brand-black-deep transition-colors shrink-0 cursor-pointer"
             >
               <Send className="w-4 h-4" />
             </button>

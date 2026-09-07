@@ -45,21 +45,21 @@ export const Footer: React.FC = () => {
   const whatsappUrl = formatWhatsAppUrl(settings.whatsapp, "Hello Selling Ajah, I would like to make an enquiry.");
 
   return (
-    <footer className="sa-footer bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/70 border-t border-black/8 dark:border-white/10 pt-16 pb-24 lg:pb-12 transition-colors">
+    <footer className="sa-footer bg-neutral-100 dark:bg-brand-black-deep text-neutral-600 dark:text-white/70 border-t border-black/10 dark:border-brand-gold/20 pt-16 pb-24 lg:pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Call to Action Banner */}
-        <div id="footer-cta-banner" style={{ backgroundColor: '#c6a15b' }} className="relative rounded-2xl bg-[#c6a15b] border border-black/8 dark:border-white/10 p-8 sm:p-10 mb-16 overflow-hidden shadow-lg dark:shadow-2xl transition-colors">
-          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-black/10 rounded-full blur-3xl pointer-events-none" />
+        <div id="footer-cta-banner" className="relative rounded-2xl bg-brand-black-soft border border-brand-gold/25 p-8 sm:p-10 mb-16 overflow-hidden shadow-xl dark:shadow-2xl transition-colors">
+          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
-              <span id="footer-advisors-badge" style={{ color: '#222222' }} className="text-[#222222] text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
-                <ShieldCheck className="w-4 h-4 text-[#222222]" />
+              <span id="footer-advisors-badge" className="text-brand-gold text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                <ShieldCheck className="w-4 h-4 text-brand-gold" />
                 Trusted Lagos Property Advisors
               </span>
-              <h3 id="footer-custom-search-heading" style={{ color: '#000000' }} className="font-serif text-2xl sm:text-3xl font-bold text-[#000000] mb-2">
+              <h3 id="footer-custom-search-heading" className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2">
                 Looking for a specific property or land in Ajah?
               </h3>
-              <p id="footer-custom-search-description" style={{ color: '#333333' }} className="text-[#333333] text-sm max-w-2xl font-light">
+              <p id="footer-custom-search-description" className="text-neutral-300 text-sm max-w-2xl font-light">
                 Our local advisory team curates exclusive off-market listings and residential options tailored precisely to your budget and architectural specifications.
               </p>
             </div>
@@ -67,9 +67,9 @@ export const Footer: React.FC = () => {
               <button
                 id="footer-request-custom-btn"
                 onClick={() => openRequestModal()}
-                className="px-6 py-3 rounded-full bg-[#D4AF37] hover:bg-[#c5a028] text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-2"
+                className="px-6 py-3 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-brand-gold/20 flex items-center gap-2"
               >
-                <span>Request Custom Search</span>
+                <span style={{ color: '#000000' }}>Request Custom Search</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-emerald-600/20"
+                className="px-6 py-3 rounded-full border border-brand-gold/50 hover:border-brand-gold text-brand-gold hover:text-white hover:bg-brand-gold/15 font-semibold text-xs tracking-wider transition-all flex items-center gap-2"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>WhatsApp Advisor</span>
@@ -99,7 +99,7 @@ export const Footer: React.FC = () => {
                 href={settings.socialLinks.instagram || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-colors"
+                className="w-9 h-9 rounded-full bg-white dark:bg-brand-charcoal border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-brand-gold hover:border-brand-gold/40 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -108,7 +108,7 @@ export const Footer: React.FC = () => {
                 href={settings.socialLinks.facebook || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-colors"
+                className="w-9 h-9 rounded-full bg-white dark:bg-brand-charcoal border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-brand-gold hover:border-brand-gold/40 transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -117,7 +117,7 @@ export const Footer: React.FC = () => {
                 href={settings.socialLinks.twitter || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-colors"
+                className="w-9 h-9 rounded-full bg-white dark:bg-brand-charcoal border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-brand-gold hover:border-brand-gold/40 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
@@ -126,7 +126,7 @@ export const Footer: React.FC = () => {
                 href={settings.socialLinks.linkedin || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-colors"
+                className="w-9 h-9 rounded-full bg-white dark:bg-brand-charcoal border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-brand-gold hover:border-brand-gold/40 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -135,7 +135,7 @@ export const Footer: React.FC = () => {
                 href={settings.socialLinks.youtube || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/40 transition-colors"
+                className="w-9 h-9 rounded-full bg-white dark:bg-brand-charcoal border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-500 dark:text-white/50 hover:text-brand-gold hover:border-brand-gold/40 transition-colors"
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
 
           {/* Explore Links */}
           <div>
-            <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-4 font-mono">
+            <h4 className="text-brand-gold text-xs uppercase tracking-widest font-bold mb-4 font-mono">
               Explore
             </h4>
             <ul className="space-y-2.5">
@@ -153,7 +153,7 @@ export const Footer: React.FC = () => {
                 <li key={link.path}>
                   <button
                     onClick={() => navigate(link.path)}
-                    className="text-neutral-600 dark:text-white/60 hover:text-[#D4AF37] text-xs sm:text-sm transition-colors text-left"
+                    className="text-neutral-600 dark:text-white/60 hover:text-brand-gold text-xs sm:text-sm transition-colors text-left"
                   >
                     {link.label}
                   </button>
@@ -164,7 +164,7 @@ export const Footer: React.FC = () => {
 
           {/* Key Locations */}
           <div>
-            <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-4 font-mono">
+            <h4 className="text-brand-gold text-xs uppercase tracking-widest font-bold mb-4 font-mono">
               Prime Locations
             </h4>
             <ul className="space-y-2.5">
@@ -172,7 +172,7 @@ export const Footer: React.FC = () => {
                 <li key={area.name}>
                   <button
                     onClick={() => navigate(`/properties?area=${encodeURIComponent(area.query)}`)}
-                    className="text-neutral-600 dark:text-white/60 hover:text-[#D4AF37] text-xs sm:text-sm transition-colors text-left"
+                    className="text-neutral-600 dark:text-white/60 hover:text-brand-gold text-xs sm:text-sm transition-colors text-left"
                   >
                     {area.name}
                   </button>
@@ -183,28 +183,28 @@ export const Footer: React.FC = () => {
 
           {/* Contact Details */}
           <div>
-            <h4 className="text-[#D4AF37] text-xs uppercase tracking-widest font-bold mb-4 font-mono">
+            <h4 className="text-brand-gold text-xs uppercase tracking-widest font-bold mb-4 font-mono">
               Ajah Office
             </h4>
             <div className="space-y-3.5 text-xs text-neutral-600 dark:text-white/60">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" />
                 <span className="leading-snug">{settings.officeAddress}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <Phone className="w-4 h-4 text-brand-gold shrink-0" />
                 <a href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   {settings.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <MessageSquare className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                <MessageSquare className="w-4 h-4 text-brand-gold shrink-0" />
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   WhatsApp: {settings.whatsapp}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <Mail className="w-4 h-4 text-brand-gold shrink-0" />
                 <a href={`mailto:${settings.email}`} className="hover:text-neutral-900 dark:hover:text-white transition-colors">
                   {settings.email}
                 </a>

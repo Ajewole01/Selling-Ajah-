@@ -289,23 +289,23 @@ export const AdminView: React.FC = () => {
 
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#070a10] flex items-center justify-center p-6 text-neutral-900 dark:text-slate-100 transition-colors duration-200">
-        <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl p-8 shadow-xl dark:shadow-2xl">
+      <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center p-6 text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
+        <div className="w-full max-w-md bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-8 shadow-xl dark:shadow-2xl">
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400 mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold mx-auto mb-4">
               <Lock className="w-7 h-7" />
             </div>
             <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-1">
               Selling Ajah Admin
             </h2>
-            <p className="text-xs text-neutral-600 dark:text-slate-400">
+            <p className="text-xs text-neutral-600 dark:text-white/60">
               Sign in with your authorized administrator account to manage inventory and leads.
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">
+              <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">
                 Username or Email
               </label>
               <input
@@ -315,12 +315,12 @@ export const AdminView: React.FC = () => {
                 value={identifier}
                 onChange={e => setIdentifier(e.target.value)}
                 placeholder="Enter username or email..."
-                className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-amber-500 outline-none"
+                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">
+              <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">
                 Password
               </label>
               <input
@@ -330,7 +330,7 @@ export const AdminView: React.FC = () => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter password..."
-                className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-amber-500 outline-none"
+                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
               />
             </div>
 
@@ -341,7 +341,7 @@ export const AdminView: React.FC = () => {
             <button
               type="submit"
               disabled={authLoading}
-              className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2e] disabled:opacity-60 disabled:cursor-not-allowed text-black font-bold text-xs uppercase tracking-wider transition-all shadow-md"
+              className="w-full py-3.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep disabled:opacity-60 disabled:cursor-not-allowed text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
             >
               {authLoading ? 'Signing In...' : 'Unlock Console'}
             </button>
@@ -354,11 +354,11 @@ export const AdminView: React.FC = () => {
   const totalPortfolioValue = properties.reduce((acc, p) => acc + p.price, 0);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#070a10] text-neutral-900 dark:text-slate-100 pb-24 transition-colors duration-200">
+    <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep text-neutral-900 dark:text-neutral-100 pb-24 transition-colors duration-200">
       {/* Top Admin Bar */}
-      <div className="bg-white dark:bg-slate-950 border-b border-black/8 dark:border-slate-800 px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 transition-colors">
+      <div className="bg-white dark:bg-brand-black-soft border-b border-black/8 dark:border-white/10 px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 transition-colors">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400">
+          <div className="w-8 h-8 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
@@ -370,7 +370,7 @@ export const AdminView: React.FC = () => {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1 bg-neutral-100 dark:bg-slate-900 p-1 rounded-xl border border-black/8 dark:border-slate-800 overflow-x-auto">
+        <div className="flex items-center gap-1 bg-neutral-100 dark:bg-brand-black-deep p-1 rounded-xl border border-black/8 dark:border-white/10 overflow-x-auto">
           {[
             { id: 'overview', label: 'Overview', icon: Building2 },
             { id: 'enquiries', label: `Leads (${enquiries.length})`, icon: MessageSquare },
@@ -385,10 +385,10 @@ export const AdminView: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#D4AF37] text-black font-bold'
-                    : 'text-neutral-600 dark:text-slate-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-slate-800'
+                    ? 'bg-brand-gold text-brand-black-deep font-bold shadow-sm'
+                    : 'text-neutral-600 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-white/10'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -401,7 +401,7 @@ export const AdminView: React.FC = () => {
         <button
           type="button"
           onClick={logout}
-          className="px-3 py-2 rounded-xl border border-black/10 dark:border-slate-800 text-xs font-semibold text-neutral-600 dark:text-slate-300 hover:bg-neutral-100 dark:hover:bg-slate-900 transition-colors"
+          className="px-3 py-2 rounded-xl border border-black/10 dark:border-white/10 text-xs font-semibold text-neutral-600 dark:text-white/70 hover:bg-neutral-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
         >
           Sign Out
         </button>
@@ -412,50 +412,50 @@ export const AdminView: React.FC = () => {
         {activeTab === 'overview' && (
           <div className="space-y-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none">
-                <span className="text-xs text-neutral-500 dark:text-slate-400 uppercase font-semibold block mb-1">Portfolio Assets</span>
+              <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Portfolio Assets</span>
                 <div className="text-2xl sm:text-3xl font-serif font-bold text-neutral-900 dark:text-white">{properties.length} Listings</div>
-                <span className="text-[11px] text-amber-600 dark:text-amber-400 font-mono mt-1 block">Ajah & Lekki Peninsula</span>
+                <span className="text-[11px] text-brand-gold font-mono mt-1 block">Ajah & Lekki Peninsula</span>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none">
-                <span className="text-xs text-neutral-500 dark:text-slate-400 uppercase font-semibold block mb-1">Active Leads / Enquiries</span>
+              <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Active Leads / Enquiries</span>
                 <div className="text-2xl sm:text-3xl font-serif font-bold text-emerald-600 dark:text-emerald-400">{enquiries.length} Inquiries</div>
-                <span className="text-[11px] text-neutral-500 dark:text-slate-400 mt-1 block">Inspection & Booking Requests</span>
+                <span className="text-[11px] text-neutral-500 dark:text-white/50 mt-1 block">Inspection & Booking Requests</span>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none">
-                <span className="text-xs text-neutral-500 dark:text-slate-400 uppercase font-semibold block mb-1">Serviced Units & Cars</span>
-                <div className="text-2xl sm:text-3xl font-serif font-bold text-sky-600 dark:text-sky-400">{apartments.length + vehicles.length} Units</div>
-                <span className="text-[11px] text-neutral-500 dark:text-slate-400 mt-1 block">Shortlets & Fleet</span>
+              <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Serviced Units & Cars</span>
+                <div className="text-2xl sm:text-3xl font-serif font-bold text-brand-gold">{apartments.length + vehicles.length} Units</div>
+                <span className="text-[11px] text-neutral-500 dark:text-white/50 mt-1 block">Shortlets & Fleet</span>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none">
-                <span className="text-xs text-neutral-500 dark:text-slate-400 uppercase font-semibold block mb-1">Total Valuation</span>
+              <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Total Valuation</span>
                 <div className="text-lg sm:text-xl font-serif font-bold text-neutral-900 dark:text-white truncate">{formatNaira(totalPortfolioValue)}</div>
-                <span className="text-[11px] text-neutral-500 dark:text-slate-400 mt-1 block">Gross Inventory Volume</span>
+                <span className="text-[11px] text-neutral-500 dark:text-white/50 mt-1 block">Gross Inventory Volume</span>
               </div>
             </div>
 
             {/* Quick Activity Table */}
-            <div className="bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl p-6 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 shadow-sm dark:shadow-none">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">Recent Client Inquiries</h3>
                 <button
                   onClick={() => setActiveTab('enquiries')}
-                  className="text-xs text-amber-600 dark:text-amber-400 hover:underline font-semibold"
+                  className="text-xs text-brand-gold hover:underline font-semibold cursor-pointer"
                 >
                   View All Leads →
                 </button>
               </div>
 
-              <div className="divide-y divide-black/8 dark:divide-slate-800">
+              <div className="divide-y divide-black/8 dark:divide-white/10">
                 {enquiries.slice(0, 5).map(enq => (
                   <div key={enq.id} className="py-3 flex items-center justify-between gap-4 text-xs">
                     <div>
                       <span className="font-bold text-neutral-900 dark:text-white">{enq.name}</span>
-                      <span className="text-neutral-500 dark:text-slate-400 ml-2 font-mono">{enq.phone}</span>
-                      <p className="text-neutral-600 dark:text-slate-400 mt-0.5 line-clamp-1">{enq.message}</p>
+                      <span className="text-neutral-500 dark:text-white/50 ml-2 font-mono">{enq.phone}</span>
+                      <p className="text-neutral-600 dark:text-white/60 mt-0.5 line-clamp-1">{enq.message}</p>
                     </div>
                     <a
                       href={formatWhatsAppUrl(enq.phone || enq.whatsapp, `Hello ${enq.name}, I am reaching out from Selling Ajah regarding your property enquiry.`)}
@@ -479,33 +479,33 @@ export const AdminView: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">Client Enquiries & Inspections</h2>
-                <p className="text-xs text-neutral-600 dark:text-slate-400">All inbound messages from the web application, inspection bookings, and AI advisor.</p>
+                <p className="text-xs text-neutral-600 dark:text-white/60">All inbound messages from the web application, inspection bookings, and AI advisor.</p>
               </div>
             </div>
 
             <div className="space-y-3">
               {enquiries.map(enq => (
-                <div key={enq.id} className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div key={enq.id} className="p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <h4 className="font-serif text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{enq.name}</h4>
-                      <span className="text-[10px] bg-neutral-100 dark:bg-slate-800 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full uppercase font-medium">
+                      <span className="text-[10px] bg-neutral-100 dark:bg-brand-black-deep text-brand-gold px-2 py-0.5 rounded-full uppercase font-medium border border-black/5 dark:border-white/10">
                         {enq.service}
                       </span>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                        enq.status === 'resolved' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                        enq.status === 'resolved' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-brand-gold/15 text-brand-gold-deep dark:text-brand-gold border border-brand-gold/30'
                       }`}>
                         {enq.status}
                       </span>
                     </div>
 
-                    <div className="text-xs text-neutral-500 dark:text-slate-400 flex flex-wrap items-center gap-3">
-                      <span>Phone: <a href={`tel:${enq.phone}`} className="text-neutral-800 dark:text-slate-300 hover:underline">{enq.phone}</a></span>
-                      {enq.email && <span>Email: <a href={`mailto:${enq.email}`} className="text-neutral-800 dark:text-slate-300 hover:underline">{enq.email}</a></span>}
-                      {enq.propertyTitle && <span className="text-amber-600 dark:text-amber-300 font-medium">Listing: {enq.propertyTitle}</span>}
+                    <div className="text-xs text-neutral-500 dark:text-white/60 flex flex-wrap items-center gap-3">
+                      <span>Phone: <a href={`tel:${enq.phone}`} className="text-neutral-800 dark:text-white/80 hover:underline">{enq.phone}</a></span>
+                      {enq.email && <span>Email: <a href={`mailto:${enq.email}`} className="text-neutral-800 dark:text-white/80 hover:underline">{enq.email}</a></span>}
+                      {enq.propertyTitle && <span className="text-brand-gold font-medium">Listing: {enq.propertyTitle}</span>}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-neutral-700 dark:text-slate-300 pt-1">
+                    <p className="text-xs sm:text-sm text-neutral-700 dark:text-white/70 pt-1">
                       {enq.message}
                     </p>
                   </div>
@@ -524,14 +524,14 @@ export const AdminView: React.FC = () => {
                     {enq.status !== 'resolved' ? (
                       <button
                         onClick={() => handleUpdateEnquiryStatus(enq.id, 'resolved')}
-                        className="px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-neutral-800 dark:text-slate-300 text-xs font-semibold"
+                        className="px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-brand-black-deep dark:hover:bg-white/10 text-neutral-800 dark:text-white/80 text-xs font-semibold border border-black/5 dark:border-white/10 cursor-pointer"
                       >
                         Mark Done
                       </button>
                     ) : (
                       <button
                         onClick={() => handleUpdateEnquiryStatus(enq.id, 'new')}
-                        className="px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-neutral-600 dark:text-slate-400 text-xs"
+                        className="px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-brand-black-deep dark:hover:bg-white/10 text-neutral-600 dark:text-white/60 text-xs border border-black/5 dark:border-white/10 cursor-pointer"
                       >
                         Reopen
                       </button>
@@ -549,13 +549,13 @@ export const AdminView: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">Properties Catalog</h2>
-                <p className="text-xs text-neutral-600 dark:text-slate-400">Manage real estate listings for sale or rent in Ajah & Lekki.</p>
+                <p className="text-xs text-neutral-600 dark:text-white/60">Manage real estate listings for sale or rent in Ajah & Lekki.</p>
               </div>
 
               <button
                 id="admin-add-property-btn"
                 onClick={() => setShowAddProperty(!showAddProperty)}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2e] text-black font-bold text-xs uppercase tracking-wider transition-colors shadow-md"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Property</span>
@@ -564,41 +564,41 @@ export const AdminView: React.FC = () => {
 
             {/* Add Property Form Drawer */}
             {showAddProperty && (
-              <form onSubmit={handleCreateProperty} className="p-6 bg-white dark:bg-slate-900 border border-amber-500/40 rounded-3xl shadow-xl space-y-4 animate-in fade-in duration-200">
+              <form onSubmit={handleCreateProperty} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-gold/40 rounded-3xl shadow-xl space-y-4 animate-in fade-in duration-200">
                 <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white mb-2">Create New Verified Listing</h3>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Title</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Title</label>
                     <input
                       type="text"
                       required
                       value={newTitle}
                       onChange={e => setNewTitle(e.target.value)}
                       placeholder="e.g., 5 Bed Fully Detached Duplex with Pool"
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Price (₦)</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Price (₦)</label>
                     <input
                       type="number"
                       required
                       value={newPrice}
                       onChange={e => setNewPrice(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Intent</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Intent</label>
                     <select
                       value={newListingType}
                       onChange={e => setNewListingType(e.target.value as any)}
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
                     >
                       <option value="sale">For Sale</option>
                       <option value="rent">For Rent</option>
@@ -606,53 +606,53 @@ export const AdminView: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Area</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Area</label>
                     <input
                       type="text"
                       value={newArea}
                       onChange={e => setNewArea(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Bedrooms</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Bedrooms</label>
                     <input
                       type="number"
                       value={newBeds}
                       onChange={e => setNewBeds(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Bathrooms</label>
+                    <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Bathrooms</label>
                     <input
                       type="number"
                       value={newBaths}
                       onChange={e => setNewBaths(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Photo URL</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Photo URL</label>
                   <input
                     type="url"
                     value={newImage}
                     onChange={e => setNewImage(e.target.value)}
-                    className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Description</label>
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Description</label>
                   <textarea
                     rows={3}
                     value={newDesc}
                     onChange={e => setNewDesc(e.target.value)}
-                    className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                   />
                 </div>
 
@@ -660,13 +660,13 @@ export const AdminView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowAddProperty(false)}
-                    className="px-4 py-2 text-xs text-neutral-600 dark:text-slate-400 hover:text-neutral-900 dark:hover:text-white"
+                    className="px-4 py-2 text-xs text-neutral-600 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-xl bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider shadow-md"
+                    className="px-5 py-2 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer"
                   >
                     Publish Listing
                   </button>
@@ -675,7 +675,7 @@ export const AdminView: React.FC = () => {
             )}
 
             {/* List Table */}
-            <div className="divide-y divide-black/8 dark:divide-slate-800 bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
+            <div className="divide-y divide-black/8 dark:divide-white/10 bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
               {properties.map(p => (
                 <div key={p.id} className="p-4 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
@@ -683,9 +683,9 @@ export const AdminView: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm">{p.title}</h4>
-                        <span className="text-[10px] text-amber-600 dark:text-amber-400 font-mono">{p.refNumber}</span>
+                        <span className="text-[10px] text-brand-gold font-mono">{p.refNumber}</span>
                       </div>
-                      <p className="text-[11px] text-neutral-500 dark:text-slate-400">{p.location} • {formatNaira(p.price)}</p>
+                      <p className="text-[11px] text-neutral-500 dark:text-white/60">{p.location} • {formatNaira(p.price)}</p>
                     </div>
                   </div>
 
@@ -694,14 +694,14 @@ export const AdminView: React.FC = () => {
                       href={`/properties/${p.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg text-neutral-500 dark:text-slate-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-slate-800"
+                      className="p-2 rounded-lg text-neutral-500 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-brand-black-deep"
                       title="View public page"
                     >
                       <Eye className="w-4 h-4" />
                     </a>
                     <button
                       onClick={() => handleDeleteProperty(p.id)}
-                      className="p-2 rounded-lg text-neutral-500 dark:text-slate-400 hover:text-rose-500 hover:bg-neutral-100 dark:hover:bg-slate-800"
+                      className="p-2 rounded-lg text-neutral-500 dark:text-white/60 hover:text-rose-500 hover:bg-neutral-100 dark:hover:bg-brand-black-deep cursor-pointer"
                       title="Delete listing"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -717,21 +717,21 @@ export const AdminView: React.FC = () => {
         {activeTab === 'apartments' && (
           <div className="space-y-6">
             <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">Serviced Apartments & Shortlets</h2>
-            <div className="divide-y divide-black/8 dark:divide-slate-800 bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
+            <div className="divide-y divide-black/8 dark:divide-white/10 bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
               {apartments.map(a => (
                 <div key={a.id} className="p-4 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <img src={a.mainImage} alt="" className="w-12 h-12 rounded-xl object-cover" />
                     <div>
                       <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm">{a.name}</h4>
-                      <p className="text-[11px] text-neutral-500 dark:text-slate-400">{a.location} • {formatNaira(a.pricePerNight)}/night</p>
+                      <p className="text-[11px] text-neutral-500 dark:text-white/60">{a.location} • {formatNaira(a.pricePerNight)}/night</p>
                     </div>
                   </div>
                   <a
                     href={`/shortlets/${a.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-neutral-500 dark:text-slate-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-slate-800"
+                    className="p-2 rounded-lg text-neutral-500 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-brand-black-deep"
                   >
                     <Eye className="w-4 h-4" />
                   </a>
@@ -745,21 +745,21 @@ export const AdminView: React.FC = () => {
         {activeTab === 'vehicles' && (
           <div className="space-y-6">
             <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">Luxury Vehicle Fleet</h2>
-            <div className="divide-y divide-black/8 dark:divide-slate-800 bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
+            <div className="divide-y divide-black/8 dark:divide-white/10 bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
               {vehicles.map(v => (
                 <div key={v.id} className="p-4 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <img src={v.mainImage} alt="" className="w-12 h-12 rounded-xl object-cover" />
                     <div>
                       <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm">{v.name}</h4>
-                      <p className="text-[11px] text-neutral-500 dark:text-slate-400">{v.category} • {formatNaira(v.dailyRate)}/day</p>
+                      <p className="text-[11px] text-neutral-500 dark:text-white/60">{v.category} • {formatNaira(v.dailyRate)}/day</p>
                     </div>
                   </div>
                   <a
                     href={`/cars/${v.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-neutral-500 dark:text-slate-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-slate-800"
+                    className="p-2 rounded-lg text-neutral-500 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-brand-black-deep"
                   >
                     <Eye className="w-4 h-4" />
                   </a>
@@ -771,62 +771,62 @@ export const AdminView: React.FC = () => {
 
         {/* TAB 6: SETTINGS */}
         {activeTab === 'settings' && (
-          <div className="max-w-xl bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+          <div className="max-w-xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
             <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-6">Company Information</h2>
             <form onSubmit={handleSaveSettings} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Company Name</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Company Name</label>
                 <input
                   type="text"
                   value={companyName}
                   onChange={e => setCompanyName(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Official Phone</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Official Phone</label>
                 <input
                   type="text"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Official WhatsApp</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Official WhatsApp</label>
                 <input
                   type="text"
                   value={whatsapp}
                   onChange={e => setWhatsapp(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Official Email</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Official Email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 dark:text-slate-400 mb-1">Physical Office Address</label>
+                <label className="block text-xs font-semibold text-neutral-700 dark:text-white/70 mb-1">Physical Office Address</label>
                 <textarea
                   rows={3}
                   value={address}
                   onChange={e => setAddress(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-amber-500"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2e] text-black font-bold text-xs uppercase tracking-wider transition-colors shadow-md"
+                className="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 Save Changes
               </button>

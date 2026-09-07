@@ -157,11 +157,11 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
   return (
     <div ref={pageRef} className="sa-catalogue sa-catalogue--properties min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       {/* Page Header Banner */}
-      <div className="sa-catalogue__masthead bg-white dark:bg-[#050505] border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
+      <div className="sa-catalogue__masthead bg-white dark:bg-brand-black-soft border-b border-black/8 dark:border-white/10 pt-10 pb-8 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-[11px] font-bold text-[#D4AF37] uppercase tracking-widest mb-1.5 font-mono">
+              <div className="flex items-center gap-2 text-[11px] font-bold text-brand-gold uppercase tracking-widest mb-1.5 font-mono">
                 <Building2 className="w-3.5 h-3.5" />
                 <span>Verified Lagos Properties</span>
               </div>
@@ -182,16 +182,16 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <button
                 id="prop-request-custom-btn"
                 onClick={() => openRequestModal({ service: listingType === 'rent' ? 'property_lease' : 'property_sale' })}
-                className="px-4 py-2.5 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/80 hover:text-neutral-900 dark:hover:text-white text-xs font-medium transition-colors"
+                className="px-4 py-2.5 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/80 hover:text-neutral-900 dark:hover:text-white text-xs font-medium transition-colors cursor-pointer"
               >
                 Can't find your property?
               </button>
               <button
                 id="prop-ai-filter-btn"
                 onClick={() => openAiModal('Help me find a property in Ajah')}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#D4AF37]/15 hover:bg-[#D4AF37]/25 border border-[#D4AF37]/30 text-[#D4AF37] text-xs font-semibold transition-all shadow-sm"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/30 text-brand-gold text-xs font-semibold transition-all shadow-sm cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-brand-gold animate-pulse" />
                 <span>AI Search Assistant</span>
               </button>
             </div>
@@ -202,7 +202,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Top Filter Bar */}
-        <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-2xl p-4 mb-8 shadow-sm dark:shadow-xl transition-colors">
+        <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-2xl p-4 mb-8 shadow-sm dark:shadow-xl transition-colors">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Search input */}
             <div className="relative flex-1">
@@ -212,12 +212,12 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
                 placeholder="Search by title, location, reference number (e.g. SA-AJH-001)..."
-                className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-[#D4AF37] transition-colors"
+                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-brand-gold transition-colors"
               />
               {keyword && (
                 <button
                   onClick={() => setKeyword('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900 dark:text-white/40 dark:hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-900 dark:text-white/40 dark:hover:text-white cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -227,27 +227,27 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
             {/* Desktop Filters Row */}
             <div className="hidden lg:flex items-center gap-3">
               {/* Type toggle: All, Buy, Rent */}
-              <div className="flex items-center bg-neutral-100 dark:bg-[#050505] p-1 rounded-full border border-black/10 dark:border-white/10 transition-colors">
+              <div className="flex items-center bg-neutral-100 dark:bg-brand-black-deep p-1 rounded-full border border-black/10 dark:border-white/10 transition-colors">
                 <button
                   onClick={() => setListingType('all')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    listingType === 'all' ? 'bg-[#D4AF37] text-black font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
+                    listingType === 'all' ? 'bg-brand-gold text-brand-black-deep font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
                   }`}
                 >
                   All
                 </button>
                 <button
                   onClick={() => setListingType('sale')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    listingType === 'sale' ? 'bg-[#D4AF37] text-black font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
+                    listingType === 'sale' ? 'bg-brand-gold text-brand-black-deep font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
                   }`}
                 >
                   For Sale
                 </button>
                 <button
                   onClick={() => setListingType('rent')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    listingType === 'rent' ? 'bg-[#D4AF37] text-black font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
+                    listingType === 'rent' ? 'bg-brand-gold text-brand-black-deep font-bold shadow-sm' : 'text-neutral-600 hover:text-neutral-900 dark:text-white/60 dark:hover:text-white'
                   }`}
                 >
                   For Rent
@@ -258,7 +258,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <select
                 value={area}
                 onChange={e => setArea(e.target.value)}
-                className="bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                className="bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
               >
                 {areasList.map(a => (
                   <option key={a.value} value={a.value}>{a.label}</option>
@@ -269,7 +269,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <select
                 value={propertyType}
                 onChange={e => setPropertyType(e.target.value)}
-                className="bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                className="bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
               >
                 {typesList.map(t => (
                   <option key={t.value} value={t.value}>{t.label}</option>
@@ -280,7 +280,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <select
                 value={bedrooms}
                 onChange={e => setBedrooms(e.target.value)}
-                className="bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                className="bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-full px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
               >
                 <option value="all">Any Beds</option>
                 <option value="2">2+ Beds</option>
@@ -295,7 +295,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <button
                 id="mobile-filters-trigger"
                 onClick={() => setMobileFilterOpen(true)}
-                className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black/5 dark:bg-white/10 text-neutral-800 dark:text-neutral-200 text-xs font-medium"
+                className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black/5 dark:bg-white/10 text-neutral-800 dark:text-neutral-200 text-xs font-medium cursor-pointer"
               >
                 <SlidersHorizontal className="w-4 h-4" />
                 <span>Filters {hasActiveFilters && '(Active)'}</span>
@@ -307,7 +307,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 <select
                   value={sortBy}
                   onChange={e => setSortBy(e.target.value as any)}
-                  className="bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                  className="bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
                 >
                   <option value="featured">Featured First</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -317,12 +317,12 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               </div>
 
               {/* Layout Toggle */}
-              <div className="flex items-center bg-neutral-100 dark:bg-[#050505] p-1 rounded-xl border border-black/10 dark:border-white/10">
+              <div className="flex items-center bg-neutral-100 dark:bg-brand-black-deep p-1 rounded-xl border border-black/10 dark:border-white/10">
                 <button
                   onClick={() => setLayout('grid')}
                   aria-label="Grid layout"
-                  className={`p-1.5 rounded-lg transition-colors ${
-                    layout === 'grid' ? 'bg-white dark:bg-neutral-800 text-[#D4AF37] shadow-sm' : 'text-neutral-500 dark:text-white/40 hover:text-neutral-900 dark:hover:text-white'
+                  className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                    layout === 'grid' ? 'bg-white dark:bg-brand-black-graphite text-brand-gold shadow-sm' : 'text-neutral-500 dark:text-white/40 hover:text-neutral-900 dark:hover:text-white'
                   }`}
                 >
                   <LayoutGrid className="w-4 h-4" />
@@ -330,8 +330,8 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 <button
                   onClick={() => setLayout('list')}
                   aria-label="List layout"
-                  className={`p-1.5 rounded-lg transition-colors ${
-                    layout === 'list' ? 'bg-white dark:bg-neutral-800 text-[#D4AF37] shadow-sm' : 'text-neutral-500 dark:text-white/40 hover:text-neutral-900 dark:hover:text-white'
+                  className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                    layout === 'list' ? 'bg-white dark:bg-brand-black-graphite text-brand-gold shadow-sm' : 'text-neutral-500 dark:text-white/40 hover:text-neutral-900 dark:hover:text-white'
                   }`}
                 >
                   <List className="w-4 h-4" />
@@ -345,38 +345,38 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
             <div className="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-black/8 dark:border-white/10 text-xs">
               <span className="text-neutral-500 dark:text-neutral-400 font-medium">Active Filters:</span>
               {listingType !== 'all' && (
-                <span className="bg-black/5 dark:bg-white/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                <span className="bg-black/5 dark:bg-white/10 text-brand-gold border border-brand-gold/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
                   Type: {listingType === 'sale' ? 'Sale' : 'Rent'}
                   <X className="w-3 h-3 cursor-pointer" onClick={() => setListingType('all')} />
                 </span>
               )}
               {area !== 'all' && (
-                <span className="bg-black/5 dark:bg-white/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                <span className="bg-black/5 dark:bg-white/10 text-brand-gold border border-brand-gold/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
                   Location: {area}
                   <X className="w-3 h-3 cursor-pointer" onClick={() => setArea('all')} />
                 </span>
               )}
               {propertyType !== 'all' && (
-                <span className="bg-black/5 dark:bg-white/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                <span className="bg-black/5 dark:bg-white/10 text-brand-gold border border-brand-gold/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
                   Property: {propertyType}
                   <X className="w-3 h-3 cursor-pointer" onClick={() => setPropertyType('all')} />
                 </span>
               )}
               {bedrooms !== 'all' && (
-                <span className="bg-black/5 dark:bg-white/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                <span className="bg-black/5 dark:bg-white/10 text-brand-gold border border-brand-gold/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
                   {bedrooms}+ Bedrooms
                   <X className="w-3 h-3 cursor-pointer" onClick={() => setBedrooms('all')} />
                 </span>
               )}
               {keyword && (
-                <span className="bg-black/5 dark:bg-white/10 text-[#D4AF37] border border-[#D4AF37]/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                <span className="bg-black/5 dark:bg-white/10 text-brand-gold border border-brand-gold/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
                   Keyword: "{keyword}"
                   <X className="w-3 h-3 cursor-pointer" onClick={() => setKeyword('')} />
                 </span>
               )}
               <button
                 onClick={resetFilters}
-                className="text-xs text-rose-500 hover:underline flex items-center gap-1 ml-auto"
+                className="text-xs text-rose-500 hover:underline flex items-center gap-1 ml-auto cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Reset All Filters</span>
@@ -396,11 +396,11 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-80 rounded-2xl bg-neutral-200 dark:bg-[#111111] animate-pulse border border-black/5 dark:border-white/5" />
+              <div key={i} className="h-80 rounded-2xl bg-neutral-200 dark:bg-brand-black-soft animate-pulse border border-black/5 dark:border-white/5" />
             ))}
           </div>
         ) : loadError ? (
-          <div className="py-20 text-center bg-white dark:bg-[#111111] rounded-3xl border border-rose-500/20 p-8 shadow-sm dark:shadow-none">
+          <div className="py-20 text-center bg-white dark:bg-brand-black-soft rounded-3xl border border-rose-500/20 p-8 shadow-sm dark:shadow-none">
             <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
             <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-2">
               Unable to load listings
@@ -410,14 +410,14 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
             </p>
             <button
               onClick={fetchProperties}
-              className="px-5 py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold uppercase tracking-wider shadow-sm transition-colors"
+              className="px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
             >
               Retry Loading
             </button>
           </div>
         ) : filteredProperties.length === 0 ? (
-          <div className="py-20 text-center bg-white dark:bg-[#111111] rounded-3xl border border-black/8 dark:border-white/10 p-8 shadow-sm dark:shadow-none">
-            <Building2 className="w-12 h-12 text-[#D4AF37]/50 mx-auto mb-4" />
+          <div className="py-20 text-center bg-white dark:bg-brand-black-soft rounded-3xl border border-black/8 dark:border-white/10 p-8 shadow-sm dark:shadow-none">
+            <Building2 className="w-12 h-12 text-brand-gold/50 mx-auto mb-4" />
             <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-2">
               No matching properties found
             </h3>
@@ -427,13 +427,13 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
             <div className="flex flex-wrap items-center justify-center gap-3">
               <button
                 onClick={resetFilters}
-                className="px-4 py-2 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white text-xs font-semibold"
+                className="px-4 py-2 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white text-xs font-semibold cursor-pointer"
               >
                 Clear All Filters
               </button>
               <button
                 onClick={() => openRequestModal()}
-                className="px-4 py-2 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black text-xs font-bold uppercase tracking-wider shadow-sm"
+                className="px-4 py-2 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep text-xs font-bold uppercase tracking-wider shadow-sm cursor-pointer"
               >
                 Request Custom Property
               </button>
@@ -458,17 +458,17 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
       {mobileFilterOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 dark:bg-black/80 backdrop-blur-sm lg:hidden animate-in fade-in duration-200">
           <div
-            className="w-full bg-white dark:bg-[#111111] border-t sm:border border-black/8 dark:border-white/10 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-200"
+            className="w-full bg-white dark:bg-brand-black-soft border-t sm:border border-black/8 dark:border-white/10 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom duration-200"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-black/8 dark:border-white/10 mb-6">
               <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-[#D4AF37]" />
+                <SlidersHorizontal className="w-4 h-4 text-brand-gold" />
                 Filter Properties
               </h3>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="p-1 text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                className="p-1 text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -483,10 +483,10 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                     <button
                       key={t}
                       onClick={() => setListingType(t)}
-                      className={`py-2 text-xs rounded-xl border transition-colors ${
+                      className={`py-2 text-xs rounded-xl border transition-colors cursor-pointer ${
                         listingType === t
-                          ? 'bg-[#D4AF37] text-black font-bold border-[#D4AF37]'
-                          : 'bg-neutral-100 dark:bg-[#050505] text-neutral-700 dark:text-neutral-300 border-black/10 dark:border-white/10'
+                          ? 'bg-brand-gold text-brand-black-deep font-bold border-brand-gold'
+                          : 'bg-neutral-100 dark:bg-brand-black-deep text-neutral-700 dark:text-neutral-300 border-black/10 dark:border-white/10'
                       }`}
                     >
                       {t === 'all' ? 'All' : t === 'sale' ? 'For Sale' : 'For Rent'}
@@ -501,7 +501,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 <select
                   value={area}
                   onChange={e => setArea(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 >
                   {areasList.map(a => (
                     <option key={a.value} value={a.value}>{a.label}</option>
@@ -515,7 +515,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 <select
                   value={propertyType}
                   onChange={e => setPropertyType(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 >
                   {typesList.map(t => (
                     <option key={t.value} value={t.value}>{t.label}</option>
@@ -529,7 +529,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
                 <select
                   value={bedrooms}
                   onChange={e => setBedrooms(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                 >
                   <option value="all">Any Bedrooms</option>
                   <option value="1">1+ Bedroom</option>
@@ -543,13 +543,13 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
               <div className="pt-4 flex items-center gap-3">
                 <button
                   onClick={resetFilters}
-                  className="flex-1 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-700 dark:text-neutral-300 text-xs font-medium transition-colors"
+                  className="flex-1 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-700 dark:text-neutral-300 text-xs font-medium transition-colors cursor-pointer"
                 >
                   Reset
                 </button>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
-                  className="flex-1 py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+                  className="flex-1 py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
                 >
                   Show Results ({filteredProperties.length})
                 </button>

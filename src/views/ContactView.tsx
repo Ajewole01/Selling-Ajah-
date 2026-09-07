@@ -93,12 +93,12 @@ export const ContactView: React.FC = () => {
     <div ref={pageRef} className="sa-editorial-page sa-contact min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-24 transition-colors duration-200">
       
       {/* Header Banner */}
-      <section className="pt-16 pb-14 border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#080808] transition-colors">
+      <section className="pt-16 pb-14 border-b border-black/8 dark:border-white/10 bg-white dark:bg-brand-black-deep transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3 font-mono">
-              <span className="w-6 h-[1.5px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
+              <span className="w-6 h-[1.5px] bg-brand-gold" />
+              <span className="text-xs font-bold uppercase tracking-widest text-brand-gold">
                 Connect With Selling Ajah
               </span>
             </div>
@@ -118,7 +118,7 @@ export const ContactView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           {/* 1. Priority WhatsApp Card */}
-          <div className="bg-white dark:bg-[#111111] border border-emerald-500/40 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
+          <div className="bg-white dark:bg-brand-black-soft border border-emerald-500/40 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
                 <MessageSquare className="w-6 h-6" />
@@ -139,7 +139,7 @@ export const ContactView: React.FC = () => {
               href={whatsappDirectUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md shadow-emerald-600/20 font-mono"
+              className="w-full py-3 px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md shadow-emerald-600/20 font-mono cursor-pointer"
             >
               <MessageSquare className="w-4 h-4" />
               <span>Message on WhatsApp</span>
@@ -147,9 +147,9 @@ export const ContactView: React.FC = () => {
           </div>
 
           {/* 2. Direct Call Card */}
-          <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
+          <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold mb-4">
                 <PhoneCall className="w-6 h-6" />
               </div>
               <span className="text-[10px] font-bold font-mono uppercase tracking-widest text-neutral-500 dark:text-white/50 block mb-1">
@@ -166,18 +166,18 @@ export const ContactView: React.FC = () => {
             <a
               id="contact-phone-btn"
               href={`tel:${settings.phone}`}
-              className="w-full py-3 px-4 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors font-mono"
+              className="w-full py-3 px-4 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors font-mono cursor-pointer"
             >
-              <Phone className="w-4 h-4 text-[#D4AF37]" />
+              <Phone className="w-4 h-4 text-brand-gold" />
               <span>{settings.phone}</span>
             </a>
           </div>
 
           {/* 3. Office & Location Card */}
-          <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
+          <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-black/5 dark:bg-white/10 border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-700 dark:text-white/80 mb-4">
-                <MapPin className="w-6 h-6 text-[#D4AF37]" />
+                <MapPin className="w-6 h-6 text-brand-gold" />
               </div>
               <span className="text-[10px] font-bold font-mono uppercase tracking-widest text-neutral-500 dark:text-white/50 block mb-1">
                 Office Location
@@ -201,7 +201,7 @@ export const ContactView: React.FC = () => {
           
           {/* Left Context Narrative */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] font-mono">
+            <div className="text-xs uppercase font-bold tracking-widest text-brand-gold font-mono">
               Private Inquiry Desk
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white leading-tight">
@@ -211,24 +211,24 @@ export const ContactView: React.FC = () => {
               Whether you wish to schedule an on-site property inspection, request virtual video footage for diaspora acquisition, or inquire about extended stays, submit your details below.
             </p>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 space-y-4">
+            <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 space-y-4">
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                 <span>Prompt callback from a designated Ajah advisor</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                 <span>Complete confidentiality for private acquisitions</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                 <span>Digital brochures and coordinates sent via WhatsApp/Email</span>
               </div>
             </div>
           </div>
 
           {/* Right: Clean, Focused Inquiry Form */}
-          <div className="lg:col-span-7 bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-8 sm:p-10 shadow-sm">
+          <div className="lg:col-span-7 bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-8 sm:p-10 shadow-sm">
             {submitted ? (
               <div className="py-12 text-center space-y-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center">
@@ -242,7 +242,7 @@ export const ContactView: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="px-6 py-2.5 rounded-full bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider font-mono"
+                  className="px-6 py-2.5 rounded-full bg-brand-gold text-brand-black-deep font-bold text-xs uppercase tracking-wider font-mono cursor-pointer"
                 >
                   Send Another Inquiry
                 </button>
@@ -260,7 +260,7 @@ export const ContactView: React.FC = () => {
                       value={name}
                       onChange={e => setName(e.target.value)}
                       placeholder="e.g. Adeyemi Adeleke"
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
                     />
                   </div>
 
@@ -274,7 +274,7 @@ export const ContactView: React.FC = () => {
                       value={phone}
                       onChange={e => setPhone(e.target.value)}
                       placeholder="e.g. +234 801 234 5678"
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
                     />
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export const ContactView: React.FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="e.g. adeyemi@example.com"
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
                     />
                   </div>
 
@@ -300,7 +300,7 @@ export const ContactView: React.FC = () => {
                     <select
                       value={service}
                       onChange={e => setService(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
                     >
                       <option value="property_sale">Buying a Property</option>
                       <option value="property_lease">Renting a Property</option>
@@ -320,7 +320,7 @@ export const ContactView: React.FC = () => {
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     placeholder="Tell us about the property, preferred neighborhood (e.g. Badore, Abraham Adesanya), budget, or inspection timeline..."
-                    className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37] transition-colors resize-none"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors resize-none"
                   />
                 </div>
 
@@ -328,7 +328,7 @@ export const ContactView: React.FC = () => {
                   id="submit-contact-form-btn"
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3.5 px-6 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-md shadow-[#D4AF37]/20 disabled:opacity-50 cursor-pointer font-mono"
+                  className="w-full py-3.5 px-6 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-md shadow-brand-gold/20 disabled:opacity-50 cursor-pointer font-mono"
                 >
                   {submitting ? (
                     <>
@@ -351,7 +351,7 @@ export const ContactView: React.FC = () => {
         {faqs.length > 0 && (
           <div className="pt-12 border-t border-black/8 dark:border-white/10 max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] mb-2 font-mono">
+              <div className="text-xs uppercase font-bold tracking-widest text-brand-gold mb-2 font-mono">
                 Clarifications & Guidance
               </div>
               <h2 className="font-serif text-3xl font-light text-neutral-900 dark:text-white">
@@ -365,7 +365,7 @@ export const ContactView: React.FC = () => {
                 return (
                   <div
                     key={faq.id}
-                    className="rounded-2xl border border-black/8 dark:border-white/10 bg-white dark:bg-[#111111] overflow-hidden transition-colors"
+                    className="rounded-2xl border border-black/8 dark:border-white/10 bg-white dark:bg-brand-black-soft overflow-hidden transition-colors"
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
@@ -375,7 +375,7 @@ export const ContactView: React.FC = () => {
                         {faq.question}
                       </span>
                       {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                        <ChevronUp className="w-4 h-4 text-brand-gold shrink-0" />
                       ) : (
                         <ChevronDown className="w-4 h-4 text-neutral-400 shrink-0" />
                       )}

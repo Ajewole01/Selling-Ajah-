@@ -98,7 +98,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-primary flex flex-col font-sans selection:bg-[#D4AF37] selection:text-black transition-colors duration-200">
+    <div className="min-h-screen bg-canvas text-primary flex flex-col font-sans selection:bg-brand-gold selection:text-brand-black-deep transition-colors duration-200">
       {/* Global Navbar */}
       <Navbar />
 
@@ -115,17 +115,17 @@ const AppContent: React.FC = () => {
       >
         {/* Desktop Teaser Card */}
         {!teaserDismissed && (
-          <div className="hidden md:flex flex-col bg-white dark:bg-[#1A1A1A] border border-black/10 dark:border-white/10 rounded-2xl p-4 w-72 shadow-2xl shadow-black/10 dark:shadow-black relative animate-in fade-in slide-in-from-bottom-3 duration-300">
+          <div className="hidden md:flex flex-col bg-white dark:bg-brand-black-soft border border-black/10 dark:border-brand-gold/20 rounded-2xl p-4 w-72 shadow-2xl shadow-black/10 dark:shadow-black relative animate-in fade-in slide-from-bottom-3 duration-300">
             <button
               onClick={() => setTeaserDismissed(true)}
-              className="absolute top-3 right-3 text-neutral-400 hover:text-neutral-900 dark:text-white/40 dark:hover:text-white transition-colors"
+              className="absolute top-3 right-3 text-neutral-400 hover:text-neutral-900 dark:text-white/40 dark:hover:text-white transition-colors cursor-pointer"
               aria-label="Close teaser"
             >
               <X className="w-3.5 h-3.5" />
             </button>
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37]">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-brand-gold font-mono">
                 AI Property Assistant
               </span>
             </div>
@@ -138,12 +138,12 @@ const AppContent: React.FC = () => {
                 value={teaserInput}
                 onChange={e => setTeaserInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="bg-neutral-100 dark:bg-black/40 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-1.5 text-xs flex-1 outline-none text-neutral-900 dark:text-[#F5F5F0] placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-[#D4AF37] transition-colors"
+                className="bg-neutral-100 dark:bg-black/40 border border-neutral-200 dark:border-white/10 rounded-lg px-3 py-1.5 text-xs flex-1 outline-none text-neutral-900 dark:text-brand-text-light placeholder:text-neutral-400 dark:placeholder:text-white/40 focus:border-brand-gold transition-colors"
               />
               <button
                 type="submit"
                 aria-label="Submit query"
-                className="bg-[#D4AF37] text-black px-2.5 py-1.5 rounded-lg hover:bg-[#c49f2e] transition-colors flex items-center justify-center font-bold"
+                className="bg-brand-gold text-brand-black-deep px-2.5 py-1.5 rounded-lg hover:bg-brand-gold-deep transition-colors flex items-center justify-center font-bold cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5" />
               </button>
@@ -156,7 +156,7 @@ const AppContent: React.FC = () => {
           id="floating-ai-advisor-trigger"
           onClick={() => openAiModal()}
           aria-label="Open AI Property Assistant"
-          className="w-13 h-13 sm:w-14 sm:h-14 bg-neutral-900 text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center shadow-2xl cursor-pointer border-4 border-neutral-100 dark:border-[#050505] hover:bg-[#D4AF37] hover:text-black dark:hover:bg-[#D4AF37] dark:hover:text-black transition-all hover:scale-105 active:scale-95 group shrink-0"
+          className="w-13 h-13 sm:w-14 sm:h-14 bg-neutral-900 text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center shadow-2xl cursor-pointer border-4 border-neutral-100 dark:border-brand-black-deep hover:bg-brand-gold hover:text-brand-black-deep dark:hover:bg-brand-gold dark:hover:text-brand-black-deep transition-all hover:scale-105 active:scale-95 group shrink-0"
         >
           <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 fill-current transition-transform group-hover:scale-110" />
         </button>

@@ -120,8 +120,8 @@ export const ServicesView: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3 font-mono">
-              <span className="w-6 h-[1.5px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">
+              <span className="w-6 h-[1.5px] bg-brand-gold" />
+              <span className="text-xs font-bold uppercase tracking-widest text-brand-gold">
                 Comprehensive Portfolio
               </span>
             </div>
@@ -150,12 +150,12 @@ export const ServicesView: React.FC = () => {
                   onClick={() => setActiveServiceIndex(idx)}
                   className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 cursor-pointer ${
                     isSelected
-                      ? 'bg-white dark:bg-[#111111] border-[#D4AF37] shadow-xl dark:shadow-none ring-1 ring-[#D4AF37]/30'
-                      : 'bg-transparent hover:bg-white/60 dark:hover:bg-[#111111]/60 border-black/8 dark:border-white/10'
+                      ? 'bg-white dark:bg-brand-black-soft border-brand-gold shadow-xl dark:shadow-none ring-1 ring-brand-gold/30'
+                      : 'bg-transparent hover:bg-white/60 dark:hover:bg-brand-black-soft/60 border-black/8 dark:border-white/10'
                   }`}
                 >
                   <div className="flex items-baseline gap-4 mb-2">
-                    <span className="font-mono text-base sm:text-lg font-bold text-[#D4AF37]">
+                    <span className="font-mono text-base sm:text-lg font-bold text-brand-gold">
                       {srv.num}
                     </span>
                     <div className="flex-1">
@@ -165,11 +165,11 @@ export const ServicesView: React.FC = () => {
                         </span>
                         <ArrowUpRight
                           className={`w-4 h-4 transition-transform duration-300 ${
-                            isSelected ? 'text-[#D4AF37] translate-x-0.5 -translate-y-0.5' : 'text-neutral-400 opacity-40'
+                            isSelected ? 'text-brand-gold translate-x-0.5 -translate-y-0.5' : 'text-neutral-400 opacity-40'
                           }`}
                         />
                       </div>
-                      <h2 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#D4AF37] transition-colors">
+                      <h2 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold transition-colors">
                         {srv.title}
                       </h2>
                     </div>
@@ -190,7 +190,7 @@ export const ServicesView: React.FC = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 dark:text-white/80">
                         {srv.deliverables.map((d, dIdx) => (
                           <div key={dIdx} className="flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
                             <span>{d}</span>
                           </div>
                         ))}
@@ -202,7 +202,7 @@ export const ServicesView: React.FC = () => {
                             e.stopPropagation();
                             srv.action();
                           }}
-                          className="px-5 py-2.5 rounded-full bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-wider transition-colors shadow-md shadow-[#D4AF37]/20 flex items-center gap-2 font-mono"
+                          className="px-5 py-2.5 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md shadow-brand-gold/20 flex items-center gap-2 font-mono"
                         >
                           <span>{srv.actionLabel}</span>
                           <ArrowRight className="w-3.5 h-3.5" />
@@ -234,7 +234,7 @@ export const ServicesView: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
               <div className="absolute bottom-6 left-6 right-6 text-white">
-                <div className="text-xs uppercase font-bold tracking-widest text-[#D4AF37] mb-1 font-mono">
+                <div className="text-xs uppercase font-bold tracking-widest text-brand-gold mb-1 font-mono">
                   {activeService.num} // {activeService.category}
                 </div>
                 <h3 className="font-serif text-2xl font-bold mb-2">
@@ -251,9 +251,9 @@ export const ServicesView: React.FC = () => {
 
       {/* Direct Advisory Desk Banner */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-neutral-100 dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-neutral-100 dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-widest block mb-1 font-mono">
+            <span className="text-brand-gold text-xs font-bold uppercase tracking-widest block mb-1 font-mono">
               Direct Engagement
             </span>
             <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-1">

@@ -73,13 +73,13 @@ export const CustomPropertyRequestModal: React.FC = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="w-full max-w-lg bg-white dark:bg-[#111111] border border-black/10 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200"
+        className="w-full max-w-lg bg-white dark:bg-brand-black border border-black/10 dark:border-brand-gold/20 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-black/8 dark:border-white/10 flex items-center justify-between bg-neutral-50 dark:bg-black/50">
+        <div className="p-5 sm:p-6 border-b border-black/8 dark:border-white/10 flex items-center justify-between bg-neutral-50 dark:bg-brand-black-deep">
           <div>
-            <div className="flex items-center gap-1.5 text-xs text-[#D4AF37] font-semibold uppercase tracking-wider mb-1">
+            <div className="flex items-center gap-1.5 text-xs text-brand-gold font-semibold uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Bespoke Property Sourcing</span>
             </div>
@@ -120,7 +120,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="e.g., Tunde Adeleke"
-                    className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-[#D4AF37] outline-none"
+                    className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-brand-gold outline-none"
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     placeholder="+234 800 000 0000"
-                    className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-[#D4AF37] outline-none"
+                    className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-brand-gold outline-none"
                   />
                 </div>
               </div>
@@ -144,7 +144,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-[#D4AF37] outline-none"
+                  className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-brand-gold outline-none"
                 />
               </div>
 
@@ -154,7 +154,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   <select
                     value={service}
                     onChange={e => setService(e.target.value)}
-                    className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-[#D4AF37] outline-none"
+                    className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
                   >
                     <option value="property_sale" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Buy Property</option>
                     <option value="property_lease" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Rent / Lease</option>
@@ -169,7 +169,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   <select
                     value={location}
                     onChange={e => setLocation(e.target.value)}
-                    className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-[#D4AF37] outline-none"
+                    className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
                   >
                     <option value="Ajah" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Ajah</option>
                     <option value="Abraham Adesanya" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">Abraham Adesanya</option>
@@ -187,7 +187,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   <select
                     value={bedrooms}
                     onChange={e => setBedrooms(e.target.value)}
-                    className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-[#D4AF37] outline-none"
+                    className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
                   >
                     <option value="1" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">1 Bedroom / Studio</option>
                     <option value="2" className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white">2 Bedrooms</option>
@@ -206,7 +206,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   value={budget}
                   onChange={e => setBudget(e.target.value)}
                   placeholder="e.g., ₦120,000,000 or ₦5,000,000/yr"
-                  className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-[#D4AF37] outline-none"
+                  className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-brand-gold outline-none"
                 />
               </div>
 
@@ -217,7 +217,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                   value={message}
                   onChange={e => setMessage(e.target.value)}
                   placeholder="e.g., Swimming pool, cinema, BQ, Governor's Consent, close to Lekki expressway..."
-                  className="w-full bg-neutral-50 dark:bg-black/60 border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-[#D4AF37] outline-none resize-none"
+                  className="w-full bg-neutral-50 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 focus:border-brand-gold outline-none resize-none"
                 />
               </div>
 
@@ -225,7 +225,7 @@ export const CustomPropertyRequestModal: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-gold-deep via-brand-gold to-brand-gold-deep hover:brightness-110 text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-brand-gold/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {submitting ? (
                     <>

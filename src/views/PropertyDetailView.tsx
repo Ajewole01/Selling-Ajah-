@@ -88,7 +88,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
     return (
       <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] flex items-center justify-center text-neutral-500 dark:text-white/50">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-[#D4AF37]" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand-gold" />
           <p className="text-xs uppercase tracking-widest font-semibold">Curating Property Dossier...</p>
         </div>
       </div>
@@ -97,7 +97,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] flex items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center p-6 text-center">
         <div className="max-w-md">
           <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-2">Property Not Found</h2>
           <p className="text-xs text-neutral-600 dark:text-white/60 mb-6 font-light">
@@ -105,7 +105,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
           </p>
           <button
             onClick={() => navigate('/properties')}
-            className="px-5 py-2.5 rounded-xl bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider shadow-sm"
+            className="px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
           >
             Browse All Properties
           </button>
@@ -189,20 +189,20 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
       : loanPrincipal / totalMonths;
 
   return (
-    <div ref={pageRef} className="sa-detail sa-detail--property min-h-screen bg-[#FAF9F5] dark:bg-[#050505] text-neutral-900 dark:text-[#F5F5F0] pb-28 transition-colors duration-200">
+    <div ref={pageRef} className="sa-detail sa-detail--property min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep text-neutral-900 dark:text-neutral-100 pb-28 transition-colors duration-200">
       {/* Back breadcrumb */}
-      <div className="border-b border-black/8 dark:border-white/10 bg-white dark:bg-[#0a0a0a] py-3.5 transition-colors">
+      <div className="border-b border-black/8 dark:border-white/10 bg-white dark:bg-brand-black-deep py-3.5 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-white/60">
           <button
             onClick={() => navigate('/properties')}
-            className="flex items-center gap-1.5 hover:text-[#D4AF37] dark:hover:text-[#D4AF37] transition-colors font-medium"
+            className="flex items-center gap-1.5 hover:text-brand-gold dark:hover:text-brand-gold transition-colors font-medium"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Back to all properties</span>
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] text-[#D4AF37] bg-black/5 dark:bg-white/5 px-2.5 py-0.5 rounded-full border border-[#D4AF37]/30">
+            <span className="font-mono text-[11px] text-brand-gold bg-black/5 dark:bg-white/5 px-2.5 py-0.5 rounded-full border border-brand-gold/30">
               REF: {property.refNumber}
             </span>
           </div>
@@ -215,7 +215,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className={`text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider ${
-                property.listingType === 'sale' ? 'bg-[#D4AF37] text-black shadow-sm' : 'bg-emerald-600 text-white shadow-sm'
+                property.listingType === 'sale' ? 'bg-brand-gold text-brand-black-deep shadow-sm' : 'bg-emerald-600 text-white shadow-sm'
               }`}>
                 {property.listingType === 'sale' ? 'For Sale' : 'For Rent'}
               </span>
@@ -235,7 +235,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
             </h1>
 
             <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-600 dark:text-white/60 font-light">
-              <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0" />
+              <MapPin className="w-4 h-4 text-brand-gold shrink-0" />
               <span>{property.location}</span>
             </div>
           </div>
@@ -247,7 +247,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               className={`p-3 rounded-2xl border transition-all flex items-center gap-2 text-xs font-semibold ${
                 liked
                   ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-600/60 text-rose-600 dark:text-rose-400'
-                  : 'bg-white dark:bg-[#111111] border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/70 hover:text-neutral-900 dark:hover:text-white shadow-sm'
+                  : 'bg-white dark:bg-brand-black-soft border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/70 hover:text-neutral-900 dark:hover:text-white shadow-sm'
               }`}
             >
               <Heart className={`w-4 h-4 ${liked ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -257,9 +257,9 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
             <button
               id="property-share-btn"
               onClick={() => setIsShareModalOpen(true)}
-              className="p-3 rounded-2xl bg-white dark:bg-[#111111] border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/70 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm cursor-pointer"
+              className="p-3 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white/70 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm cursor-pointer"
             >
-              <Share2 className="w-4 h-4 text-[#D4AF37]" />
+              <Share2 className="w-4 h-4 text-brand-gold" />
               <span className="hidden sm:inline">Share</span>
             </button>
           </div>
@@ -309,7 +309,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                   onClick={() => setActiveImageIndex(idx)}
                   className={`w-20 h-14 sm:w-24 sm:h-16 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
                     activeImageIndex === idx
-                      ? 'border-[#D4AF37] scale-105 shadow-md'
+                      ? 'border-brand-gold scale-105 shadow-md'
                       : 'border-transparent opacity-60 hover:opacity-100'
                   }`}
                 >
@@ -325,9 +325,9 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
           {/* Left 2 Columns: Specs, Description, Features, Legal, Calculator */}
           <div className="lg:col-span-2 space-y-10">
             {/* Quick Key Specs Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Bed className="w-5 h-5" />
                 </div>
                 <div>
@@ -337,7 +337,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Bath className="w-5 h-5" />
                 </div>
                 <div>
@@ -347,7 +347,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Car className="w-5 h-5" />
                 </div>
                 <div>
@@ -357,7 +357,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Building className="w-5 h-5" />
                 </div>
                 <div>
@@ -370,7 +370,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
             </div>
 
             {/* Description */}
-            <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-4">
                 Property Overview
               </h3>
@@ -381,7 +381,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
 
             {/* Features / Amenities list */}
             {property.features && property.features.length > 0 && (
-              <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+              <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
                 <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-6">
                   Key Features & Amenities
                 </h3>
@@ -389,9 +389,9 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                   {property.features.map((feat, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 dark:bg-[#050505] border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-white/80"
+                      className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 dark:bg-brand-black-deep border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-white/80"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -400,9 +400,9 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
             )}
 
             {/* Title & Conveyancing Information */}
-            <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/25 flex items-center justify-center text-[#D4AF37] shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/25 flex items-center justify-center text-brand-gold shrink-0">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
@@ -423,9 +423,9 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
 
             {/* Interactive Payment / Mortgage Calculator */}
             {property.listingType === 'sale' && (
-              <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+              <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
                 <div className="flex items-center gap-2 mb-6">
-                  <Calculator className="w-5 h-5 text-[#D4AF37]" />
+                  <Calculator className="w-5 h-5 text-brand-gold" />
                   <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white">
                     Mortgage & Equity Calculator
                   </h3>
@@ -439,7 +439,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                     <select
                       value={downPaymentPercent}
                       onChange={e => setDownPaymentPercent(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                     >
                       <option value={10}>10% - {formatNaira((property.price * 10) / 100)}</option>
                       <option value={20}>20% - {formatNaira((property.price * 20) / 100)}</option>
@@ -455,7 +455,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                     <select
                       value={mortgageYears}
                       onChange={e => setMortgageYears(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                     >
                       <option value={5}>5 Years (60 Months)</option>
                       <option value={10}>10 Years (120 Months)</option>
@@ -472,24 +472,24 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                       type="number"
                       value={interestRate}
                       onChange={e => setInterestRate(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                     />
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-[#050505] border border-black/8 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="p-5 rounded-2xl bg-neutral-50 dark:bg-brand-black-deep border border-black/8 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div>
                     <span className="text-xs text-neutral-500 dark:text-white/50 block mb-0.5 font-medium">Estimated Monthly Commitment</span>
-                    <div className="text-2xl font-serif font-bold text-[#D4AF37]">
+                    <div className="text-2xl font-serif font-bold text-brand-gold">
                       {formatNaira(Math.round(monthlyPayment))}
                       <span className="text-xs font-sans text-neutral-500 dark:text-white/50 font-normal"> / month</span>
                     </div>
                   </div>
                   <button
                     onClick={() => openAiModal(`Can you explain the payment structure and options for ${property.title}?`)}
-                    className="text-xs bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-[#D4AF37] px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-colors font-medium border border-black/5 dark:border-transparent cursor-pointer"
+                    className="text-xs bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-brand-gold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-colors font-medium border border-black/5 dark:border-transparent cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+                    <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
                     <span>Ask AI About Payment Plans</span>
                   </button>
                 </div>
@@ -527,16 +527,16 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                 {/* Direct Phone Call */}
                 <a
                   href={`tel:${settings.phone.replace(/[^0-9+]/g, '')}`}
-                  className="w-full py-3 px-4 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors mb-6 border border-black/5 dark:border-transparent"
+                  className="w-full py-3 px-4 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors mb-6 border border-black/5 dark:border-transparent cursor-pointer"
                 >
-                  <Phone className="w-4 h-4 text-[#D4AF37]" />
+                  <Phone className="w-4 h-4 text-brand-gold" />
                   <span>Call: {settings.phone}</span>
                 </a>
 
                 {/* Inspection Booking Form */}
                 <div className="pt-6 border-t border-black/8 dark:border-white/10">
                   <h4 className="font-serif text-base font-bold text-neutral-900 dark:text-white mb-2 flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-[#D4AF37]" />
+                    <Calendar className="w-4 h-4 text-brand-gold" />
                     Book an Inspection
                   </h4>
                   <p className="text-xs text-neutral-500 dark:text-white/50 mb-4 font-light">
@@ -560,8 +560,8 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                           onClick={() => setInspectionType('physical')}
                           className={`py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
                             inspectionType === 'physical'
-                              ? 'bg-[#D4AF37] text-black border-[#D4AF37] font-bold shadow-sm'
-                              : 'bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/60 border-black/10 dark:border-white/10'
+                              ? 'bg-brand-gold text-brand-black-deep border-brand-gold font-bold shadow-sm'
+                              : 'bg-neutral-100 dark:bg-brand-black-deep text-neutral-600 dark:text-white/60 border-black/10 dark:border-white/10'
                           }`}
                         >
                           <MapPin className="w-3.5 h-3.5" />
@@ -572,8 +572,8 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                           onClick={() => setInspectionType('video')}
                           className={`py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
                             inspectionType === 'video'
-                              ? 'bg-[#D4AF37] text-black border-[#D4AF37] font-bold shadow-sm'
-                              : 'bg-neutral-100 dark:bg-[#050505] text-neutral-600 dark:text-white/60 border-black/10 dark:border-white/10'
+                              ? 'bg-brand-gold text-brand-black-deep border-brand-gold font-bold shadow-sm'
+                              : 'bg-neutral-100 dark:bg-brand-black-deep text-neutral-600 dark:text-white/60 border-black/10 dark:border-white/10'
                           }`}
                         >
                           <Video className="w-3.5 h-3.5" />
@@ -587,7 +587,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                         placeholder="Your Full Name"
                         value={inspectionName}
                         onChange={e => setInspectionName(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                        className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                       />
 
                       <input
@@ -596,20 +596,20 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                         placeholder="WhatsApp Phone Number"
                         value={inspectionPhone}
                         onChange={e => setInspectionPhone(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                        className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                       />
 
                       <input
                         type="date"
                         value={inspectionDate}
                         onChange={e => setInspectionDate(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-[#050505] border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-[#D4AF37]"
+                        className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                       />
 
                       <button
                         type="submit"
                         disabled={submittingInspection}
-                        className="w-full py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c49f2f] text-black font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                        className="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
                       >
                         {submittingInspection ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
@@ -624,15 +624,15 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               </div>
 
               {/* Agent Profile Box */}
-              <div className="bg-white dark:bg-[#111111] border border-black/8 dark:border-white/10 rounded-3xl p-5 flex items-center gap-4 shadow-sm dark:shadow-none">
+              <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-5 flex items-center gap-4 shadow-sm dark:shadow-none">
                 <img
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
                   alt="Agent"
-                  className="w-14 h-14 rounded-2xl object-cover border border-[#D4AF37]/30"
+                  className="w-14 h-14 rounded-2xl object-cover border border-brand-gold/30"
                 />
                 <div>
                   <h5 className="font-serif text-sm font-bold text-neutral-900 dark:text-white">Chidinma Okonjo</h5>
-                  <p className="text-[11px] text-[#D4AF37] font-semibold">Senior Property Acquisition Lead</p>
+                  <p className="text-[11px] text-brand-gold font-semibold">Senior Property Acquisition Lead</p>
                   <p className="text-[11px] text-neutral-500 dark:text-white/50 mt-0.5 font-light">Ajah & Lekki Real Estate Specialist</p>
                 </div>
               </div>
@@ -645,7 +645,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
           <div className="mt-20 pt-12 border-t border-black/8 dark:border-white/10">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-wider block mb-1">
+                <span className="text-brand-gold text-xs font-bold uppercase tracking-wider block mb-1">
                   Similar Opportunities
                 </span>
                 <h3 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white">
@@ -655,7 +655,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
 
               <button
                 onClick={() => navigate(`/properties?area=${encodeURIComponent(property.area)}`)}
-                className="text-xs font-semibold text-[#D4AF37] hover:underline cursor-pointer"
+                className="text-xs font-semibold text-brand-gold hover:underline cursor-pointer"
               >
                 View Area Listings →
               </button>

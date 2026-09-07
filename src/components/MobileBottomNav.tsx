@@ -48,7 +48,7 @@ export const MobileBottomNav: React.FC = () => {
   ];
 
   return (
-    <div className="sa-mobile-nav lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#050505]/95 backdrop-blur-xl border-t border-black/10 dark:border-white/10 px-2 py-1.5 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.8)] transition-colors">
+    <div className="sa-mobile-nav lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-brand-black-deep/95 backdrop-blur-xl border-t border-black/10 dark:border-brand-gold/15 px-2 py-1.5 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.8)] transition-colors">
       <div className="grid grid-cols-5 items-center max-w-md mx-auto">
         {items.map(item => {
           if (item.isAi) {
@@ -59,12 +59,12 @@ export const MobileBottomNav: React.FC = () => {
                 onClick={() => openAiModal()}
                 className="flex flex-col items-center justify-center -mt-4 relative group cursor-pointer"
               >
-                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#D4AF37] via-[#f1d779] to-[#D4AF37] p-0.5 shadow-[0_0_15px_rgba(212,175,55,0.4)] flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-white dark:bg-[#0a0a0a] flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-[#D4AF37] animate-pulse" />
+                <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-brand-gold-deep via-brand-gold-champagne to-brand-gold p-0.5 shadow-[0_0_15px_rgba(198,161,91,0.35)] flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-white dark:bg-brand-black flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-brand-gold animate-pulse" />
                   </div>
                 </div>
-                <span className="text-[10px] font-semibold text-[#D4AF37] mt-1 font-mono">AI Concierge</span>
+                <span className="text-[10px] font-semibold text-brand-gold mt-1 font-mono">AI Concierge</span>
               </button>
             );
           }
@@ -76,7 +76,7 @@ export const MobileBottomNav: React.FC = () => {
               id={item.id}
               onClick={() => item.path && navigate(item.path)}
               className={`flex flex-col items-center justify-center py-1 rounded-lg transition-colors cursor-pointer ${
-                item.isActive ? 'text-[#D4AF37] font-semibold' : 'text-neutral-500 hover:text-neutral-900 dark:text-white/50 dark:hover:text-white'
+                item.isActive ? 'text-brand-gold font-semibold' : 'text-neutral-500 hover:text-neutral-900 dark:text-white/50 dark:hover:text-white'
               }`}
             >
               <Icon className="w-5 h-5 mb-0.5" />

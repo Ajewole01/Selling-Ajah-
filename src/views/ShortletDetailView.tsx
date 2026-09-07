@@ -70,20 +70,20 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] flex items-center justify-center text-neutral-500 dark:text-white/50">
-        <Loader2 className="w-8 h-8 animate-spin text-[#D4AF37]" />
+      <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center text-neutral-500 dark:text-white/50">
+        <Loader2 className="w-8 h-8 animate-spin text-brand-gold" />
       </div>
     );
   }
 
   if (!apartment) {
     return (
-      <div className="min-h-screen bg-[#FAF9F5] dark:bg-[#050505] flex items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center p-6 text-center">
         <div className="max-w-md">
           <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-2">Apartment Not Found</h2>
           <button
             onClick={() => navigate('/shortlets')}
-            className="px-5 py-2.5 rounded-full bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider shadow-sm"
+            className="px-5 py-2.5 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
           >
             Browse All Shortlets
           </button>
@@ -158,18 +158,18 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
   };
 
   return (
-    <div ref={pageRef} className="sa-detail sa-detail--stay min-h-screen bg-[#FAF9F5] dark:bg-[#070a10] text-neutral-900 dark:text-slate-100 pb-28 transition-colors duration-200">
+    <div ref={pageRef} className="sa-detail sa-detail--stay min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep text-neutral-900 dark:text-neutral-100 pb-28 transition-colors duration-200">
       {/* Breadcrumb */}
-      <div className="border-b border-black/8 dark:border-slate-800/80 bg-white dark:bg-slate-950/60 py-3 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-slate-400">
+      <div className="border-b border-black/8 dark:border-white/10 bg-white dark:bg-brand-black-deep py-3 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
           <button
             onClick={() => navigate('/shortlets')}
-            className="flex items-center gap-1 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+            className="flex items-center gap-1 hover:text-brand-gold transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Back to all shortlets</span>
           </button>
-          <span className="text-emerald-600 dark:text-emerald-400 font-medium">Verified 24/7 Power Shortlet</span>
+          <span className="text-brand-gold font-medium">Verified 24/7 Power Shortlet</span>
         </div>
       </div>
 
@@ -178,10 +178,10 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-emerald-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <span className="bg-brand-gold text-brand-black-deep text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 Serviced Shortlet
               </span>
-              <span className="text-xs bg-black/5 dark:bg-slate-800 text-neutral-700 dark:text-slate-300 px-2.5 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-black/5 dark:bg-white/10 text-neutral-700 dark:text-neutral-300 px-2.5 py-0.5 rounded-full font-medium">
                 {apartment.area}
               </span>
             </div>
@@ -190,8 +190,8 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
               {apartment.name}
             </h1>
 
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-600 dark:text-slate-400">
-              <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+              <MapPin className="w-4 h-4 text-brand-gold shrink-0" />
               <span>{apartment.location}</span>
             </div>
           </div>
@@ -199,9 +199,9 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={() => setIsShareModalOpen(true)}
-              className="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-black/10 dark:border-slate-800 text-neutral-700 dark:text-slate-300 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
+              className="p-3 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
             >
-              <Share2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <Share2 className="w-4 h-4 text-brand-gold" />
               <span>Share</span>
             </button>
           </div>
@@ -209,7 +209,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
 
         {/* Gallery */}
         <div className="mb-10">
-          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-slate-800 shadow-xl dark:shadow-2xl">
+          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-white/10 shadow-xl dark:shadow-2xl">
             <img
               src={images[activeImageIndex]}
               alt={apartment.name}
@@ -232,7 +232,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                 </button>
               </>
             )}
-            <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs px-3 py-1.5 rounded-full font-mono">
+            <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs px-3.5 py-1.5 rounded-full font-mono">
               {activeImageIndex + 1} / {images.length} Photos
             </div>
           </div>
@@ -244,7 +244,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
                   className={`w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
-                    activeImageIndex === idx ? 'border-emerald-500 scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
+                    activeImageIndex === idx ? 'border-brand-gold scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -259,50 +259,50 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
           {/* Left 2 Cols: Details, Specs, Amenities */}
           <div className="lg:col-span-2 space-y-10">
             {/* Quick Specs */}
-            <div className="grid grid-cols-3 gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900/80 border border-black/8 dark:border-slate-800 shadow-sm dark:shadow-none">
+            <div className="grid grid-cols-3 gap-4 p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] text-neutral-500 dark:text-slate-400 uppercase tracking-wider block">Max Guests</span>
+                  <span className="text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block">Max Guests</span>
                   <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">Up to {apartment.maxGuests}</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Bed className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] text-neutral-500 dark:text-slate-400 uppercase tracking-wider block">Bedrooms</span>
+                  <span className="text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block">Bedrooms</span>
                   <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{apartment.bedrooms} Ensuite</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Bath className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] text-neutral-500 dark:text-slate-400 uppercase tracking-wider block">Bathrooms</span>
+                  <span className="text-[11px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block">Bathrooms</span>
                   <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{apartment.bathrooms} Baths</span>
                 </div>
               </div>
             </div>
 
             {/* Description */}
-            <div className="bg-white dark:bg-slate-900/60 border border-black/8 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-4">
                 About this Serviced Residence
               </h3>
-              <p className="text-neutral-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+              <p className="text-neutral-700 dark:text-neutral-300 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
                 {apartment.description}
               </p>
             </div>
 
             {/* Amenities Grid */}
-            <div className="bg-white dark:bg-slate-900/60 border border-black/8 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-6">
                 Included Amenities & Hospitality
               </h3>
@@ -310,9 +310,9 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                 {apartment.amenities.map((amenity, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 dark:bg-slate-950/80 border border-black/5 dark:border-slate-800/80 text-xs text-neutral-800 dark:text-slate-200"
+                    className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 dark:bg-brand-black border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-neutral-200"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                     <span>{amenity}</span>
                   </div>
                 ))}
@@ -320,26 +320,26 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
             </div>
 
             {/* House Rules & Policies */}
-            <div className="bg-white dark:bg-slate-900/60 border border-black/8 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
+            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
-                <Info className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <Info className="w-5 h-5 text-brand-gold" />
                 House Rules & Policies
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-700 dark:text-slate-300">
-                <div className="p-3 bg-neutral-50 dark:bg-slate-950 rounded-xl border border-black/5 dark:border-slate-800">
-                  <span className="text-neutral-500 dark:text-slate-400 block mb-1 font-semibold">Check-in / Check-out</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-700 dark:text-neutral-300">
+                <div className="p-3 bg-neutral-50 dark:bg-brand-black rounded-xl border border-black/5 dark:border-white/10">
+                  <span className="text-neutral-500 dark:text-neutral-400 block mb-1 font-semibold">Check-in / Check-out</span>
                   <p>Check-in: From 2:00 PM | Check-out: 11:00 AM</p>
                 </div>
-                <div className="p-3 bg-neutral-50 dark:bg-slate-950 rounded-xl border border-black/5 dark:border-slate-800">
-                  <span className="text-neutral-500 dark:text-slate-400 block mb-1 font-semibold">Parties & Gatherings</span>
+                <div className="p-3 bg-neutral-50 dark:bg-brand-black rounded-xl border border-black/5 dark:border-white/10">
+                  <span className="text-neutral-500 dark:text-neutral-400 block mb-1 font-semibold">Parties & Gatherings</span>
                   <p>Strict quiet hours from 11:00 PM. No loud external parties without written concierge clearance.</p>
                 </div>
-                <div className="p-3 bg-neutral-50 dark:bg-slate-950 rounded-xl border border-black/5 dark:border-slate-800">
-                  <span className="text-neutral-500 dark:text-slate-400 block mb-1 font-semibold">Security Deposit (Caution Fee)</span>
+                <div className="p-3 bg-neutral-50 dark:bg-brand-black rounded-xl border border-black/5 dark:border-white/10">
+                  <span className="text-neutral-500 dark:text-neutral-400 block mb-1 font-semibold">Security Deposit (Caution Fee)</span>
                   <p>Refundable caution fee applies, refunded within 2 hours of checkout inspection.</p>
                 </div>
-                <div className="p-3 bg-neutral-50 dark:bg-slate-950 rounded-xl border border-black/5 dark:border-slate-800">
-                  <span className="text-neutral-500 dark:text-slate-400 block mb-1 font-semibold">Smoking Policy</span>
+                <div className="p-3 bg-neutral-50 dark:bg-brand-black rounded-xl border border-black/5 dark:border-white/10">
+                  <span className="text-neutral-500 dark:text-neutral-400 block mb-1 font-semibold">Smoking Policy</span>
                   <p>Smoking permitted strictly in open balcony/patio areas only.</p>
                 </div>
               </div>
@@ -349,13 +349,13 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
           {/* Right Col: Sticky Booking Console */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              <div className="bg-white dark:bg-slate-900 border border-black/8 dark:border-slate-800 rounded-3xl p-6 shadow-md dark:shadow-2xl">
-                <span className="text-xs text-neutral-500 dark:text-slate-400 uppercase tracking-widest block mb-1">
+              <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 shadow-md dark:shadow-2xl">
+                <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block mb-1 font-mono">
                   Nightly Rate
                 </span>
                 <div className="text-3xl font-serif font-bold text-neutral-900 dark:text-white mb-4">
                   {formatNaira(apartment.pricePerNight)}
-                  <span className="text-xs font-sans text-neutral-500 dark:text-slate-400 font-normal"> / night</span>
+                  <span className="text-xs font-sans text-neutral-500 dark:text-neutral-400 font-normal"> / night</span>
                 </div>
 
                 <a
@@ -369,17 +369,17 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                 </a>
 
                 {/* Direct Booking Form */}
-                <div className="pt-4 border-t border-black/8 dark:border-slate-800">
+                <div className="pt-4 border-t border-black/8 dark:border-white/10">
                   <h4 className="font-serif text-sm font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <Calendar className="w-4 h-4 text-brand-gold" />
                     Reserve Online
                   </h4>
 
                   {bookingSuccess ? (
-                    <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800/40 text-center">
+                    <div className="p-4 rounded-xl bg-emerald-50 dark:bg-brand-black border border-emerald-300 dark:border-emerald-800/40 text-center">
                       <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mx-auto mb-2" />
                       <h5 className="font-bold text-neutral-900 dark:text-white text-xs mb-1">Booking Submitted!</h5>
-                      <p className="text-[11px] text-neutral-600 dark:text-slate-400">
+                      <p className="text-[11px] text-neutral-600 dark:text-neutral-400">
                         Our guest host is processing your dates and will contact you directly.
                       </p>
                     </div>
@@ -387,33 +387,33 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                     <form onSubmit={handleBookingSubmit} className="space-y-3">
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="block text-[10px] text-neutral-600 dark:text-slate-400 uppercase font-semibold mb-1">Check-in</label>
+                          <label className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-semibold mb-1">Check-in</label>
                           <input
                             type="date"
                             required
                             value={checkIn}
                             onChange={e => setCheckIn(e.target.value)}
-                            className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-slate-300 outline-none focus:border-emerald-500"
+                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-gold"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] text-neutral-600 dark:text-slate-400 uppercase font-semibold mb-1">Check-out</label>
+                          <label className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-semibold mb-1">Check-out</label>
                           <input
                             type="date"
                             required
                             value={checkOut}
                             onChange={e => setCheckOut(e.target.value)}
-                            className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-slate-300 outline-none focus:border-emerald-500"
+                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-gold"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] text-neutral-600 dark:text-slate-400 uppercase font-semibold mb-1">Guests</label>
+                        <label className="block text-[10px] text-neutral-600 dark:text-neutral-400 uppercase font-semibold mb-1">Guests</label>
                         <select
                           value={guestCount}
                           onChange={e => setGuestCount(e.target.value)}
-                          className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-emerald-500"
+                          className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                         >
                           {[...Array(apartment.maxGuests)].map((_, i) => (
                             <option key={i + 1} value={i + 1}>
@@ -429,7 +429,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         placeholder="Your Full Name"
                         value={guestName}
                         onChange={e => setGuestName(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-emerald-500"
+                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                       />
 
                       <input
@@ -438,25 +438,25 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         placeholder="WhatsApp Phone Number"
                         value={guestPhone}
                         onChange={e => setGuestPhone(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-slate-950 border border-black/10 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-emerald-500"
+                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
                       />
 
                       {/* Pricing calculation summary */}
-                      <div className="p-3 bg-neutral-50 dark:bg-slate-950 rounded-xl border border-black/8 dark:border-slate-800/80 text-xs space-y-1">
-                        <div className="flex justify-between text-neutral-600 dark:text-slate-400">
+                      <div className="p-3 bg-neutral-50 dark:bg-brand-black rounded-xl border border-black/8 dark:border-white/10 text-xs space-y-1">
+                        <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
                           <span>{formatNaira(apartment.pricePerNight)} × {nights} {nights === 1 ? 'night' : 'nights'}</span>
                           <span>{formatNaira(totalPrice)}</span>
                         </div>
-                        <div className="flex justify-between text-neutral-900 dark:text-white font-bold pt-1 border-t border-black/8 dark:border-slate-800">
+                        <div className="flex justify-between text-neutral-900 dark:text-white font-bold pt-1 border-t border-black/8 dark:border-white/10">
                           <span>Total</span>
-                          <span className="text-emerald-600 dark:text-emerald-400">{formatNaira(totalPrice)}</span>
+                          <span className="text-brand-gold">{formatNaira(totalPrice)}</span>
                         </div>
                       </div>
 
                       <button
                         type="submit"
                         disabled={submittingBooking}
-                        className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20"
+                        className="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-brand-gold/20"
                       >
                         {submittingBooking ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                         <span>Request Reservation</span>
