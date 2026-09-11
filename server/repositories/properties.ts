@@ -3,13 +3,18 @@ import { db as localDb } from '../db.js';
 import type { Property } from '../../src/types.js';
 
 function mapRowToProperty(row: any): Property {
+  const fullDesc = row.full_description || row.description || '';
+  const shortDesc = row.short_description || (fullDesc ? fullDesc.slice(0, 150) + '...' : '');
+  const gallery = Array.isArray(row.gallery) && row.gallery.length > 0 ? row.gallery : (row.main_image ? [row.main_image] : []);
+
   return {
     id: row.id,
     title: row.title,
     slug: row.slug,
     refNumber: row.ref_number || '',
-    shortDescription: row.short_description || '',
-    fullDescription: row.full_description || '',
+    shortDescription: shortDesc,
+    fullDescription: fullDesc,
+    description: fullDesc,
     propertyType: row.property_type || 'Duplex',
     listingType: row.listing_type || 'sale',
     price: Number(row.price),
@@ -29,7 +34,8 @@ function mapRowToProperty(row: any): Property {
     googleMapsUrl: row.google_maps_url || undefined,
     videoUrl: row.video_url || undefined,
     mainImage: row.main_image || '',
-    gallery: Array.isArray(row.gallery) ? row.gallery : [],
+    gallery,
+    images: gallery,
     status: row.status || 'available',
     isFeatured: Boolean(row.is_featured),
     seoTitle: row.seo_title || undefined,
@@ -46,7 +52,11 @@ function mapPropertyToRow(p: Partial<Property>): any {
   if (p.slug !== undefined) row.slug = p.slug;
   if (p.refNumber !== undefined) row.ref_number = p.refNumber;
   if (p.shortDescription !== undefined) row.short_description = p.shortDescription;
+  else if ((p as any).description !== undefined && !p.fullDescription) row.short_description = (p as any).description.slice(0, 150) + '...';
+  
   if (p.fullDescription !== undefined) row.full_description = p.fullDescription;
+  else if ((p as any).description !== undefined) row.full_description = (p as any).description;
+
   if (p.propertyType !== undefined) row.property_type = p.propertyType;
   if (p.listingType !== undefined) row.listing_type = p.listingType;
   if (p.price !== undefined) row.price = p.price;
@@ -66,7 +76,15 @@ function mapPropertyToRow(p: Partial<Property>): any {
   if (p.googleMapsUrl !== undefined) row.google_maps_url = p.googleMapsUrl;
   if (p.videoUrl !== undefined) row.video_url = p.videoUrl;
   if (p.mainImage !== undefined) row.main_image = p.mainImage;
-  if (p.gallery !== undefined) row.gallery = p.gallery;
+  
+  if (p.gallery !== undefined && Array.isArray(p.gallery) && p.gallery.length > 0) {
+    row.gallery = p.gallery;
+  } else if ((p as any).images !== undefined && Array.isArray((p as any).images) && (p as any).images.length > 0) {
+    row.gallery = (p as any).images;
+  } else if (p.mainImage) {
+    row.gallery = [p.mainImage];
+  }
+
   if (p.status !== undefined) row.status = p.status;
   if (p.isFeatured !== undefined) row.is_featured = p.isFeatured;
   if (p.seoTitle !== undefined) row.seo_title = p.seoTitle;

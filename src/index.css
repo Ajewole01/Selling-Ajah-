@@ -467,39 +467,25 @@ html.light textarea::placeholder {
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
-.sa-dropdown-dark {
+.sa-dropdown-dark,
+.sa-dropdown-light {
   background-color: rgba(10, 10, 10, 0.98) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85) !important;
 }
-.sa-dropdown-dark .sa-dropdown-item {
+.sa-dropdown-dark .sa-dropdown-item,
+.sa-dropdown-light .sa-dropdown-item {
   color: #F5F5F5 !important;
 }
-.sa-dropdown-dark .sa-dropdown-item:hover {
+.sa-dropdown-dark .sa-dropdown-item:hover,
+.sa-dropdown-light .sa-dropdown-item:hover {
   color: #D8BE82 !important;
   background-color: rgba(255, 255, 255, 0.08) !important;
 }
-.sa-dropdown-dark .sa-dropdown-item.is-active {
+.sa-dropdown-dark .sa-dropdown-item.is-active,
+.sa-dropdown-light .sa-dropdown-item.is-active {
   color: #D8BE82 !important;
   background-color: rgba(212, 175, 55, 0.15) !important;
-  font-weight: 700 !important;
-}
-
-.sa-dropdown-light {
-  background-color: #FAF7F2 !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1) !important;
-}
-.sa-dropdown-light .sa-dropdown-item {
-  color: #171717 !important;
-}
-.sa-dropdown-light .sa-dropdown-item:hover {
-  color: #000000 !important;
-  background-color: rgba(0, 0, 0, 0.06) !important;
-}
-.sa-dropdown-light .sa-dropdown-item.is-active {
-  color: #9D8759 !important;
-  background-color: rgba(157, 135, 89, 0.12) !important;
   font-weight: 700 !important;
 }
 
@@ -619,12 +605,12 @@ body { background:var(--color-canvas); }
 .dark .sa-vehicle-card:hover { box-shadow:0 20px 45px -12px rgba(0,0,0,0.7)!important; }
 .sa-vehicle-card--featured { grid-column:auto; }
 .sa-vehicle-card__image { aspect-ratio:16/10!important; overflow:hidden; position:relative; }
-.sa-vehicle-card__body { padding:1.5rem!important; display:flex; flex-direction:column; justify-content:space-between; flex:1; }
-.sa-vehicle-card__body h3 { color:var(--cars-ink)!important; font-family:"DM Sans",sans-serif!important; font-size:1.25rem!important; font-weight:700!important; margin-bottom:.5rem!important; }
+.sa-vehicle-card__body { padding:1.25rem!important; display:flex; flex-direction:column; gap:0.75rem; justify-content:flex-start; }
+.sa-vehicle-card__body h3 { color:var(--cars-ink)!important; font-family:"DM Sans",sans-serif!important; font-size:1.15rem!important; font-weight:700!important; margin-bottom:.35rem!important; }
 .dark .sa-vehicle-card__body h3 { color:#ffffff!important; }
-.sa-vehicle-card__body p { color:#68665e!important; font-size:.82rem!important; line-height:1.55!important; margin-bottom:1rem!important; }
+.sa-vehicle-card__body p { color:#68665e!important; font-size:.82rem!important; line-height:1.5!important; margin-bottom:.5rem!important; }
 .dark .sa-vehicle-card__body p { color:rgba(241,238,229,.7)!important; }
-.sa-vehicle-card__specs { display:flex!important; flex-wrap:wrap!important; gap:.5rem!important; margin-bottom:1rem!important; }
+.sa-vehicle-card__specs { display:flex!important; flex-wrap:wrap!important; gap:.4rem!important; margin-bottom:.5rem!important; }
 .sa-vehicle-card__specs span { display:inline-flex!important; align-items:center!important; gap:.4rem!important; padding:.35rem .65rem!important; border-radius:8px!important; font-size:.72rem!important; font-weight:600!important; background:#f6f4ee!important; border:1px solid #e7e3d8!important; color:#35332e!important; }
 .dark .sa-vehicle-card__specs span { background:#1e221e!important; border-color:rgba(255,255,255,.1)!important; color:#eae6dc!important; }
 .sa-vehicle-card__category { border-radius:9999px!important; }
@@ -1244,7 +1230,7 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
 
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
 .sa-cars-intro__layout > p {
-  color: #000000 !important;
+  color: #ffffff !important;
 }
 
 @media (max-width: 1024px) {
@@ -1317,5 +1303,78 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
     gap: 1.75rem !important;
   }
 }
+
+/* Focus Mode: Applied Styles */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div#vehicle-card-veh-3:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1) > span:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div#vehicle-card-veh-2:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1) > span:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div#vehicle-card-veh-1:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1) > span:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div#vehicle-card-veh-4:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1) > span:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) {
+  color: #e5e5e5 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(6) > div:nth-of-type(1) > p:nth-of-type(2) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div#footer-cta-banner:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > p#footer-custom-search-description:nth-of-type(1) {
+  color: #e3e3e3 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) {
+  background-color: #b29728 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1) > svg:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(2) {
+  background-color: #b29728 !important;
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(3) {
+  background-color: #b29728 !important;
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(4) {
+  background-color: #b29728 !important;
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(5) {
+  background-color: #b29728 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > footer:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(5) > svg:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > p:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > h3:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
 
 

@@ -100,29 +100,31 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         </div>
 
         {/* Info side */}
-        <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+        <div className="p-5 sm:p-6 flex-1 flex flex-col gap-3 justify-center">
           <div>
-            <div className="flex items-center justify-between gap-2 mb-2 text-xs text-neutral-500 dark:text-white/50">
+            <div className="flex items-center justify-between gap-2 mb-1.5 text-xs text-neutral-500 dark:text-white/50">
               <span className="font-mono text-brand-gold text-[11px] font-bold tracking-wider">{property.refNumber}</span>
               <span className="bg-black/5 dark:bg-white/5 text-neutral-700 dark:text-white/70 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-semibold">{property.propertyType}</span>
             </div>
 
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-2">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-1.5">
               {property.title}
             </h3>
 
-            <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60 mb-3">
+            <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60 mb-2">
               <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
               <span className="line-clamp-1">{property.location}</span>
             </div>
 
-            <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/60 line-clamp-2 mb-4 font-light leading-relaxed">
-              {property.shortDescription}
-            </p>
+            {property.shortDescription && (
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/60 line-clamp-2 mb-2 font-light leading-relaxed">
+                {property.shortDescription}
+              </p>
+            )}
           </div>
 
           {/* Specs & Pricing */}
-          <div className="pt-4 border-t border-black/8 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
+          <div className="pt-3 border-t border-black/8 dark:border-white/10 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-4 text-xs text-neutral-600 dark:text-white/60 font-medium">
               {property.bedrooms > 0 && (
                 <div className="flex items-center gap-1.5" title={`${property.bedrooms} Bedrooms`}>
@@ -228,9 +230,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       </div>
 
       {/* Body Content */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex flex-col gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-1.5">
             <span className="text-[10px] uppercase tracking-widest font-bold text-brand-gold">
               {property.propertyType}
             </span>
@@ -240,19 +242,25 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             </span>
           </div>
 
-          <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-2 leading-snug">
+          <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-1.5 leading-snug">
             {property.title}
           </h3>
 
-          <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60 mb-4">
+          <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60">
             <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
             <span className="truncate">{property.location}</span>
           </div>
         </div>
 
+        {property.shortDescription && (
+          <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 font-light leading-relaxed">
+            {property.shortDescription}
+          </p>
+        )}
+
         {/* Specs and CTAs */}
-        <div className="pt-3 border-t border-black/8 dark:border-white/10">
-          <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-white/60 font-medium mb-3">
+        <div className="pt-3 border-t border-black/8 dark:border-white/10 flex flex-col gap-3">
+          <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-white/60 font-medium">
             <div className="flex items-center gap-3">
               {property.bedrooms > 0 && (
                 <div className="flex items-center gap-1" title={`${property.bedrooms} Bedrooms`}>
@@ -276,7 +284,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handleCardClick}
-              className="flex-1 py-2 px-3.5 rounded-full bg-black/5 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
+              className="flex-1 py-2 px-3.5 rounded-xl bg-black/5 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
             >
               <span>Explore</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/50 group-hover/btn:text-brand-black-deep group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -286,7 +294,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
               id={`card-whatsapp-${property.id}`}
               onClick={handleWhatsAppClick}
               title="Chat on WhatsApp"
-              className="p-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95"
+              className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95"
             >
               <MessageSquare className="w-4 h-4" />
             </button>

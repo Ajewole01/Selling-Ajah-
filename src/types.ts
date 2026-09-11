@@ -17,7 +17,8 @@ export interface Property {
   refNumber: string;
   shortDescription: string;
   fullDescription: string;
-  propertyType: 'Duplex' | 'Detached Duplex' | 'Semi Detached' | 'Terrace' | 'Apartment' | 'Mansion' | 'Penthouse' | 'Land' | 'Commercial';
+  description?: string;
+  propertyType: 'Duplex' | 'Detached Duplex' | 'Semi Detached' | 'Terrace' | 'Apartment' | 'Mansion' | 'Penthouse' | 'Land' | 'Commercial' | string;
   listingType: 'sale' | 'rent';
   price: number;
   pricePeriod?: string; // e.g., 'per annum' for rent
@@ -33,11 +34,13 @@ export interface Property {
   landSize?: string; // e.g. "600 sqm"
   amenities: string[];
   features: string[];
+  titleDocument?: string;
   googleMapsUrl?: string;
   videoUrl?: string;
   virtualTourUrl?: string;
   mainImage: string;
   gallery: string[];
+  images?: string[];
   status: PropertyStatus;
   isFeatured: boolean;
   seoTitle?: string;

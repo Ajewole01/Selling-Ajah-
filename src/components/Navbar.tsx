@@ -169,20 +169,21 @@ export const Navbar: React.FC = () => {
                     {propertiesDropdownOpen && (
                       <div className="absolute top-full left-0 w-56 pt-2 z-50 animate-in fade-in-50 slide-in-from-top-1 duration-150">
                         <div
-                          className={`rounded-xl p-1.5 backdrop-blur-xl ${
-                            isTransparentHero || isDark
-                              ? 'sa-dropdown-dark'
-                              : 'sa-dropdown-light'
-                          }`}
+                          className="rounded-xl p-1.5 backdrop-blur-xl bg-[#0A0A0A]/98 border border-brand-gold/35 shadow-2xl shadow-black/85"
                         >
                           {link.subItems?.map(sub => {
                             const isSubActive = currentPath === sub.path;
                             return (
                               <button
                                 key={sub.path}
-                                onClick={() => handleNav(sub.path)}
+                                onClick={() => {
+                                  setPropertiesDropdownOpen(false);
+                                  handleNav(sub.path);
+                                }}
                                 className={`sa-dropdown-item w-full text-left px-3.5 py-2.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors uppercase tracking-wider ${
-                                  isSubActive ? 'is-active' : ''
+                                  isSubActive
+                                    ? 'text-brand-gold bg-brand-gold/15 font-bold'
+                                    : 'text-[#F5F5F5] hover:text-brand-gold hover:bg-white/10'
                                 }`}
                               >
                                 <span className="whitespace-nowrap">{sub.label}</span>

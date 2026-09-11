@@ -60,20 +60,20 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, featured = fa
       </div>
 
       {/* Details */}
-      <div className="sa-vehicle-card__body p-5 flex-1 flex flex-col justify-between">
+      <div className="sa-vehicle-card__body p-4 sm:p-5 flex flex-col gap-3">
         <div>
-          <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest mb-1.5">
+          <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest mb-1">
             {vehicle.brand}
           </div>
-          <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-1 mb-2 leading-snug">
+          <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-1 mb-1.5 leading-snug">
             {vehicle.name}
           </h3>
 
-          <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 mb-4 font-normal leading-relaxed">
+          <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 mb-3 font-normal leading-relaxed">
             {vehicle.shortDescription || vehicle.description}
           </p>
 
-          <div className="sa-vehicle-card__specs flex flex-wrap gap-2 text-xs mb-4">
+          <div className="sa-vehicle-card__specs flex flex-wrap gap-2 text-xs">
             <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
               <Users className="w-3.5 h-3.5 text-brand-gold" /> {vehicle.seats} Seats
             </span>
@@ -87,7 +87,7 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, featured = fa
         </div>
 
         {/* Action buttons */}
-        <div className="pt-3.5 border-t border-black/8 dark:border-white/10 flex items-center gap-2">
+        <div className="pt-3 border-t border-black/8 dark:border-white/10 flex items-center gap-2">
           <button
             onClick={handleCardClick}
             className="flex-1 py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all uppercase tracking-wider group/btn"

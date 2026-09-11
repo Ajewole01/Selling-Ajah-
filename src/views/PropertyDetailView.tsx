@@ -375,7 +375,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
                 Property Overview
               </h3>
               <div className="text-neutral-700 dark:text-white/70 text-xs sm:text-sm leading-relaxed whitespace-pre-line space-y-3 font-light">
-                {property.description}
+                {property.fullDescription || property.description || property.shortDescription}
               </div>
             </div>
 
