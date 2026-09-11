@@ -7,15 +7,22 @@ interface ThemeSwitcherProps {
   variant?: 'icon' | 'compact' | 'row';
   id?: string;
   onHero?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
   className = '',
   variant = 'icon',
   id = 'theme-switcher-btn',
-  onHero = false
+  onHero = false,
+  style
 }) => {
   const { theme, isDark, toggleTheme } = useTheme();
+
+  const isNavbarDesktop = id === 'navbar-theme-switcher-desktop';
+  const buttonStyle = isNavbarDesktop
+    ? { borderColor: '#cdcdcd', backgroundColor: '#ffffff', ...style }
+    : style;
 
   const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 
@@ -74,14 +81,15 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
         onClick={toggleTheme}
         aria-label={label}
         title={label}
+        style={buttonStyle}
         className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold bg-white/10 hover:bg-white/20 text-[#F5F5F5] border border-white/25 hover:border-brand-gold/60 group ${className}`}
       >
         <span className="sr-only">{label}</span>
         <div className="relative w-4 h-4 flex items-center justify-center">
           {isDark ? (
-            <Sun className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:rotate-45" />
+            <Sun style={isNavbarDesktop ? { color: '#000000' } : undefined} className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:rotate-45" />
           ) : (
-            <Moon className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:-rotate-12" />
+            <Moon style={isNavbarDesktop ? { color: '#000000' } : undefined} className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:-rotate-12" />
           )}
         </div>
       </button>
@@ -95,6 +103,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       onClick={toggleTheme}
       aria-label={label}
       title={label}
+      style={buttonStyle}
       className={`relative p-2 sm:p-2.5 rounded-full transition-all duration-200 shrink-0 flex items-center justify-center cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-1 group ${
         isDark
           ? 'bg-white/5 hover:bg-white/10 text-[#F5F5F5] hover:text-white border border-white/15 hover:border-brand-gold/50'
@@ -104,9 +113,9 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
       <span className="sr-only">{label}</span>
       <div className="relative w-4 h-4 flex items-center justify-center">
         {isDark ? (
-          <Sun className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:rotate-45" />
+          <Sun style={isNavbarDesktop ? { color: '#000000' } : undefined} className="w-4 h-4 text-[#F5F5F5] group-hover:text-brand-gold transition-transform duration-300 group-hover:rotate-45" />
         ) : (
-          <Moon className="w-4 h-4 text-[#171717] group-hover:text-brand-gold transition-transform duration-300 group-hover:-rotate-12" />
+          <Moon style={isNavbarDesktop ? { color: '#000000' } : undefined} className="w-4 h-4 text-[#171717] group-hover:text-brand-gold transition-transform duration-300 group-hover:-rotate-12" />
         )}
       </div>
     </button>

@@ -88,6 +88,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
+      style={{ backgroundColor: '#000000' }}
       className={`sa-navbar ${
         isHomePage ? 'fixed top-0 left-0 right-0 z-40 w-full' : 'sticky top-0 z-40 w-full'
       } ${
@@ -104,8 +105,8 @@ export const Navbar: React.FC = () => {
               : 'bg-[#FAF7F2]/96 backdrop-blur-md border-b border-black/10 py-2.5 sm:py-3 text-[#171717] shadow-md shadow-black/5'
       }`}
     >
-      <div className="w-full max-w-[1600px] mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-6 2xl:px-8 box-border">
-        <div className="flex items-center justify-between w-full min-w-0 gap-2 sm:gap-3 xl:gap-4 2xl:gap-6">
+      <div style={{ backgroundColor: '#000000' }} className="w-full max-w-[1600px] mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-6 2xl:px-8 box-border">
+        <div style={{ borderColor: '#c7a259', backgroundColor: '#000000' }} className="flex items-center justify-between w-full min-w-0 gap-2 sm:gap-3 xl:gap-4 2xl:gap-6">
           
           {/* 1. LEFT ZONE: Brand Logo */}
           <div
@@ -118,6 +119,7 @@ export const Navbar: React.FC = () => {
           {/* 2. CENTER ZONE: Primary Desktop Navigation */}
           <nav
             aria-label="Primary Navigation"
+            style={{ color: '#ffffff' }}
             className="hidden xl:flex items-center justify-center gap-1.5 xl:gap-2 2xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider min-w-0"
           >
             {navLinks.map(link => {
@@ -149,7 +151,7 @@ export const Navbar: React.FC = () => {
                               : 'text-[#171717] hover:text-[#9D8759] font-semibold'
                       }`}
                     >
-                      <span className="whitespace-nowrap">{link.label}</span>
+                      <span style={{ color: '#ffffff' }} className="whitespace-nowrap">{link.label}</span>
                       <ChevronDown
                         className={`w-3.5 h-3.5 transition-transform duration-200 ${
                           propertiesDropdownOpen ? 'rotate-180 text-brand-gold' : ''
@@ -210,7 +212,7 @@ export const Navbar: React.FC = () => {
                           : 'text-[#171717] hover:text-[#9D8759] font-semibold'
                   }`}
                 >
-                  <span className="whitespace-nowrap">{link.label}</span>
+                  <span style={{ color: '#ffffff' }} className="whitespace-nowrap">{link.label}</span>
                 </button>
               );
             })}
@@ -224,6 +226,7 @@ export const Navbar: React.FC = () => {
               id="search-trigger-desktop"
               onClick={openSearchModal}
               title="Search Ajah listings"
+              style={{ borderColor: '#ffffff' }}
               className={`hidden xl:flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-full transition-all text-xs w-[120px] xl:w-[145px] 2xl:w-[200px] max-w-[240px] min-w-[100px] flex-shrink group select-none cursor-pointer border ${
                 isTransparentHero
                   ? 'bg-white/10 hover:bg-white/20 text-[#F5F5F5] border-white/25 hover:border-brand-gold/60'
@@ -242,6 +245,7 @@ export const Navbar: React.FC = () => {
                 }`}
               />
               <span
+                style={{ color: '#ffffff' }}
                 className={`truncate whitespace-nowrap overflow-hidden text-ellipsis text-[11px] xl:text-xs select-none font-medium ${
                   isTransparentHero
                     ? 'text-[#E5E5E5] group-hover:text-white'
@@ -259,6 +263,7 @@ export const Navbar: React.FC = () => {
               id="search-trigger-mobile"
               onClick={openSearchModal}
               title="Search listings"
+              style={{ borderColor: '#cdcdcd', backgroundColor: '#fefefe' }}
               className={`xl:hidden p-2 sm:p-2.5 rounded-full transition-all shrink-0 flex items-center justify-center border ${
                 isTransparentHero
                   ? 'bg-white/10 hover:bg-white/20 text-[#F5F5F5] border-white/25 hover:border-brand-gold/60'
@@ -269,6 +274,7 @@ export const Navbar: React.FC = () => {
               aria-label="Open Search"
             >
               <Search
+                style={{ color: '#000000' }}
                 className={`w-4 h-4 ${
                   isTransparentHero
                     ? 'text-[#F5F5F5]'
@@ -284,6 +290,7 @@ export const Navbar: React.FC = () => {
               id="favorites-trigger-btn"
               onClick={() => handleNav('/favorites')}
               title="Saved Properties"
+              style={{ borderColor: '#cdcdcd', backgroundColor: '#ffffff' }}
               className={`relative p-2 sm:p-2.5 rounded-full transition-all shrink-0 flex items-center justify-center border ${
                 isTransparentHero
                   ? 'bg-white/10 hover:bg-white/20 text-[#F5F5F5] border-white/25 hover:border-brand-gold/60'
@@ -294,6 +301,7 @@ export const Navbar: React.FC = () => {
               aria-label="View Saved Wishlist"
             >
               <Heart
+                style={favorites.length === 0 ? { color: '#000000' } : undefined}
                 className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
                   favorites.length > 0
                     ? 'text-rose-500 fill-rose-500'
@@ -322,9 +330,10 @@ export const Navbar: React.FC = () => {
             <button
               id="navbar-find-property-btn"
               onClick={() => handleNav('/properties')}
-              className={`hidden sm:inline-flex items-center justify-center whitespace-nowrap shrink-0 px-3.5 xl:px-4 py-1.5 xl:py-2 text-[11px] xl:text-xs font-bold uppercase tracking-wider 2xl:tracking-widest rounded-full transition-all active:scale-95 ${
+              style={{ backgroundColor: '#ffffff', color: '#000000', borderColor: '#b3b3b3' }}
+              className={`hidden sm:inline-flex items-center justify-center whitespace-nowrap shrink-0 px-3.5 xl:px-4 py-1.5 xl:py-2 text-[11px] xl:text-xs font-bold uppercase tracking-wider 2xl:tracking-widest rounded-full transition-all active:scale-95 border ${
                 isTransparentHero
-                  ? 'bg-[#0A0A0A] hover:bg-black text-[#F5F5F5] border border-brand-gold/70 hover:border-brand-gold shadow-lg shadow-black/60'
+                  ? 'bg-[#0A0A0A] hover:bg-black text-[#F5F5F5] border-brand-gold/70 hover:border-brand-gold shadow-lg shadow-black/60'
                   : 'bg-brand-gold text-brand-black-deep hover:bg-brand-gold-deep shadow-sm'
               }`}
             >
@@ -337,6 +346,7 @@ export const Navbar: React.FC = () => {
               href={whatsappDirect}
               target="_blank"
               rel="noopener noreferrer"
+              style={{ color: '#b3b3b3', backgroundColor: '#ffffff' }}
               className={`hidden sm:inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 px-2.5 xl:px-3 2xl:px-3.5 py-1.5 xl:py-2 rounded-full border text-[11px] xl:text-xs font-semibold uppercase tracking-wider transition-all active:scale-95 ${
                 isTransparentHero
                   ? 'border-brand-gold/70 bg-brand-gold/15 text-brand-gold hover:bg-brand-gold/25'
@@ -346,7 +356,7 @@ export const Navbar: React.FC = () => {
               }`}
             >
               <MessageSquare className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-              <span className="whitespace-nowrap">WhatsApp</span>
+              <span style={{ color: '#000000' }} className="whitespace-nowrap">WhatsApp</span>
             </a>
 
             {/* Admin Dashboard shortcut if authenticated */}
@@ -371,6 +381,7 @@ export const Navbar: React.FC = () => {
             <button
               id="mobile-menu-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{ backgroundColor: '#ffffff', borderColor: '#b3b3b3' }}
               className={`xl:hidden p-2 sm:p-2.5 rounded-full border transition-colors shrink-0 flex items-center justify-center ${
                 isTransparentHero
                   ? 'bg-white/10 hover:bg-white/20 text-[#F5F5F5] border-white/25'
@@ -381,9 +392,10 @@ export const Navbar: React.FC = () => {
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-brand-gold" />
+                <X style={{ color: '#000000' }} className="w-5 h-5 text-brand-gold" />
               ) : (
                 <Menu
+                  style={{ color: '#000000' }}
                   className={`w-5 h-5 ${
                     isTransparentHero
                       ? 'text-[#F5F5F5]'

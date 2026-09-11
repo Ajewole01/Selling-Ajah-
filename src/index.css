@@ -612,8 +612,27 @@ body { background:var(--color-canvas); }
 .sa-cars-filter-rail { display:flex; align-items:center; justify-content:space-between; gap:2rem; padding:1rem 0; margin-bottom:3rem; border-block:1px solid var(--cars-line); }
 .sa-cars-filter-rail label { display:flex; align-items:center; gap:.65rem; flex:1; max-width:24rem; color:#9c7a45; }.sa-cars-filter-rail input { min-height:2.5rem!important; width:100%; border:0!important; border-bottom:1px solid var(--cars-line)!important; background:transparent!important; border-radius:0!important; color:var(--cars-ink)!important; outline:0; }.sa-cars-filter-rail input::placeholder { color:#88857c; }.sa-cars-filter-rail label button { background:transparent; border:0; color:var(--cars-ink); }
 .sa-cars-categories { display:flex; gap:1.4rem; overflow-x:auto; }.sa-cars-categories button { border:0; border-bottom:1px solid transparent; background:transparent; color:#76736a; padding:.55rem 0; white-space:nowrap; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }.sa-cars-categories button.is-active { color:var(--brand-gold); border-color:var(--brand-gold); }
-.sa-cars-featured-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(3rem,7vw,7rem) clamp(1.5rem,4vw,4rem); align-items:start; }
-.sa-vehicle-card { border:0!important; border-radius:0!important; background:transparent!important; box-shadow:none!important; overflow:visible; color:var(--cars-ink); transition:transform .5s var(--ease-luxury); }.sa-vehicle-card:hover { transform:translateY(-6px)!important; }.sa-vehicle-card--featured { grid-column:1/-1; }.sa-vehicle-card__image { aspect-ratio:16/9!important; box-shadow:var(--shadow-elevated); }.sa-vehicle-card--featured .sa-vehicle-card__image { aspect-ratio:2.1/1!important; }.sa-vehicle-card__body { padding:1.3rem 0!important; }.sa-vehicle-card__body h3 { color:var(--cars-ink)!important; font-family:"DM Sans",sans-serif!important; font-size:clamp(1.5rem,2.5vw,2.8rem)!important; font-weight:500!important; }.sa-vehicle-card__body p,.sa-vehicle-card__specs { color:#68665e!important; }.dark .sa-vehicle-card__body p,.dark .sa-vehicle-card__specs { color:rgba(241,238,229,.65)!important; }.sa-vehicle-card__specs span { border-radius:0!important; background:transparent!important; border:0!important; border-bottom:1px solid var(--cars-line)!important; padding:0 0 .45rem!important; }.sa-vehicle-card__category { border-radius:0!important; }.sa-vehicle-card__body > div:last-child { border-color:var(--cars-line)!important; }.sa-vehicle-card__body > div:last-child button { border-radius:0!important; background:var(--cars-ink)!important; color:var(--cars-paper)!important; }.sa-vehicle-card__body > div:last-child a { border-radius:0!important; }
+.sa-cars-featured-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; align-items:stretch; }
+.sa-vehicle-card { display:flex; flex-direction:column; border:1px solid rgba(0,0,0,0.08)!important; border-radius:18px!important; background:#ffffff!important; box-shadow:0 10px 30px -10px rgba(0,0,0,0.08)!important; overflow:hidden; color:var(--cars-ink); transition:transform .35s var(--ease-luxury), box-shadow .35s ease, border-color .3s ease; }
+.dark .sa-vehicle-card { background:#141714!important; border-color:rgba(255,255,255,0.09)!important; box-shadow:0 12px 35px -10px rgba(0,0,0,0.5)!important; }
+.sa-vehicle-card:hover { transform:translateY(-6px)!important; box-shadow:0 20px 45px -12px rgba(0,0,0,0.18)!important; border-color:rgba(198,161,91,0.6)!important; }
+.dark .sa-vehicle-card:hover { box-shadow:0 20px 45px -12px rgba(0,0,0,0.7)!important; }
+.sa-vehicle-card--featured { grid-column:auto; }
+.sa-vehicle-card__image { aspect-ratio:16/10!important; overflow:hidden; position:relative; }
+.sa-vehicle-card__body { padding:1.5rem!important; display:flex; flex-direction:column; justify-content:space-between; flex:1; }
+.sa-vehicle-card__body h3 { color:var(--cars-ink)!important; font-family:"DM Sans",sans-serif!important; font-size:1.25rem!important; font-weight:700!important; margin-bottom:.5rem!important; }
+.dark .sa-vehicle-card__body h3 { color:#ffffff!important; }
+.sa-vehicle-card__body p { color:#68665e!important; font-size:.82rem!important; line-height:1.55!important; margin-bottom:1rem!important; }
+.dark .sa-vehicle-card__body p { color:rgba(241,238,229,.7)!important; }
+.sa-vehicle-card__specs { display:flex!important; flex-wrap:wrap!important; gap:.5rem!important; margin-bottom:1rem!important; }
+.sa-vehicle-card__specs span { display:inline-flex!important; align-items:center!important; gap:.4rem!important; padding:.35rem .65rem!important; border-radius:8px!important; font-size:.72rem!important; font-weight:600!important; background:#f6f4ee!important; border:1px solid #e7e3d8!important; color:#35332e!important; }
+.dark .sa-vehicle-card__specs span { background:#1e221e!important; border-color:rgba(255,255,255,.1)!important; color:#eae6dc!important; }
+.sa-vehicle-card__category { border-radius:9999px!important; }
+.sa-vehicle-card__body > div:last-child { border-top:1px solid rgba(0,0,0,0.08)!important; padding-top:1rem!important; display:flex; align-items:center; gap:.5rem; }
+.dark .sa-vehicle-card__body > div:last-child { border-color:rgba(255,255,255,0.1)!important; }
+.sa-vehicle-card__body > div:last-child button { border-radius:12px!important; background:var(--cars-ink)!important; color:var(--cars-paper)!important; font-weight:600!important; font-size:.75rem!important; letter-spacing:.06em!important; text-transform:uppercase!important; padding:.65rem 1rem!important; transition:all .25s ease; }
+.sa-vehicle-card__body > div:last-child button:hover { background:var(--brand-gold)!important; color:#0f1210!important; }
+.sa-vehicle-card__body > div:last-child a { border-radius:12px!important; padding:.65rem!important; }
 .sa-cars-process { background:var(--cars-dark); color:#f1eee5; padding-block:var(--space-section-large); }.sa-cars-process__head > p { color:rgba(241,238,229,.68); }.sa-cars-steps { display:grid; grid-template-columns:repeat(3,1fr); margin-top:clamp(4rem,8vw,8rem); border-top:1px solid rgba(241,238,229,.2); }.sa-cars-steps > div { min-height:15rem; padding:1.5rem 2rem 0 0; border-right:1px solid rgba(241,238,229,.2); }.sa-cars-steps > div:not(:first-child) { padding-left:2rem; }.sa-cars-steps > div:last-child { border:0; }.sa-cars-steps h3 { margin:2.5rem 0 .7rem; font-size:1.6rem; letter-spacing:-.04em; }
 .sa-cars-media { min-height:clamp(500px,70vw,850px); position:relative; isolation:isolate; display:grid; align-items:center; color:#fff; overflow:hidden; }.sa-cars-media__image { position:absolute; inset:-5%; z-index:-2; background-position:center; background-size:cover; will-change:transform; }.sa-cars-media:after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(8,11,9,.78),rgba(8,11,9,.13)); }.sa-cars-media__copy { width:min(1360px,calc(100% - 3rem)); margin:auto; }.sa-cars-media h2 { margin-top:1rem; }
 .sa-cars-cta { background:var(--brand-black-deep); border-top:1px solid #2d2d2d; color:#fff; padding:var(--space-section-large) max(1.5rem,calc((100vw - 1100px)/2)); }.sa-cars-cta > div { max-width:720px; }.sa-cars-cta p:not(.sa-cars-eyebrow) { max-width:28rem; line-height:1.65; color:rgba(255,255,255,.8); }.sa-cars-cta .sa-cars-hero__link { color:#fff; }
@@ -1064,3 +1083,239 @@ body { background:var(--color-canvas); }
 #footer-request-custom-btn > span {
   color: #000000 !important;
 }
+.sa-discovery__tabs button:nth-of-type(1) {
+  color: #000000 !important;
+  background-color: #c6a15b !important;
+}
+.sa-discovery__tabs button:nth-of-type(2) {
+  color: #000000 !important;
+}
+.sa-discovery__tabs button:nth-of-type(3) {
+  color: #000000 !important;
+}
+.sa-discovery label select {
+  color: #000000 !important;
+}
+
+/* User targeted header and navbar styles */
+header.sa-navbar,
+header.sa-navbar > div:nth-of-type(1) {
+  background-color: #000000 !important;
+}
+
+header.sa-navbar > div:nth-of-type(1) > div:nth-of-type(1) {
+  border-color: #c7a259 !important;
+  background-color: #000000 !important;
+}
+
+#search-trigger-mobile {
+  border-color: #cdcdcd !important;
+  background-color: #fefefe !important;
+}
+
+#search-trigger-mobile svg {
+  color: #000000 !important;
+}
+
+#favorites-trigger-btn {
+  border-color: #cdcdcd !important;
+  background-color: #ffffff !important;
+}
+
+#favorites-trigger-btn svg:not(.fill-rose-500) {
+  color: #000000 !important;
+}
+
+#navbar-theme-switcher-desktop {
+  border-color: #cdcdcd !important;
+  background-color: #ffffff !important;
+}
+
+#navbar-theme-switcher-desktop svg {
+  color: #000000 !important;
+}
+
+#navbar-find-property-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #b3b3b3 !important;
+}
+
+#navbar-whatsapp-cta {
+  color: #b3b3b3 !important;
+  background-color: #ffffff !important;
+}
+
+#navbar-whatsapp-cta > span:nth-of-type(1) {
+  color: #000000 !important;
+}
+
+#mobile-menu-toggle-btn {
+  background-color: #ffffff !important;
+  border-color: #b3b3b3 !important;
+}
+
+#mobile-menu-toggle-btn > svg:nth-of-type(1),
+#mobile-menu-toggle-btn svg {
+  color: #000000 !important;
+}
+
+#search-trigger-desktop {
+  border-color: #ffffff !important;
+}
+
+#search-trigger-desktop > span:nth-of-type(1),
+#search-trigger-desktop > span {
+  color: #ffffff !important;
+}
+
+header.sa-navbar nav {
+  color: #ffffff !important;
+}
+
+#nav-properties-dropdown > span:nth-of-type(1),
+header.sa-navbar nav button > span:nth-of-type(1),
+header.sa-navbar nav button > span {
+  color: #ffffff !important;
+}
+
+/* Luxury Vehicles / Cars Showroom styling overrides */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > p:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3) > p:nth-of-type(1),
+.sa-cars-principles p {
+  color: #c8c8c8 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(2) > label:nth-of-type(1) > input:nth-of-type(1),
+.sa-cars-filter-rail input {
+  border-color: #e1e1e1 !important;
+  color: #b6b6b6 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(3),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(4),
+.sa-cars-categories button:not(.is-active) {
+  color: #c0c0c0 !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div[id^="vehicle-card-"] > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > span,
+.sa-vehicle-card__specs > span {
+  background-color: #f7f5f0 !important;
+  border: 1px solid #e5e0d3 !important;
+  color: #2b2823 !important;
+}
+
+.dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div[id^="vehicle-card-"] > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > span,
+.dark .sa-vehicle-card__specs > span {
+  background-color: #1f231f !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #eae5db !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
+.sa-cars-steps > div:nth-of-type(1) > p {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > p:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > p:nth-of-type(1),
+.sa-cars-steps > div:nth-of-type(2) > p,
+.sa-cars-steps > div:nth-of-type(3) > p {
+  color: #ffffff !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(3) > h1:nth-of-type(1) > em:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > h2:nth-of-type(1) > em:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1) > em:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > h2:nth-of-type(1) > em:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(5) > div:nth-of-type(2) > h2:nth-of-type(1) > em:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(6) > div:nth-of-type(1) > h2:nth-of-type(1) > em:nth-of-type(1),
+.sa-cars-hero h1 em,
+.sa-cars-intro h2 em,
+.sa-cars-section-heading h2 em,
+.sa-cars-process h2 em,
+.sa-cars-media h2 em,
+.sa-cars-cta h2 em {
+  color: #c6a15b !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
+.sa-cars-intro__layout > p {
+  color: #000000 !important;
+}
+
+@media (max-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1),
+  .sa-cars-intro__layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
+  .sa-cars-intro__layout > p {
+    text-align: left !important;
+    align-self: flex-start !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(3) > article:nth-of-type(1),
+  .sa-residence {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+    gap: 2rem !important;
+  }
+
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(3) > article:nth-of-type(1) > .sa-residence__image,
+  .sa-residence__image {
+    width: 100% !important;
+    height: min(100vw, 520px) !important;
+  }
+
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(3) > article:nth-of-type(1) > .sa-residence__details,
+  .sa-residence__details {
+    width: 100% !important;
+    padding-top: 1rem !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* Redesigned Luxury Vehicle Collection Grid */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3),
+.sa-cars-featured-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 2rem !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+
+@media (max-width: 1080px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3),
+  .sa-cars-featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3),
+  .sa-cars-featured-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.75rem !important;
+  }
+}
+
+
