@@ -266,13 +266,13 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
         </div>
 
         {/* 1. IMAGE GALLERY */}
-        <div className="mb-12">
-          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-white/10 shadow-xl dark:shadow-2xl">
+        <div className="mb-12 w-full max-w-full overflow-hidden">
+          <div className="relative w-full max-w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-white/10 shadow-xl dark:shadow-2xl">
             <img
               src={images[activeImageIndex]}
               alt={property.title}
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover transition-opacity duration-300"
+              className="w-full h-full max-w-full object-cover transition-opacity duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
 
@@ -661,7 +661,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
               {similarProperties.map(sim => (
                 <PropertyCard key={sim.id} property={sim} />
               ))}

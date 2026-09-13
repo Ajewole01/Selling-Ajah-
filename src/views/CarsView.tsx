@@ -163,7 +163,7 @@ export const CarsView: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="sa-cars-featured-grid">
+          <div className="sa-cars-featured-grid items-start">
             {filteredVehicles.map((vehicle) => (
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
             ))}

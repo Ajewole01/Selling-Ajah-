@@ -208,13 +208,13 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
         </div>
 
         {/* Gallery */}
-        <div className="mb-10">
-          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-white/10 shadow-xl dark:shadow-2xl">
+        <div className="mb-10 w-full max-w-full overflow-hidden">
+          <div className="relative w-full max-w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/9] rounded-3xl overflow-hidden bg-neutral-900 border border-black/8 dark:border-white/10 shadow-xl dark:shadow-2xl">
             <img
               src={images[activeImageIndex]}
               alt={apartment.name}
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover transition-opacity duration-300"
+              className="w-full h-full max-w-full object-cover transition-opacity duration-300"
             />
             {images.length > 1 && (
               <>

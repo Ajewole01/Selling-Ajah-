@@ -443,7 +443,7 @@ export const PropertiesView: React.FC<PropertiesViewProps> = ({ initialListingTy
           <div
             className={
               layout === 'grid'
-                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start'
                 : 'space-y-4'
             }
           >

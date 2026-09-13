@@ -492,8 +492,14 @@ html.light textarea::placeholder {
 .sa-hero { min-height:100svh; padding-top:8rem; }.sa-hero__shade { background:linear-gradient(90deg,rgba(8,13,10,.76) 0%,rgba(8,13,10,.29) 62%,rgba(8,13,10,.16)),linear-gradient(0deg,rgba(8,13,10,.71),transparent 64%); }.sa-hero__grid { opacity:.48; background-image:linear-gradient(90deg,transparent 0,transparent 19%,rgba(255,255,255,.34) 19.07%,transparent 19.14%,transparent 72%,rgba(255,255,255,.28) 72.07%,transparent 72.14%),linear-gradient(0deg,transparent 0,transparent 18%,rgba(255,255,255,.32) 18.1%,transparent 18.18%); }.sa-hero__content{width:min(1070px,100%);padding-bottom:clamp(4.5rem,9vw,8rem)}.sa-hero h1{font-size:clamp(5.1rem,11.8vw,12.8rem);max-width:1080px;line-height:.79;margin:.7rem 0 2rem}.sa-hero__intro{max-width:29rem;font-size:clamp(1rem,1.2vw,1.15rem);padding-left:.1rem}.sa-discovery{width:min(590px,100%);margin-top:2.5rem;background:rgba(247,244,237,.96);padding:.3rem;box-shadow:0 14px 42px rgba(0,0,0,.21)}.sa-discovery__tabs button{font-size:.64rem}.sa-discovery label span{font-size:.54rem}.sa-discovery__submit{background:#1b1d18}.sa-hero__footer{bottom:2rem}.sa-intro{padding-top:clamp(6.5rem,13vw,13rem);padding-bottom:clamp(6.5rem,13vw,13rem)}
 @media(max-width:700px){.sa-hero{min-height:100svh;padding-top:5.5rem}.sa-hero h1{font-size:clamp(4.5rem,19vw,6.3rem);line-height:.81}.sa-hero__intro{max-width:24rem}.sa-discovery{margin-top:1.7rem}}
 
-/* Break the repeated-card rhythm while retaining each listing's existing click, favourite and WhatsApp actions. */
-@media(min-width:768px){.sa-catalogue--properties [id^="property-card-"]:nth-child(3n+2),.sa-catalogue--stays [id^="apartment-card-"]:nth-child(3n+2){margin-top:3.5rem}.sa-catalogue--properties [id^="property-card-"]:nth-child(3n),.sa-catalogue--cars [id^="vehicle-card-"]:nth-child(3n){margin-top:7rem}.sa-catalogue--cars [id^="vehicle-card-"]:nth-child(3n+2){margin-top:2rem}}
+/* Natural aligned card rows without artificial staggered offset or stretching */
+@media(min-width:768px){
+  .sa-catalogue--properties [id^="property-card-"],
+  .sa-catalogue--stays [id^="apartment-card-"],
+  .sa-catalogue--cars [id^="vehicle-card-"] {
+    margin-top: 0 !important;
+  }
+}
 .sa-catalogue [id^="property-card-"] h3,.sa-catalogue [id^="apartment-card-"] h3,.sa-catalogue [id^="vehicle-card-"] h3{font-family:"DM Sans",sans-serif!important;font-weight:600!important;letter-spacing:-.055em!important;line-height:1.02!important}.sa-catalogue [id^="property-card-"] .rounded-full,.sa-catalogue [id^="apartment-card-"] .rounded-full,.sa-catalogue [id^="vehicle-card-"] .rounded-full{border-radius:0!important}.sa-catalogue [id^="property-card-"] .rounded-lg,.sa-catalogue [id^="apartment-card-"] .rounded-lg,.sa-catalogue [id^="vehicle-card-"] .rounded-lg{border-radius:0!important}.sa-catalogue [id^="property-card-"] [class*="aspect-"],.sa-catalogue [id^="apartment-card-"] [class*="aspect-"],.sa-catalogue [id^="vehicle-card-"] [class*="aspect-"]{border-radius:0!important}.sa-catalogue--cars [id^="vehicle-card-"]{background:#20211e!important}.sa-catalogue--cars [id^="vehicle-card-"] .bg-black\/5{background:rgba(255,255,255,.08)!important}
 
 /* Final visual pass: quieter chrome, stronger editorial scale, and image-led composition. */
@@ -531,7 +537,7 @@ body { background:var(--color-canvas); }
 .sa-catalogue__masthead h1 { max-width:1000px!important; }
 .sa-catalogue > div:not(.sa-catalogue__masthead) > .max-w-7xl { padding-top:1rem; }
 .sa-catalogue [id^="property-card-"],.sa-catalogue [id^="apartment-card-"],.sa-catalogue [id^="vehicle-card-"] { transition:transform .5s cubic-bezier(.2,.75,.25,1),border-color .25s!important; }
-.sa-catalogue [id^="property-card-"] > div:last-child,.sa-catalogue [id^="apartment-card-"] > div:last-child,.sa-catalogue [id^="vehicle-card-"] > div:last-child { padding:1.2rem 0!important; }
+.sa-catalogue [id^="property-card-"] > div:last-child,.sa-catalogue [id^="apartment-card-"] > div:last-child,.sa-catalogue [id^="vehicle-card-"] > div:last-child { padding:1.25rem!important; }
 .sa-editorial-page > section:first-child { min-height:clamp(390px,46vw,620px); display:flex; align-items:flex-end; }
 .sa-editorial-page > section:first-child h1 { font-size:clamp(4rem,8.6vw,9rem)!important; max-width:1000px; }
 .sa-editorial-page .rounded-2xl,.sa-editorial-page .rounded-3xl { border-radius:0!important; }
@@ -598,8 +604,8 @@ body { background:var(--color-canvas); }
 .sa-cars-filter-rail { display:flex; align-items:center; justify-content:space-between; gap:2rem; padding:1rem 0; margin-bottom:3rem; border-block:1px solid var(--cars-line); }
 .sa-cars-filter-rail label { display:flex; align-items:center; gap:.65rem; flex:1; max-width:24rem; color:#9c7a45; }.sa-cars-filter-rail input { min-height:2.5rem!important; width:100%; border:0!important; border-bottom:1px solid var(--cars-line)!important; background:transparent!important; border-radius:0!important; color:var(--cars-ink)!important; outline:0; }.sa-cars-filter-rail input::placeholder { color:#88857c; }.sa-cars-filter-rail label button { background:transparent; border:0; color:var(--cars-ink); }
 .sa-cars-categories { display:flex; gap:1.4rem; overflow-x:auto; }.sa-cars-categories button { border:0; border-bottom:1px solid transparent; background:transparent; color:#76736a; padding:.55rem 0; white-space:nowrap; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }.sa-cars-categories button.is-active { color:var(--brand-gold); border-color:var(--brand-gold); }
-.sa-cars-featured-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; align-items:stretch; }
-.sa-vehicle-card { display:flex; flex-direction:column; border:1px solid rgba(0,0,0,0.08)!important; border-radius:18px!important; background:#ffffff!important; box-shadow:0 10px 30px -10px rgba(0,0,0,0.08)!important; overflow:hidden; color:var(--cars-ink); transition:transform .35s var(--ease-luxury), box-shadow .35s ease, border-color .3s ease; }
+.sa-cars-featured-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; align-items:start!important; }
+.sa-vehicle-card { display:flex; flex-direction:column; height:auto!important; min-height:0!important; align-self:start!important; border:1px solid rgba(0,0,0,0.08)!important; border-radius:18px!important; background:#ffffff!important; box-shadow:0 10px 30px -10px rgba(0,0,0,0.08)!important; overflow:hidden; color:var(--cars-ink); transition:transform .35s var(--ease-luxury), box-shadow .35s ease, border-color .3s ease; }
 .dark .sa-vehicle-card { background:#141714!important; border-color:rgba(255,255,255,0.09)!important; box-shadow:0 12px 35px -10px rgba(0,0,0,0.5)!important; }
 .sa-vehicle-card:hover { transform:translateY(-6px)!important; box-shadow:0 20px 45px -12px rgba(0,0,0,0.18)!important; border-color:rgba(198,161,91,0.6)!important; }
 .dark .sa-vehicle-card:hover { box-shadow:0 20px 45px -12px rgba(0,0,0,0.7)!important; }
@@ -693,10 +699,10 @@ body { background:var(--color-canvas); }
 .sa-editorial-page > section:first-child > div { width:var(--content-wide); }
 .sa-catalogue > div:not(.sa-catalogue__masthead),
 .sa-detail > div:not(.sa-detail__masthead) { padding-top:clamp(2.5rem,5vw,5rem); }
-.sa-catalogue .grid { row-gap:clamp(3rem,6vw,6rem)!important; }
+.sa-catalogue .grid { row-gap:clamp(2rem,4vw,3.5rem)!important; align-items:start!important; }
 .sa-catalogue [id^="property-card-"],
 .sa-catalogue [id^="apartment-card-"],
-.sa-catalogue [id^="vehicle-card-"] { border-color:var(--border-subtle)!important; background:transparent!important; }
+.sa-catalogue [id^="vehicle-card-"] { border-color:var(--border-subtle)!important; background:transparent!important; height:auto!important; min-height:0!important; align-self:start!important; }
 .sa-catalogue [id^="property-card-"]:hover,
 .sa-catalogue [id^="apartment-card-"]:hover,
 .sa-catalogue [id^="vehicle-card-"]:hover { border-color:var(--color-gold)!important; }
@@ -713,7 +719,40 @@ body { background:var(--color-canvas); }
 .sa-detail h1 + p,
 .sa-detail h1 ~ p { max-width:40rem; line-height:1.65; }
 .sa-detail .aspect-\[16\/9\],
-.sa-detail .aspect-\[21\/9\] { min-height:clamp(380px,50vw,720px); box-shadow:var(--shadow-elevated)!important; }
+.sa-detail .aspect-\[21\/9\] {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+@media (max-width: 1024px) {
+  .sa-detail .aspect-\[16\/9\],
+  .sa-detail .aspect-\[21\/9\] {
+    min-height: 0 !important;
+    max-height: 60vh !important;
+    aspect-ratio: 16 / 10 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .sa-detail .aspect-\[16\/9\],
+  .sa-detail .aspect-\[21\/9\] {
+    min-height: 0 !important;
+    max-height: 52vh !important;
+    aspect-ratio: 16 / 10 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .sa-detail .aspect-\[16\/9\],
+  .sa-detail .aspect-\[21\/9\] {
+    min-height: clamp(380px, 42vw, 680px);
+  }
+}
 .sa-detail > div > .grid,
 .sa-detail > .max-w-7xl > .grid { row-gap:clamp(3rem,6vw,6rem); }
 .sa-detail .grid-cols-3,
@@ -1284,7 +1323,7 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 2rem !important;
-  align-items: stretch !important;
+  align-items: start !important;
   width: 100% !important;
 }
 
@@ -1304,9 +1343,18 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
   }
 }
 
+/* Ensure Property & Vehicle Card Height = Content Height */
+[id^="property-card-"],
+[id^="vehicle-card-"],
+.sa-vehicle-card {
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: start !important;
+}
+
 /* Focus Mode: Applied Styles */
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(3) > div#vehicle-card-veh-3:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1) > span:nth-of-type(1) {
@@ -1375,6 +1423,38 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > h3:nth-of-type(1) {
   color: #ffffff !important;
 }
+
+/* Focus Mode: Target Image Responsiveness Fix */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1) {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) {
+  max-width: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) {
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+    max-height: 60vh !important;
+  }
+}
+
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) {
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+    max-height: 52vh !important;
+  }
+}
+
 
 
 

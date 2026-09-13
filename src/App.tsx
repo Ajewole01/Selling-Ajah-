@@ -98,12 +98,12 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-primary flex flex-col font-sans selection:bg-brand-gold selection:text-brand-black-deep transition-colors duration-200">
+    <div className="min-h-screen bg-canvas text-primary flex flex-col font-sans selection:bg-brand-gold selection:text-brand-black-deep transition-colors duration-200 overflow-x-hidden">
       {/* Global Navbar */}
       <Navbar />
 
       {/* Main Dynamic View Content */}
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden">
         {renderCurrentView()}
       </main>
 

@@ -23,10 +23,10 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, featured = fa
     <div
       id={`vehicle-card-${vehicle.id}`}
       onClick={handleCardClick}
-      className={`sa-vehicle-card group ${featured ? 'sa-vehicle-card--featured' : ''} cursor-pointer`}
+      className={`sa-vehicle-card group self-start h-auto ${featured ? 'sa-vehicle-card--featured' : ''} cursor-pointer`}
     >
-      {/* Vehicle Image */}
-      <div className="sa-vehicle-card__image relative aspect-[16/10] overflow-hidden bg-neutral-900">
+      {/* 1. Vehicle Image */}
+      <div className="sa-vehicle-card__image relative aspect-[16/10] overflow-hidden bg-neutral-900 shrink-0">
         <img
           src={vehicle.mainImage}
           alt={vehicle.name}
@@ -34,9 +34,10 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, featured = fa
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none" />
 
-        <div className="sa-vehicle-card__labels absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
+        {/* Category & Year Badges */}
+        <div className="sa-vehicle-card__labels absolute top-3 left-3 right-3 flex items-center justify-between z-10">
           <span className="sa-vehicle-card__category bg-brand-gold text-brand-black-deep text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
             {vehicle.category}
           </span>
@@ -44,50 +45,56 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, featured = fa
             {vehicle.year}
           </span>
         </div>
+      </div>
 
-        <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between z-10">
+      {/* 2. Details Body: Natural vertical flow */}
+      <div className="sa-vehicle-card__body p-4 sm:p-5 flex flex-col gap-2.5">
+        {/* Daily Rate */}
+        <div className="flex items-baseline justify-between gap-2">
           <div>
-            <span className="text-[9px] text-white/75 uppercase tracking-widest block mb-0.5 font-bold">Daily rate</span>
-            <div className="text-xl sm:text-2xl font-serif font-bold text-brand-gold tracking-tight drop-shadow-md">
+            <span className="text-[10px] text-neutral-400 dark:text-white/40 uppercase tracking-widest block font-bold leading-tight">
+              Daily rate
+            </span>
+            <div className="text-xl sm:text-2xl font-serif font-bold text-brand-gold tracking-tight">
               {formatNaira(vehicle.dailyRate)}
-              <span className="text-xs font-sans text-white/80 font-normal"> /day</span>
+              <span className="text-xs font-sans text-neutral-500 dark:text-white/50 font-normal"> /day</span>
             </div>
           </div>
-          <span className="text-[10px] text-brand-gold bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-md border border-brand-gold/30 font-medium flex items-center gap-1">
+          <span className="text-[10px] text-brand-gold bg-brand-gold/10 px-2 py-0.5 rounded border border-brand-gold/30 font-medium">
             Chauffeur ready
           </span>
         </div>
-      </div>
 
-      {/* Details */}
-      <div className="sa-vehicle-card__body p-4 sm:p-5 flex flex-col gap-3">
-        <div>
-          <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest mb-1">
-            {vehicle.brand}
-          </div>
-          <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-1 mb-1.5 leading-snug">
-            {vehicle.name}
-          </h3>
-
-          <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 mb-3 font-normal leading-relaxed">
-            {vehicle.shortDescription || vehicle.description}
-          </p>
-
-          <div className="sa-vehicle-card__specs flex flex-wrap gap-2 text-xs">
-            <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
-              <Users className="w-3.5 h-3.5 text-brand-gold" /> {vehicle.seats} Seats
-            </span>
-            <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
-              {vehicle.transmission}
-            </span>
-            <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
-              <Fuel className="w-3.5 h-3.5 text-brand-gold" /> {vehicle.fuelType}
-            </span>
-          </div>
+        {/* Brand / Type */}
+        <div className="text-[10px] font-bold text-neutral-800 dark:text-white/90 uppercase tracking-widest">
+          {vehicle.brand} • {vehicle.category}
         </div>
 
-        {/* Action buttons */}
-        <div className="pt-3 border-t border-black/8 dark:border-white/10 flex items-center gap-2">
+        {/* Vehicle Name */}
+        <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-1 leading-snug">
+          {vehicle.name}
+        </h3>
+
+        {/* Short Description */}
+        <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 font-normal leading-relaxed">
+          {vehicle.shortDescription || vehicle.description}
+        </p>
+
+        {/* Feature Pills */}
+        <div className="sa-vehicle-card__specs flex flex-wrap gap-2 text-xs pt-1">
+          <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
+            <Users className="w-3.5 h-3.5 text-brand-gold" /> {vehicle.seats} Seats
+          </span>
+          <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
+            {vehicle.transmission}
+          </span>
+          <span className="text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium">
+            <Fuel className="w-3.5 h-3.5 text-brand-gold" /> {vehicle.fuelType}
+          </span>
+        </div>
+
+        {/* CTA / Message */}
+        <div className="pt-2.5 border-t border-black/8 dark:border-white/10 flex items-center gap-2">
           <button
             onClick={handleCardClick}
             className="flex-1 py-2.5 px-4 rounded-xl bg-neutral-900 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all uppercase tracking-wider group/btn"

@@ -177,10 +177,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     <div
       id={`property-card-${property.id}`}
       onClick={handleCardClick}
-      className="group relative bg-white dark:bg-brand-black-soft hover:bg-neutral-50/80 dark:hover:bg-brand-charcoal border border-black/8 dark:border-white/10 hover:border-brand-gold/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col cursor-pointer"
+      className="group relative self-start h-auto bg-white dark:bg-brand-black-soft hover:bg-neutral-50/80 dark:hover:bg-brand-charcoal border border-black/8 dark:border-white/10 hover:border-brand-gold/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col cursor-pointer"
     >
-      {/* Image container */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900">
+      {/* 1. Image */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 shrink-0">
         <img
           src={property.mainImage}
           alt={property.title}
@@ -188,10 +188,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none" />
 
-        {/* Top Badges */}
-        <div className="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
+        {/* Status Badges */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
           {statusBadge()}
           {property.isFeatured && (
             <span className="bg-black/75 backdrop-blur-md border border-brand-gold/50 text-brand-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
@@ -205,100 +205,101 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           id={`fav-btn-${property.id}`}
           onClick={handleToggleFavorite}
           aria-label="Save to favorites"
-          className="absolute top-3.5 right-3.5 z-10 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95"
         >
           <Heart className={`w-4 h-4 ${liked ? 'text-brand-gold fill-brand-gold' : 'text-white'}`} />
         </button>
+      </div>
 
-        {/* Floating Price on image bottom */}
-        <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between z-10">
+      {/* 2. Body Content: Natural vertical flow */}
+      <div className="p-4 sm:p-5 flex flex-col gap-2.5">
+        {/* Price & Reference */}
+        <div className="flex items-baseline justify-between gap-2">
           <div>
-            <span className="text-[9px] uppercase font-bold tracking-widest text-white/70 block mb-0.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 dark:text-white/40 block leading-tight">
               Guide Price
             </span>
-            <div className="text-lg sm:text-xl font-bold text-brand-gold font-serif tracking-tight drop-shadow-md">
+            <div className="text-xl sm:text-2xl font-bold text-brand-gold font-serif tracking-tight">
               {formatNaira(property.price)}
               {property.pricePeriod && (
-                <span className="text-xs font-sans text-white/80 font-normal"> /{property.pricePeriod}</span>
+                <span className="text-xs font-sans text-neutral-500 dark:text-white/50 font-normal"> /{property.pricePeriod}</span>
               )}
             </div>
           </div>
-          <span className="text-[10px] font-mono text-brand-gold bg-black/80 backdrop-blur-md px-2 py-0.5 rounded border border-brand-gold/40">
+          <span className="font-mono text-[11px] font-bold text-brand-gold px-2 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/30 shrink-0">
             {property.refNumber}
           </span>
         </div>
-      </div>
 
-      {/* Body Content */}
-      <div className="p-4 sm:p-5 flex flex-col gap-3">
-        <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-[10px] uppercase tracking-widest font-bold text-brand-gold">
-              {property.propertyType}
-            </span>
-            <span className="text-neutral-300 dark:text-white/20">•</span>
-            <span className="text-[11px] text-neutral-500 dark:text-white/50 truncate font-medium">
-              {property.area}
-            </span>
-          </div>
-
-          <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-1.5 leading-snug">
-            {property.title}
-          </h3>
-
-          <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60">
-            <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
-            <span className="truncate">{property.location}</span>
-          </div>
+        {/* Property Type & Area */}
+        <div className="flex items-center gap-2 text-[11px] font-medium">
+          <span className="uppercase tracking-wider font-bold text-neutral-800 dark:text-white/90">
+            {property.propertyType}
+          </span>
+          <span className="text-neutral-300 dark:text-white/20">•</span>
+          <span className="text-neutral-500 dark:text-white/60 truncate">
+            {property.area}
+          </span>
         </div>
 
+        {/* Title */}
+        <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 leading-snug">
+          {property.title}
+        </h3>
+
+        {/* Location */}
+        <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60">
+          <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+          <span className="truncate">{property.location}</span>
+        </div>
+
+        {/* Optional Description if present */}
         {property.shortDescription && (
           <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 font-light leading-relaxed">
             {property.shortDescription}
           </p>
         )}
 
-        {/* Specs and CTAs */}
-        <div className="pt-3 border-t border-black/8 dark:border-white/10 flex flex-col gap-3">
-          <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-white/60 font-medium">
-            <div className="flex items-center gap-3">
-              {property.bedrooms > 0 && (
-                <div className="flex items-center gap-1" title={`${property.bedrooms} Bedrooms`}>
-                  <Bed className="w-3.5 h-3.5 text-neutral-400 dark:text-white/40" />
-                  <span>{property.bedrooms} Beds</span>
-                </div>
-              )}
-              {property.bathrooms > 0 && (
-                <div className="flex items-center gap-1" title={`${property.bathrooms} Bathrooms`}>
-                  <Bath className="w-3.5 h-3.5 text-neutral-400 dark:text-white/40" />
-                  <span>{property.bathrooms} Baths</span>
-                </div>
-              )}
-            </div>
-
-            {property.propertySize && (
-              <span className="text-[11px] text-neutral-500 dark:text-white/40 font-mono">{property.propertySize}</span>
+        {/* Beds / Baths / Size */}
+        <div className="pt-2.5 border-t border-black/8 dark:border-white/10 flex items-center justify-between text-xs text-neutral-600 dark:text-white/60 font-medium">
+          <div className="flex items-center gap-3">
+            {property.bedrooms > 0 && (
+              <div className="flex items-center gap-1" title={`${property.bedrooms} Bedrooms`}>
+                <Bed className="w-3.5 h-3.5 text-brand-gold" />
+                <span>{property.bedrooms} Beds</span>
+              </div>
+            )}
+            {property.bathrooms > 0 && (
+              <div className="flex items-center gap-1" title={`${property.bathrooms} Bathrooms`}>
+                <Bath className="w-3.5 h-3.5 text-brand-gold" />
+                <span>{property.bathrooms} Baths</span>
+              </div>
             )}
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleCardClick}
-              className="flex-1 py-2 px-3.5 rounded-xl bg-black/5 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
-            >
-              <span>Explore</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/50 group-hover/btn:text-brand-black-deep group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-            </button>
+          {property.propertySize && (
+            <span className="text-[11px] text-neutral-500 dark:text-white/40 font-mono">{property.propertySize}</span>
+          )}
+        </div>
 
-            <button
-              id={`card-whatsapp-${property.id}`}
-              onClick={handleWhatsAppClick}
-              title="Chat on WhatsApp"
-              className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95"
-            >
-              <MessageSquare className="w-4 h-4" />
-            </button>
-          </div>
+        {/* Explore / Message CTA */}
+        <div className="flex items-center gap-2 pt-1">
+          <button
+            onClick={handleCardClick}
+            className="flex-1 py-2 px-3.5 rounded-xl bg-black/5 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
+          >
+            <span>Explore</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/50 group-hover/btn:text-brand-black-deep group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+          </button>
+
+          <button
+            id={`card-whatsapp-${property.id}`}
+            onClick={handleWhatsAppClick}
+            title="Chat on WhatsApp"
+            className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95"
+          >
+            <MessageSquare className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>
