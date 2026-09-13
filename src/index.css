@@ -1455,6 +1455,131 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
   }
 }
 
+/* Focus Mode: Mobile & Tablet Styling for Detail Card */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) {
+  transition: all 0.25s ease !important;
+}
 
+@media (max-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) {
+    padding: 1.5rem !important;
+    border-radius: 1.25rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) {
+    padding: 1.25rem !important;
+    border-radius: 1rem !important;
+  }
+}
+
+/* Focus Mode: Image Counter Badge Styles */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) {
+  color: #ffffff !important;
+  background-color: #555555 !important;
+  border-color: #8a7b35 !important;
+}
+
+/* Detail Gallery Light Mode Navigation Visibility - No Animation */
+.sa-gallery-nav-btn {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #171717 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.15) !important;
+  transition: none !important;
+  animation: none !important;
+  transform: translateY(-50%) !important;
+}
+
+.dark .sa-gallery-nav-btn {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+.sa-gallery-nav-btn:hover {
+  transform: translateY(-50%) !important;
+  background-color: #ffffff !important;
+}
+
+.dark .sa-gallery-nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Focus Mode: Remove animation from image and carousel navigation */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > img:nth-of-type(1) {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Focus Mode: Apartment Card Styling - Light Mode */
+html:not(.dark) div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div#apartment-card-apt-3:nth-of-type(1) > div:nth-of-type(2),
+html.light div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div#apartment-card-apt-3:nth-of-type(1) > div:nth-of-type(2) {
+  background-color: #ffffff !important;
+  border-color: #ffeeb6 !important;
+}
+
+/* Focus Mode: Apartment Card Styling - Dark Mode */
+html.dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div#apartment-card-apt-3:nth-of-type(1) > div:nth-of-type(2),
+.dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div#apartment-card-apt-3:nth-of-type(1) > div:nth-of-type(2) {
+  background-color: #0a0a0a !important;
+  border-color: #ffffff !important;
+}
+
+/* Focus Mode: Gallery Image Counter Badge */
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) {
+  color: #ffffff !important;
+}
+
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) {
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+    font-size: 0.6875rem !important;
+    padding: 0.25rem 0.625rem !important;
+  }
+}
+
+/* Focus Mode: Quick Specs Container & Items Responsive Layout */
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) {
+    grid-template-columns: 1fr !important;
+    gap: 0.625rem !important;
+    padding: 0.875rem !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.875rem !important;
+    padding: 1rem !important;
+  }
+}
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2),
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 640px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1),
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2),
+  div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) {
+    padding: 0.625rem 0.75rem !important;
+    border-radius: 0.75rem !important;
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+
+  .dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1),
+  .dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2),
+  .dark div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+  }
+}
 
 

@@ -192,37 +192,41 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
               src={images[activeImageIndex]}
               alt={vehicle.name}
               referrerPolicy="no-referrer"
-              className="w-full h-full max-w-full object-cover transition-opacity duration-300"
+              className="w-full h-full max-w-full object-cover transition-none"
             />
             {images.length > 1 && (
               <>
                 <button
                   onClick={() => setActiveImageIndex(prev => (prev === 0 ? images.length - 1 : prev - 1))}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md border border-white/20 cursor-pointer"
+                  aria-label="Previous photo"
+                  className="sa-gallery-nav-btn absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer z-10"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => setActiveImageIndex(prev => (prev === images.length - 1 ? 0 : prev + 1))}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center backdrop-blur-md border border-white/20 cursor-pointer"
+                  aria-label="Next photo"
+                  className="sa-gallery-nav-btn absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center cursor-pointer z-10"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </>
             )}
-            <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs px-3.5 py-1.5 rounded-full font-mono">
+            <div className="absolute bottom-4 right-4 bg-[#555555]/90 backdrop-blur-md border border-[#8a7b35] text-white text-xs px-3.5 py-1.5 rounded-full font-mono font-medium shadow-md">
               {activeImageIndex + 1} / {images.length} Photos
             </div>
           </div>
 
           {images.length > 1 && (
-            <div className="flex gap-2.5 mt-3 overflow-x-auto pb-2">
+            <div className="flex items-center gap-2.5 mt-3.5 overflow-x-auto pb-2 px-0.5 scrollbar-thin">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
-                    activeImageIndex === idx ? 'border-brand-gold scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
+                  className={`w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 cursor-pointer ${
+                    activeImageIndex === idx
+                      ? 'border-brand-gold ring-2 ring-brand-gold/50 shadow-md opacity-100'
+                      : 'border-black/20 dark:border-white/20 bg-neutral-200 dark:bg-neutral-800 opacity-85 hover:opacity-100 hover:border-brand-gold/70 shadow-xs'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -237,14 +241,14 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
           <div className="lg:col-span-2 space-y-10">
             
             {/* Quick Specs */}
-            <div className="grid grid-cols-3 gap-4 p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Users className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-[11px] text-neutral-500 dark:text-white/50 uppercase tracking-wider block font-mono">Seats</span>
-                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{vehicle.seats} Passengers</span>
+                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white truncate block">{vehicle.seats} Passengers</span>
                 </div>
               </div>
 
@@ -252,9 +256,9 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
                 <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Car className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-[11px] text-neutral-500 dark:text-white/50 uppercase tracking-wider block font-mono">Transmission</span>
-                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{vehicle.transmission}</span>
+                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white truncate block">{vehicle.transmission}</span>
                 </div>
               </div>
 
@@ -262,9 +266,9 @@ export const CarDetailView: React.FC<CarDetailViewProps> = ({ slug }) => {
                 <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <Fuel className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <span className="text-[11px] text-neutral-500 dark:text-white/50 uppercase tracking-wider block font-mono">Fuel / Engine</span>
-                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{vehicle.fuelType}</span>
+                  <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white truncate block">{vehicle.fuelType}</span>
                 </div>
               </div>
             </div>

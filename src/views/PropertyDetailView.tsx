@@ -272,7 +272,7 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               src={images[activeImageIndex]}
               alt={property.title}
               referrerPolicy="no-referrer"
-              className="w-full h-full max-w-full object-cover transition-opacity duration-300"
+              className="w-full h-full max-w-full object-cover transition-none"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
 
@@ -281,36 +281,38 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
               <>
                 <button
                   onClick={handlePrevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 cursor-pointer"
+                  aria-label="Previous photo"
+                  className="sa-gallery-nav-btn absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center cursor-pointer z-10"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 cursor-pointer"
+                  aria-label="Next photo"
+                  className="sa-gallery-nav-btn absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center cursor-pointer z-10"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </>
             )}
 
             {/* Image counter indicator */}
-            <div className="absolute bottom-4 right-4 bg-black/75 backdrop-blur-md border border-white/20 text-white text-xs px-3.5 py-1.5 rounded-full font-mono font-medium">
+            <div className="absolute bottom-4 right-4 bg-[#555555]/90 backdrop-blur-md border border-[#8a7b35] text-white text-xs px-3.5 py-1.5 rounded-full font-mono font-medium shadow-md">
               {activeImageIndex + 1} / {images.length} Photos
             </div>
           </div>
 
           {/* Thumbnails row */}
           {images.length > 1 && (
-            <div className="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-thin">
+            <div className="flex items-center gap-3 mt-4 overflow-x-auto pb-2 scrollbar-thin px-0.5">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`w-20 h-14 sm:w-24 sm:h-16 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
+                  className={`w-20 h-14 sm:w-24 sm:h-16 rounded-xl overflow-hidden shrink-0 border-2 cursor-pointer ${
                     activeImageIndex === idx
-                      ? 'border-brand-gold scale-105 shadow-md'
-                      : 'border-transparent opacity-60 hover:opacity-100'
+                      ? 'border-brand-gold ring-2 ring-brand-gold/50 shadow-md opacity-100'
+                      : 'border-black/20 dark:border-white/20 bg-neutral-200 dark:bg-neutral-800 opacity-85 hover:opacity-100 hover:border-brand-gold/70 shadow-xs'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -400,22 +402,70 @@ export const PropertyDetailView: React.FC<PropertyDetailViewProps> = ({ slug }) 
             )}
 
             {/* Title & Conveyancing Information */}
-            <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/25 flex items-center justify-center text-brand-gold shrink-0">
-                  <ShieldCheck className="w-6 h-6" />
+            <div
+              id="property-conveyancing-card"
+              className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-8 shadow-sm dark:shadow-none transition-all"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start gap-3.5 sm:gap-5">
+                <div className="flex items-center sm:block gap-3">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-brand-gold/10 border border-brand-gold/25 flex items-center justify-center text-brand-gold shrink-0">
+                    <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
+                  <div className="sm:hidden">
+                    <span className="text-[10px] uppercase font-mono font-semibold tracking-wider text-brand-gold block">
+                      Verified Conveyancing
+                    </span>
+                    <span className="text-xs font-semibold text-neutral-900 dark:text-white">
+                      {property.titleDocument || "Available Upon Request"}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-serif text-lg font-bold text-neutral-900 dark:text-white mb-1">
-                    Documentation & Title Inquiries: {property.titleDocument || "Available Upon Request"}
+
+                <div className="flex-1 min-w-0">
+                  <div className="hidden sm:flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span className="text-[10px] uppercase font-mono font-semibold tracking-wider text-brand-gold">
+                      Verified Legal Dossier
+                    </span>
+                    <span className="text-[11px] font-semibold bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                      {property.titleDocument || "Available Upon Request"}
+                    </span>
+                  </div>
+
+                  <h4 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-neutral-900 dark:text-white mb-2 leading-snug">
+                    Documentation & Title Verification
                   </h4>
-                  <p className="text-xs text-neutral-600 dark:text-white/70 leading-relaxed mb-3 font-light">
-                    Title records, survey plan coordinates, and deed documentation are reviewed directly with buyers during private advisory sessions or scheduled property inspections.
+
+                  <p className="text-xs sm:text-sm text-neutral-600 dark:text-white/70 leading-relaxed mb-4 font-light">
+                    Title records, survey plan coordinates, and deed covenants are thoroughly cross-referenced with Lagos State Lands Bureau archives and made available during private buyer advisory sessions.
                   </p>
-                  <div className="flex flex-wrap gap-2 text-[11px] text-neutral-700 dark:text-white/70 font-mono">
-                    <span className="flex items-center gap-1">✓ Registered Survey Reference</span>
-                    <span className="flex items-center gap-1">✓ Physical Inspection Available</span>
-                    <span className="flex items-center gap-1">✓ Direct Developer / Owner Engagement</span>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                    <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl bg-neutral-50 dark:bg-brand-black-deep/70 border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-white/85">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      <span className="font-medium text-[11px] sm:text-xs">Registered Survey Reference</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl bg-neutral-50 dark:bg-brand-black-deep/70 border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-white/85">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      <span className="font-medium text-[11px] sm:text-xs">Physical Inspection Available</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2.5 sm:p-3 rounded-xl bg-neutral-50 dark:bg-brand-black-deep/70 border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-white/85">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      <span className="font-medium text-[11px] sm:text-xs">Direct Owner Engagement</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3.5 border-t border-black/6 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <p className="text-[11px] text-neutral-500 dark:text-white/50">
+                      Need clarification on title coordinates or survey records?
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => openAiModal(`Can you explain the title document (${property.titleDocument || 'Available upon request'}) and conveyancing verification process for ${property.title}?`)}
+                      className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold border border-brand-gold/30 transition-colors cursor-pointer w-full sm:w-auto"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
+                      <span>Inquire About Title Docs</span>
+                    </button>
                   </div>
                 </div>
               </div>
