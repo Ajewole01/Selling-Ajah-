@@ -101,7 +101,7 @@ export const CarsView: React.FC = () => {
         <p className="sa-cars-eyebrow sa-cars-eyebrow--dark">A considered way to move</p>
         <div className="sa-cars-intro__layout flex flex-col lg:grid items-start">
           <h2>Executive mobility<br /><em style={{ color: '#c6a15b' }}>for the way Lagos moves.</em></h2>
-          <p style={{ color: '#000000' }}>Choose from a focused collection of luxury SUVs, executive vehicles and premium cars. Browse the fleet, open a vehicle dossier, then send a direct enquiry for dates and arrangements.</p>
+          <p style={{ color: '#ffffff' }}>Choose from a focused collection of luxury SUVs, executive vehicles and premium cars. Browse the fleet, open a vehicle dossier, then send a direct enquiry for dates and arrangements.</p>
         </div>
         <div className="sa-cars-principles">
           <div><span>01</span><strong>Curated fleet</strong><p style={{ color: '#c8c8c8' }}>Selected vehicles presented with the details available for each model.</p></div>
@@ -116,7 +116,7 @@ export const CarsView: React.FC = () => {
             <p className="sa-cars-eyebrow sa-cars-eyebrow--dark">The collection</p>
             <h2>Choose your<br /><em style={{ color: '#c6a15b' }}>next drive.</em></h2>
           </div>
-          <button onClick={() => openAiModal('Help me choose a luxury rental vehicle')} className="sa-cars-text-button"><Sparkles size={15} /> Ask the concierge</button>
+          <button onClick={() => openAiModal('Help me choose a luxury rental vehicle')} className="sa-cars-text-button" style={{ color: '#c6a15b' }}><Sparkles size={15} /> Ask the concierge</button>
         </div>
         <div className="sa-cars-filter-rail">
           <label>
