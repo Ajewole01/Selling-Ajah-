@@ -1267,7 +1267,6 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
   color: #c6a15b !important;
 }
 
-div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1),
 .sa-cars-intro__layout > p {
   color: #ffffff !important;
 }
@@ -1584,7 +1583,7 @@ div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-
 
 /* Focus Mode: Element Selection Styles */
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section#cars-collection:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1) {
@@ -2089,6 +2088,15 @@ html:not(.dark) div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(
 html:not(.dark) div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(9) > div:nth-of-type(1) > p:nth-of-type(2) {
   color: #ffffff !important;
 }
+
+div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) {
+  color: #000000;
+}
+
+html:not(.dark) div#root:nth-of-type(1) > div:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) {
+  color: #000000 !important;
+}
+
 
 
 
