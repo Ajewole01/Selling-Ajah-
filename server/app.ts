@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import * as repo from './repositories/index.js';
 import { processAiMessage } from './ai.js';
+import { processConciergeTurn } from './ai/orchestrator.js';
+import { naturalVoiceGateway } from './ai/voice.js';
+import { telephonyAdapter } from './telephony/adapter.js';
 import { verifyAdminToken } from './authToken.js';
 
 export const app = express();
@@ -495,7 +498,7 @@ api.delete('/auth/users/:id', requireAdmin, async (req: Request, res: Response) 
   }
 });
 
-// ================= AI CHATBOT =================
+// ================= AI CONCIERGE & CHATBOT =================
 api.post('/chat', async (req: Request, res: Response) => {
   try {
     const result = await processAiMessage(req.body);
@@ -509,6 +512,177 @@ api.post('/chat', async (req: Request, res: Response) => {
       ]
     });
   }
+});
+
+// Advanced multi-channel Concierge endpoint (web chat, voice calls, external agents)
+api.post('/ai/concierge', async (req: Request, res: Response) => {
+  try {
+    const result = await processConciergeTurn(req.body);
+    res.json(result);
+  } catch (err: any) {
+    console.error('AI Concierge endpoint error:', err);
+    res.status(500).json({
+      reply: "Welcome to Selling Ajah. I am your private advisor for verified properties, serviced shortlets, and luxury vehicles across Ajah and Lekki. How may I assist your search today?",
+      cards: [],
+      actionButtons: [
+        { label: 'Connect on WhatsApp', action: 'whatsapp', value: '+2348109012192' }
+      ],
+      conversationId: req.body?.sessionId || 'conv-err',
+      channel: req.body?.channel || 'chat'
+    });
+  }
+});
+
+api.get('/ai/voice/config', (req: Request, res: Response) => {
+  const sessionId = (req.query.sessionId as string) || 'voice-' + Date.now();
+  const config = naturalVoiceGateway.getRealtimeSessionInfo(sessionId);
+  res.json(config);
+});
+
+// ================= INSPECTION & BOOKING REQUESTS =================
+api.get('/inspections', requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    const requests = await repo.getInspectionRequests();
+    res.json(requests);
+  } catch (err: any) {
+    console.error('Error in GET /api/inspections:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.get('/inspections/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const item = await repo.getInspectionRequestById(req.params.id);
+    if (!item) return res.status(404).json({ error: 'Inspection request not found' });
+    res.json(item);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.post('/inspections', async (req: Request, res: Response) => {
+  try {
+    const created = await repo.createInspectionRequest(req.body);
+    res.status(201).json(created);
+  } catch (err: any) {
+    console.error('Error in POST /api/inspections:', err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
+api.put('/inspections/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const updated = await repo.updateInspectionRequest(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Inspection request not found' });
+    res.json(updated);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+api.delete('/inspections/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const ok = await repo.deleteInspectionRequest(req.params.id);
+    if (!ok) return res.status(404).json({ error: 'Inspection request not found' });
+    res.json({ success: true, message: 'Inspection request deleted' });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ================= CONVERSATION LOGS =================
+api.get('/ai/conversations', requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    const logs = await repo.getConversations();
+    res.json(logs);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.get('/ai/conversations/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const log = await repo.getConversationById(req.params.id);
+    if (!log) return res.status(404).json({ error: 'Conversation log not found' });
+    res.json(log);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.delete('/ai/conversations/:id', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const ok = await repo.deleteConversation(req.params.id);
+    res.json({ success: ok });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ================= AI CONCIERGE SETTINGS =================
+api.get('/ai/settings', async (_req: Request, res: Response) => {
+  try {
+    const settings = await repo.getAiConciergeSettings();
+    res.json(settings);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.put('/ai/settings', requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const updated = await repo.updateAiConciergeSettings(req.body);
+    res.json(updated);
+  } catch (err: any) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// ================= REAL TELEPHONY INTEGRATION =================
+api.post('/telephony/incoming-call', async (req: Request, res: Response) => {
+  try {
+    const twiml = await telephonyAdapter.handleIncomingCall(req.body);
+    res.type('text/xml').send(twiml);
+  } catch (err: any) {
+    console.error('Telephony incoming-call error:', err);
+    res.type('text/xml').send(`<?xml version="1.0" encoding="UTF-8"?><Response><Say>Welcome to Selling Ajah. Please hold while we transfer you to an advisor.</Say><Dial>+2348109012192</Dial></Response>`);
+  }
+});
+
+api.post('/telephony/gather', async (req: Request, res: Response) => {
+  try {
+    const twiml = await telephonyAdapter.handleSpeechGather(req.body);
+    res.type('text/xml').send(twiml);
+  } catch (err: any) {
+    console.error('Telephony speech gather error:', err);
+    res.type('text/xml').send(`<?xml version="1.0" encoding="UTF-8"?><Response><Say>Connecting you to our executive desk.</Say><Dial>+2348109012192</Dial></Response>`);
+  }
+});
+
+api.post('/telephony/status', async (req: Request, res: Response) => {
+  try {
+    await telephonyAdapter.handleCallStatus(req.body);
+    res.json({ received: true });
+  } catch (err: any) {
+    console.error('Telephony status webhook error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+api.get('/telephony/config', requireAdmin, async (req: Request, res: Response) => {
+  const host = req.get('host') || 'localhost:3000';
+  const proto = req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' ? 'https' : 'http';
+  const baseUrl = `${proto}://${host}`;
+
+  res.json({
+    webhookBaseUrl: baseUrl,
+    incomingCallWebhook: `${baseUrl}/api/telephony/incoming-call`,
+    speechGatherWebhook: `${baseUrl}/api/telephony/gather`,
+    statusCallbackWebhook: `${baseUrl}/api/telephony/status`,
+    recommendedVoice: 'Polly.Ayanda (en-ZA) or Polly.Joanna (en-US)',
+    speechGatherLanguage: 'en-NG',
+    providerInstructions: 'In your Twilio Phone Number configuration (or generic SIP provider), set "A Call Comes In" to Webhook POST pointing to the incomingCallWebhook URL above.'
+  });
 });
 
 // Mount router under both /api and root / so serverless and local dev both work flawlessly

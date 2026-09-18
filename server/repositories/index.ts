@@ -5,3 +5,6 @@ export * from './enquiries.js';
 export * from './settings.js';
 export * from './testimonialsAndFaqs.js';
 export * from './auth.js';
+export * from './bookings.js';
+export * from './conversations.js';
+

@@ -104,7 +104,7 @@ export const CarsView: React.FC = () => {
           <p style={{ color: '#ffffff' }}>Choose from a focused collection of luxury SUVs, executive vehicles and premium cars. Browse the fleet, open a vehicle dossier, then send a direct enquiry for dates and arrangements.</p>
         </div>
         <div className="sa-cars-principles">
-          <div><span>01</span><strong>Curated fleet</strong><p style={{ color: '#c8c8c8' }}>Selected vehicles presented with the details available for each model.</p></div>
+          <div><span>01</span><strong>Curated fleet</strong><p style={{ color: '#ffffff' }}>Selected vehicles presented with the details available for each model.</p></div>
           <div><span>02</span><strong>Direct enquiry</strong><p style={{ color: '#c8c8c8' }}>Move from vehicle discovery to a personal WhatsApp or booking enquiry.</p></div>
           <div><span>03</span><strong>Lagos access</strong><p style={{ color: '#c8c8c8' }}>A focused rental collection for Ajah, Lekki and wider Lagos journeys.</p></div>
         </div>

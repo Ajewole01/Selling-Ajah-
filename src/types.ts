@@ -199,4 +199,68 @@ export interface ChatMessage {
   listingCards?: ChatCard[];
   actionButtons?: ChatActionButton[];
   suggestLeadCapture?: boolean;
+  isVoiceTranscript?: boolean;
+  handoffRequested?: boolean;
 }
+
+export type InspectionStatus = 'pending' | 'confirmed' | 'completed' | 'cancelled';
+
+export interface InspectionRequest {
+  id: string;
+  type: 'inspection' | 'shortlet_booking' | 'vehicle_booking';
+  referenceNumber: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  listingId?: string;
+  listingTitle: string;
+  listingType: 'property' | 'shortlet' | 'vehicle';
+  listingSlug?: string;
+  preferredDate: string;
+  preferredTime?: string;
+  checkInDate?: string;
+  checkOutDate?: string;
+  numberOfGuests?: number;
+  rentalDays?: number;
+  notes?: string;
+  status: InspectionStatus;
+  source: 'AI Chat' | 'AI Voice' | 'AI Phone' | 'Website Direct';
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface AiConversationRecord {
+  id: string;
+  channel: 'chat' | 'voice' | 'phone';
+  customerName?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  startedAt: string;
+  endedAt?: string;
+  intent: string;
+  outcome: 'lead_captured' | 'inspection_requested' | 'booking_requested' | 'information_provided' | 'human_handoff' | 'ongoing';
+  humanHandoffRequested: boolean;
+  summary: string;
+  messageCount: number;
+  relatedListingIds?: string[];
+  transcript?: Array<{ sender: 'user' | 'assistant' | 'system'; text: string; timestamp?: string }>;
+  createdAt: string;
+}
+
+export interface AiConciergeSettings {
+  enabled: boolean;
+  assistantName: string;
+  voicePersona: 'Amina (Luxury Female)' | 'Zainab (Warm Executive)' | 'Kore (Refined Calm)';
+  welcomeGreeting: string;
+  phoneGreeting: string;
+  inspectionNotice: string;
+  bookingNotice: string;
+  disclaimerNotice: string;
+  businessBio: string;
+  allowedAreas: string[];
+  fallbackWhatsApp: string;
+  fallbackPhone: string;
+  telephonyEnabled: boolean;
+  telephonyProvider: 'twilio' | 'africas_talking' | 'custom_sip';
+}
+

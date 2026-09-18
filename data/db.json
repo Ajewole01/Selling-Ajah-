@@ -783,5 +783,442 @@
       "role": "admin",
       "passwordHash": "manager"
     }
-  ]
+  ],
+  "inspectionRequests": [
+    {
+      "id": "insp-1789721546524",
+      "type": "inspection",
+      "referenceNumber": "INSP-63144",
+      "customerName": "Tunde",
+      "customerPhone": "08031234567",
+      "listingId": "prop-6",
+      "listingTitle": "Executive 4 Bedroom Duplex with Swimming Pool for Rent",
+      "listingType": "property",
+      "preferredDate": "Saturday",
+      "preferredTime": "10am",
+      "notes": "Scheduled via chat session: \"Tunde, 08031234567\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-18T08:52:26.524Z",
+      "updatedAt": "2026-09-18T08:52:26.524Z"
+    },
+    {
+      "id": "insp-1789720812247",
+      "type": "inspection",
+      "referenceNumber": "INSP-59188",
+      "customerName": "Name Ajewole Babatunde Samuel",
+      "customerPhone": "09030047701",
+      "listingId": "prop-7",
+      "listingTitle": "Prime 600sqm Dry Residential Land with Governor's Consent",
+      "listingType": "property",
+      "preferredDate": "This Saturday",
+      "preferredTime": "2pm",
+      "notes": "Scheduled via chat session: \"Number: 09030047701\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-18T08:40:12.247Z",
+      "updatedAt": "2026-09-18T08:40:12.247Z"
+    },
+    {
+      "id": "insp-1789719687694",
+      "type": "inspection",
+      "referenceNumber": "INSP-23907",
+      "customerName": "Ade",
+      "customerPhone": "08012345678",
+      "listingId": "prop-2",
+      "listingTitle": "Contemporary 4 Bedroom Semi-Detached Duplex with BQ",
+      "listingType": "property",
+      "preferredDate": "Saturday",
+      "preferredTime": "2:00 PM",
+      "notes": "Scheduled via chat session: \"My name is Ade, phone 08012345678\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-18T08:21:27.694Z",
+      "updatedAt": "2026-09-18T08:21:27.694Z"
+    },
+    {
+      "id": "insp-1789719638789",
+      "type": "inspection",
+      "referenceNumber": "INSP-80918",
+      "customerName": "Prospective Buyer",
+      "customerPhone": "08012345678",
+      "listingId": "prop-2",
+      "listingTitle": "Contemporary 4 Bedroom Semi-Detached Duplex with BQ",
+      "listingType": "property",
+      "preferredDate": "Saturday",
+      "preferredTime": "2pm",
+      "notes": "Scheduled via chat session: \"Ade, 08012345678\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-18T08:20:38.789Z",
+      "updatedAt": "2026-09-18T08:20:38.789Z"
+    },
+    {
+      "id": "insp-1789719620330",
+      "type": "inspection",
+      "referenceNumber": "INSP-81979",
+      "customerName": "Ade",
+      "customerPhone": "08012345678",
+      "listingId": "prop-6",
+      "listingTitle": "Executive 4 Bedroom Duplex with Swimming Pool for Rent",
+      "listingType": "property",
+      "preferredDate": "Saturday",
+      "preferredTime": "2:00 PM",
+      "notes": "Scheduled via chat session: \"My name is Ade, phone 08012345678\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-18T08:20:20.330Z",
+      "updatedAt": "2026-09-18T08:20:20.331Z"
+    },
+    {
+      "id": "insp-1",
+      "type": "inspection",
+      "referenceNumber": "INSP-94821",
+      "customerName": "Babajide Alabi",
+      "customerPhone": "+234 802 345 6789",
+      "customerEmail": "jide.alabi@investment.ng",
+      "listingId": "prop-1",
+      "listingTitle": "Ultra-Modern 5 Bedroom Fully Detached Duplex with Swimming Pool & Cinema",
+      "listingType": "property",
+      "listingSlug": "ultra-modern-5-bedroom-duplex-pool-cinema-ajah",
+      "preferredDate": "2026-09-22",
+      "preferredTime": "11:00 AM",
+      "notes": "Client is flying in from Abuja, requires estate gate clearance in advance.",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-15T14:30:00.000Z"
+    },
+    {
+      "id": "insp-2",
+      "type": "shortlet_booking",
+      "referenceNumber": "BKG-77192",
+      "customerName": "Victoria Eke",
+      "customerPhone": "+234 813 902 1144",
+      "customerEmail": "victoria.eke@diaspora.co.uk",
+      "listingId": "apt-1",
+      "listingTitle": "The Onyx Waterfront Penthouse",
+      "listingType": "shortlet",
+      "listingSlug": "the-onyx-waterfront-penthouse-shortlet-lekki",
+      "preferredDate": "2026-09-28",
+      "checkInDate": "2026-09-28",
+      "checkOutDate": "2026-10-03",
+      "numberOfGuests": 4,
+      "notes": "Family vacation stay, requested complimentary chef recommendation.",
+      "status": "confirmed",
+      "source": "AI Voice",
+      "createdAt": "2026-09-16T10:15:00.000Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "test-session-6-1789721547228",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:52:27.481Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"My budget is ₦8m per year\". Criteria: house in Ajah for rent around ₦8M. Found: 1.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6"
+      ],
+      "createdAt": "2026-09-18T08:52:27.481Z"
+    },
+    {
+      "id": "test-session-5-1789721546926",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:52:27.178Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"My budget is ₦50m\". Criteria: in Ajah for sale around ₦50M. Found: 1.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T08:52:27.178Z"
+    },
+    {
+      "id": "test-session-4-1789721546626",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:52:26.878Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"my budget is 50 million naira\". Criteria: in Ajah around ₦50M. Found: 2.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T08:52:26.878Z"
+    },
+    {
+      "id": "test-session-3-1789721546093",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:52:26.202Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"dry land in ajah\". Criteria: land in Ajah. Found: 6.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-7",
+        "prop-3",
+        "prop-2"
+      ],
+      "createdAt": "2026-09-18T08:52:26.203Z"
+    },
+    {
+      "id": "test-session-1-1789721544038",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:52:25.737Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"dry residential land in ajah\". Criteria: land in Ajah. Found: 6.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-7",
+        "prop-3",
+        "prop-2"
+      ],
+      "createdAt": "2026-09-18T08:52:25.737Z"
+    },
+    {
+      "id": "session-1789720390158-afuiw",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:40:50.399Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"great thanks alot\". Criteria: in Ajah for sale around ₦50M. Found: 0.",
+      "messageCount": 11,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T08:40:50.399Z"
+    },
+    {
+      "id": "session-suite-1-1789719686594",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:21:27.278Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"My budget is around ₦200 million.\". Criteria: 4-bedroom in Ajah for sale around ₦200M. Found: 2.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-2",
+        "prop-1"
+      ],
+      "createdAt": "2026-09-18T08:21:27.278Z"
+    },
+    {
+      "id": "test-session-2-1789719637862",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:20:38.431Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"My budget is around ₦200 million.\". Criteria: 4-bedroom in Ajah for sale around ₦200M. Found: 2.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-2",
+        "prop-1"
+      ],
+      "createdAt": "2026-09-18T08:20:38.431Z"
+    },
+    {
+      "id": "test-session-1789719619364",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:20:19.925Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"My budget is around ₦200 million.\". Criteria: 4-bedroom in Ajah for sale around ₦200M. Found: 0.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-2"
+      ],
+      "createdAt": "2026-09-18T08:20:19.925Z"
+    },
+    {
+      "id": "conv-1789719399493",
+      "channel": "chat",
+      "startedAt": "2026-09-18T08:18:04.288Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"I'm looking for a 4-bedroom property in Ajah.\". Processed via chat orchestrator.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T08:18:04.289Z"
+    },
+    {
+      "id": "session-1789716926310-iptgt",
+      "channel": "chat",
+      "startedAt": "2026-09-18T07:39:53.094Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"Can I inspect it?\". Processed via chat orchestrator.",
+      "messageCount": 8,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T07:39:53.094Z"
+    },
+    {
+      "id": "conv-1789715863847",
+      "channel": "chat",
+      "startedAt": "2026-09-18T07:18:12.819Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"I want to schedule an inspection\". Processed via chat orchestrator.",
+      "messageCount": 5,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T07:18:12.819Z"
+    },
+    {
+      "id": "conv-1789715856928",
+      "channel": "chat",
+      "startedAt": "2026-09-18T07:17:39.048Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"hello i want to make an enquiry\". Processed via chat orchestrator.",
+      "messageCount": 4,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T07:17:39.048Z"
+    },
+    {
+      "id": "conv-1789715770613",
+      "channel": "chat",
+      "startedAt": "2026-09-18T07:16:44.935Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"hello\". Processed via chat orchestrator.",
+      "messageCount": 2,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-5",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-18T07:16:44.935Z"
+    },
+    {
+      "id": "conv-1789715574236",
+      "channel": "chat",
+      "startedAt": "2026-09-18T07:12:57.423Z",
+      "intent": "Portfolio Consultation",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"What shortlets do you have in Lekki Phase 1?\". Processed via chat orchestrator.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "apt-3",
+        "apt-2",
+        "apt-1"
+      ],
+      "createdAt": "2026-09-18T07:12:57.423Z"
+    },
+    {
+      "id": "conv-1",
+      "channel": "chat",
+      "customerName": "Babajide Alabi",
+      "customerPhone": "+234 802 345 6789",
+      "startedAt": "2026-09-15T14:22:00.000Z",
+      "endedAt": "2026-09-15T14:30:00.000Z",
+      "intent": "Property Search & Inspection Scheduling",
+      "outcome": "inspection_requested",
+      "humanHandoffRequested": false,
+      "summary": "Client enquired for 5-bed detached duplexes in Ajah with pool & cinema. Selected Ultra-Modern Duplex and submitted inspection request for Sept 22.",
+      "messageCount": 6,
+      "relatedListingIds": [
+        "prop-1"
+      ],
+      "createdAt": "2026-09-15T14:30:00.000Z"
+    },
+    {
+      "id": "conv-2",
+      "channel": "voice",
+      "customerName": "Victoria Eke",
+      "customerPhone": "+234 813 902 1144",
+      "startedAt": "2026-09-16T10:05:00.000Z",
+      "endedAt": "2026-09-16T10:15:00.000Z",
+      "intent": "Luxury Shortlet Booking Enquiry",
+      "outcome": "booking_requested",
+      "humanHandoffRequested": false,
+      "summary": "Voice consultation from diaspora client inquiring about uninterrupted 24/7 power and Starlink WiFi. Booked Onyx Waterfront Penthouse for 5 nights.",
+      "messageCount": 8,
+      "relatedListingIds": [
+        "apt-1"
+      ],
+      "createdAt": "2026-09-16T10:15:00.000Z"
+    },
+    {
+      "id": "conv-3",
+      "channel": "phone",
+      "customerName": "Chief Emeka Okafor",
+      "customerPhone": "+234 809 555 4321",
+      "startedAt": "2026-09-17T09:40:00.000Z",
+      "endedAt": "2026-09-17T09:44:00.000Z",
+      "intent": "Executive Fleet with Mobile Escort",
+      "outcome": "human_handoff",
+      "humanHandoffRequested": true,
+      "summary": "Caller requested Mercedes G63 AMG with armed police escort protocol for 3-day corporate summit. Transferred to Senior Operations Officer via WhatsApp/Line.",
+      "messageCount": 4,
+      "relatedListingIds": [
+        "veh-1"
+      ],
+      "createdAt": "2026-09-17T09:44:00.000Z"
+    }
+  ],
+  "aiSettings": {
+    "enabled": true,
+    "assistantName": "Selling Ajah Concierge",
+    "voicePersona": "Amina (Luxury Female)",
+    "welcomeGreeting": "Welcome to Selling Ajah. I am your private advisor for real estate and executive acquisitions across the Lekki Peninsula corridor. How may I assist you today?",
+    "phoneGreeting": "Thank you for calling Selling Ajah. You are speaking with Selling Ajah's AI Concierge. I can assist with properties for sale, serviced shortlets, luxury car rentals, or schedule an inspection. How can I help you today?",
+    "inspectionNotice": "Inspection requests are processed immediately. Our Senior Acquisition Advisory team will verify access clearance and confirm your schedule directly.",
+    "bookingNotice": "Booking requests are forwarded directly to our dispatch coordinator. Full reservation confirmations are issued upon availability review.",
+    "disclaimerNotice": "All property titles are verified with the Lagos State Lands Bureau, Alausa. Prices and availability reflect active portfolio inventory.",
+    "businessBio": "Selling Ajah is the premier luxury real estate and executive lifestyle firm specializing in verified duplexes, waterfront shortlets, and chauffeured VIP fleet services across Ajah, Lekki, and Lagos.",
+    "allowedAreas": [
+      "Ajah",
+      "Abraham Adesanya",
+      "Orchid Road",
+      "Chevron",
+      "VGC",
+      "Ikota",
+      "Sangotedo",
+      "Lekki Phase 1"
+    ],
+    "fallbackWhatsApp": "+234 810 901 2192",
+    "fallbackPhone": "+234 810 901 2192",
+    "telephonyEnabled": true,
+    "telephonyProvider": "twilio"
+  }
 }

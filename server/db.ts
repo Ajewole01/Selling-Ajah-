@@ -1,6 +1,18 @@
 import fs from 'fs';
 import path from 'path';
-import { Property, ServicedApartment, LuxuryVehicle, Enquiry, Testimonial, FaqItem, SiteSettings, AdminUser } from '../src/types.js';
+import {
+  Property,
+  ServicedApartment,
+  LuxuryVehicle,
+  Enquiry,
+  Testimonial,
+  FaqItem,
+  SiteSettings,
+  AdminUser,
+  InspectionRequest,
+  AiConversationRecord,
+  AiConciergeSettings
+} from '../src/types.js';
 
 export interface DatabaseSchema {
   properties: Property[];
@@ -11,6 +23,9 @@ export interface DatabaseSchema {
   faqs: FaqItem[];
   settings: SiteSettings;
   users: (AdminUser & { passwordHash: string })[];
+  inspectionRequests?: InspectionRequest[];
+  conversations?: AiConversationRecord[];
+  aiSettings?: AiConciergeSettings;
 }
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -780,6 +795,112 @@ const INITIAL_USERS: (AdminUser & { passwordHash: string })[] = [
   }
 ];
 
+const INITIAL_AI_SETTINGS: AiConciergeSettings = {
+  enabled: true,
+  assistantName: 'Selling Ajah Concierge',
+  voicePersona: 'Amina (Luxury Female)',
+  welcomeGreeting: 'Welcome to Selling Ajah. I am your private advisor for real estate and executive acquisitions across the Lekki Peninsula corridor. How may I assist you today?',
+  phoneGreeting: "Thank you for calling Selling Ajah. You are speaking with Selling Ajah's AI Concierge. I can assist with properties for sale, serviced shortlets, luxury car rentals, or schedule an inspection. How can I help you today?",
+  inspectionNotice: 'Inspection requests are processed immediately. Our Senior Acquisition Advisory team will verify access clearance and confirm your schedule directly.',
+  bookingNotice: 'Booking requests are forwarded directly to our dispatch coordinator. Full reservation confirmations are issued upon availability review.',
+  disclaimerNotice: 'All property titles are verified with the Lagos State Lands Bureau, Alausa. Prices and availability reflect active portfolio inventory.',
+  businessBio: 'Selling Ajah is the premier luxury real estate and executive lifestyle firm specializing in verified duplexes, waterfront shortlets, and chauffeured VIP fleet services across Ajah, Lekki, and Lagos.',
+  allowedAreas: ['Ajah', 'Abraham Adesanya', 'Orchid Road', 'Chevron', 'VGC', 'Ikota', 'Sangotedo', 'Lekki Phase 1'],
+  fallbackWhatsApp: '+234 810 901 2192',
+  fallbackPhone: '+234 810 901 2192',
+  telephonyEnabled: true,
+  telephonyProvider: 'twilio'
+};
+
+const INITIAL_INSPECTIONS: InspectionRequest[] = [
+  {
+    id: 'insp-1',
+    type: 'inspection',
+    referenceNumber: 'INSP-94821',
+    customerName: 'Babajide Alabi',
+    customerPhone: '+234 802 345 6789',
+    customerEmail: 'jide.alabi@investment.ng',
+    listingId: 'prop-1',
+    listingTitle: 'Ultra-Modern 5 Bedroom Fully Detached Duplex with Swimming Pool & Cinema',
+    listingType: 'property',
+    listingSlug: 'ultra-modern-5-bedroom-duplex-pool-cinema-ajah',
+    preferredDate: '2026-09-22',
+    preferredTime: '11:00 AM',
+    notes: 'Client is flying in from Abuja, requires estate gate clearance in advance.',
+    status: 'pending',
+    source: 'AI Chat',
+    createdAt: '2026-09-15T14:30:00.000Z'
+  },
+  {
+    id: 'insp-2',
+    type: 'shortlet_booking',
+    referenceNumber: 'BKG-77192',
+    customerName: 'Victoria Eke',
+    customerPhone: '+234 813 902 1144',
+    customerEmail: 'victoria.eke@diaspora.co.uk',
+    listingId: 'apt-1',
+    listingTitle: 'The Onyx Waterfront Penthouse',
+    listingType: 'shortlet',
+    listingSlug: 'the-onyx-waterfront-penthouse-shortlet-lekki',
+    preferredDate: '2026-09-28',
+    checkInDate: '2026-09-28',
+    checkOutDate: '2026-10-03',
+    numberOfGuests: 4,
+    notes: 'Family vacation stay, requested complimentary chef recommendation.',
+    status: 'confirmed',
+    source: 'AI Voice',
+    createdAt: '2026-09-16T10:15:00.000Z'
+  }
+];
+
+const INITIAL_CONVERSATIONS: AiConversationRecord[] = [
+  {
+    id: 'conv-1',
+    channel: 'chat',
+    customerName: 'Babajide Alabi',
+    customerPhone: '+234 802 345 6789',
+    startedAt: '2026-09-15T14:22:00.000Z',
+    endedAt: '2026-09-15T14:30:00.000Z',
+    intent: 'Property Search & Inspection Scheduling',
+    outcome: 'inspection_requested',
+    humanHandoffRequested: false,
+    summary: 'Client enquired for 5-bed detached duplexes in Ajah with pool & cinema. Selected Ultra-Modern Duplex and submitted inspection request for Sept 22.',
+    messageCount: 6,
+    relatedListingIds: ['prop-1'],
+    createdAt: '2026-09-15T14:30:00.000Z'
+  },
+  {
+    id: 'conv-2',
+    channel: 'voice',
+    customerName: 'Victoria Eke',
+    customerPhone: '+234 813 902 1144',
+    startedAt: '2026-09-16T10:05:00.000Z',
+    endedAt: '2026-09-16T10:15:00.000Z',
+    intent: 'Luxury Shortlet Booking Enquiry',
+    outcome: 'booking_requested',
+    humanHandoffRequested: false,
+    summary: 'Voice consultation from diaspora client inquiring about uninterrupted 24/7 power and Starlink WiFi. Booked Onyx Waterfront Penthouse for 5 nights.',
+    messageCount: 8,
+    relatedListingIds: ['apt-1'],
+    createdAt: '2026-09-16T10:15:00.000Z'
+  },
+  {
+    id: 'conv-3',
+    channel: 'phone',
+    customerName: 'Chief Emeka Okafor',
+    customerPhone: '+234 809 555 4321',
+    startedAt: '2026-09-17T09:40:00.000Z',
+    endedAt: '2026-09-17T09:44:00.000Z',
+    intent: 'Executive Fleet with Mobile Escort',
+    outcome: 'human_handoff',
+    humanHandoffRequested: true,
+    summary: 'Caller requested Mercedes G63 AMG with armed police escort protocol for 3-day corporate summit. Transferred to Senior Operations Officer via WhatsApp/Line.',
+    messageCount: 4,
+    relatedListingIds: ['veh-1'],
+    createdAt: '2026-09-17T09:44:00.000Z'
+  }
+];
+
 // Helper to load or initialize DB
 export class Database {
   private data: DatabaseSchema;
@@ -801,6 +922,15 @@ export class Database {
             this.data.settings.phone = '+234 810 901 2192';
           }
         }
+        if (!this.data.inspectionRequests || this.data.inspectionRequests.length === 0) {
+          this.data.inspectionRequests = INITIAL_INSPECTIONS;
+        }
+        if (!this.data.conversations || this.data.conversations.length === 0) {
+          this.data.conversations = INITIAL_CONVERSATIONS;
+        }
+        if (!this.data.aiSettings) {
+          this.data.aiSettings = INITIAL_AI_SETTINGS;
+        }
       } catch (err) {
         console.error('Error reading db.json, re-initializing seed data', err);
         this.data = this.createInitialData();
@@ -821,7 +951,10 @@ export class Database {
       testimonials: INITIAL_TESTIMONIALS,
       faqs: INITIAL_FAQS,
       settings: INITIAL_SETTINGS,
-      users: INITIAL_USERS
+      users: INITIAL_USERS,
+      inspectionRequests: INITIAL_INSPECTIONS,
+      conversations: INITIAL_CONVERSATIONS,
+      aiSettings: INITIAL_AI_SETTINGS
     };
   }
 
@@ -1230,6 +1363,140 @@ export class Database {
       vehicles: matchedVehs,
       totalCount: matchedProps.length + matchedApts.length + matchedVehs.length
     };
+  }
+
+  // ================= INSPECTION & BOOKING REQUESTS =================
+  public getInspectionRequests(): InspectionRequest[] {
+    return (this.data.inspectionRequests || []).slice().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  public getInspectionRequestById(id: string): InspectionRequest | null {
+    return (this.data.inspectionRequests || []).find(r => r.id === id) || null;
+  }
+
+  public createInspectionRequest(req: Partial<InspectionRequest>): InspectionRequest {
+    if (!this.data.inspectionRequests) {
+      this.data.inspectionRequests = [];
+    }
+    const id = req.id || 'insp-' + Date.now();
+    const refNum = req.referenceNumber || (req.type === 'shortlet_booking' ? 'BKG-' : req.type === 'vehicle_booking' ? 'VEH-' : 'INSP-') + Math.floor(10000 + Math.random() * 90000);
+    const newReq: InspectionRequest = {
+      id,
+      type: req.type || 'inspection',
+      referenceNumber: refNum,
+      customerName: req.customerName || 'Prospective Client',
+      customerPhone: req.customerPhone || '',
+      customerEmail: req.customerEmail,
+      listingId: req.listingId,
+      listingTitle: req.listingTitle || 'General Advisory Request',
+      listingType: req.listingType || 'property',
+      listingSlug: req.listingSlug,
+      preferredDate: req.preferredDate || new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      preferredTime: req.preferredTime || '11:00 AM',
+      checkInDate: req.checkInDate,
+      checkOutDate: req.checkOutDate,
+      numberOfGuests: req.numberOfGuests,
+      rentalDays: req.rentalDays,
+      notes: req.notes,
+      status: req.status || 'pending',
+      source: req.source || 'AI Chat',
+      createdAt: req.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    this.data.inspectionRequests.unshift(newReq);
+    this.save();
+    return newReq;
+  }
+
+  public updateInspectionRequest(id: string, updates: Partial<InspectionRequest>): InspectionRequest | null {
+    if (!this.data.inspectionRequests) return null;
+    const idx = this.data.inspectionRequests.findIndex(r => r.id === id);
+    if (idx === -1) return null;
+    this.data.inspectionRequests[idx] = {
+      ...this.data.inspectionRequests[idx],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.save();
+    return this.data.inspectionRequests[idx];
+  }
+
+  public deleteInspectionRequest(id: string): boolean {
+    if (!this.data.inspectionRequests) return false;
+    const initLen = this.data.inspectionRequests.length;
+    this.data.inspectionRequests = this.data.inspectionRequests.filter(r => r.id !== id);
+    if (this.data.inspectionRequests.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // ================= CONVERSATION LOGS =================
+  public getConversations(): AiConversationRecord[] {
+    return (this.data.conversations || []).slice().sort((a, b) => new Date(b.startedAt || b.createdAt).getTime() - new Date(a.startedAt || a.createdAt).getTime());
+  }
+
+  public getConversationById(id: string): AiConversationRecord | null {
+    return (this.data.conversations || []).find(c => c.id === id) || null;
+  }
+
+  public saveConversation(record: Partial<AiConversationRecord>): AiConversationRecord {
+    if (!this.data.conversations) {
+      this.data.conversations = [];
+    }
+    const id = record.id || 'conv-' + Date.now();
+    const existingIdx = this.data.conversations.findIndex(c => c.id === id);
+    const conv: AiConversationRecord = {
+      id,
+      channel: record.channel || 'chat',
+      customerName: record.customerName,
+      customerPhone: record.customerPhone,
+      customerEmail: record.customerEmail,
+      startedAt: record.startedAt || new Date().toISOString(),
+      endedAt: record.endedAt,
+      intent: record.intent || 'General Inquiries',
+      outcome: record.outcome || 'information_provided',
+      humanHandoffRequested: Boolean(record.humanHandoffRequested),
+      summary: record.summary || 'AI Concierge session completed.',
+      messageCount: record.messageCount || 1,
+      relatedListingIds: record.relatedListingIds || [],
+      transcript: record.transcript,
+      createdAt: record.createdAt || new Date().toISOString()
+    };
+
+    if (existingIdx >= 0) {
+      this.data.conversations[existingIdx] = { ...this.data.conversations[existingIdx], ...conv };
+    } else {
+      this.data.conversations.unshift(conv);
+    }
+    this.save();
+    return conv;
+  }
+
+  public deleteConversation(id: string): boolean {
+    if (!this.data.conversations) return false;
+    const initLen = this.data.conversations.length;
+    this.data.conversations = this.data.conversations.filter(c => c.id !== id);
+    if (this.data.conversations.length !== initLen) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
+  // ================= AI CONCIERGE SETTINGS =================
+  public getAiConciergeSettings(): AiConciergeSettings {
+    return this.data.aiSettings || INITIAL_AI_SETTINGS;
+  }
+
+  public updateAiConciergeSettings(settings: Partial<AiConciergeSettings>): AiConciergeSettings {
+    this.data.aiSettings = {
+      ...(this.data.aiSettings || INITIAL_AI_SETTINGS),
+      ...settings
+    };
+    this.save();
+    return this.data.aiSettings;
   }
 }
 
