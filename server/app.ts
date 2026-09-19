@@ -195,7 +195,13 @@ api.delete('/apartments/:id', requireAdmin, async (req, res) => {
   }
 });
 
-// ================= VEHICLES =================
+// ================= RETIRED VEHICLE FEATURE =================
+// Records remain preserved in storage, but no vehicle endpoint is active for Selling Ajah.
+api.use('/vehicles', (_req: Request, res: Response) => {
+  res.status(410).json({ error: 'Vehicle rentals are not offered by Selling Ajah.' });
+});
+
+// ================= LEGACY VEHICLE HANDLERS (unreachable; retained pending a deliberate data migration) =================
 api.get('/vehicles', async (req: Request, res: Response) => {
   try {
     const { category, brand, featured, status } = req.query;
@@ -409,13 +415,12 @@ api.get('/search', async (req: Request, res: Response) => {
   try {
     const q = ((req.query.q as string) || '').toLowerCase().trim();
     if (!q) {
-      return res.json({ properties: [], apartments: [], vehicles: [], totalCount: 0 });
+      return res.json({ properties: [], apartments: [], totalCount: 0 });
     }
 
-    const [properties, apartments, vehicles] = await Promise.all([
+    const [properties, apartments] = await Promise.all([
       repo.getProperties(),
-      repo.getApartments(),
-      repo.getVehicles()
+      repo.getApartments()
     ]);
 
     const matchedProps = properties.filter(p =>
@@ -434,19 +439,10 @@ api.get('/search', async (req: Request, res: Response) => {
       a.amenities.some(am => am.toLowerCase().includes(q))
     );
 
-    const matchedVehs = vehicles.filter(v =>
-      v.name.toLowerCase().includes(q) ||
-      v.brand.toLowerCase().includes(q) ||
-      v.model.toLowerCase().includes(q) ||
-      v.category.toLowerCase().includes(q) ||
-      v.features.some(f => f.toLowerCase().includes(q))
-    );
-
     res.json({
       properties: matchedProps,
       apartments: matchedApts,
-      vehicles: matchedVehs,
-      totalCount: matchedProps.length + matchedApts.length + matchedVehs.length
+      totalCount: matchedProps.length + matchedApts.length
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -506,7 +502,7 @@ api.post('/chat', async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error('Chat endpoint error:', err);
     res.status(500).json({
-      reply: "I am ready to assist you with properties, shortlets, and car rentals in Ajah and Lekki. What are you looking for today?",
+      reply: "I am ready to assist you with properties and serviced shortlets in the Ajah corridor. What are you looking for today?",
       actionButtons: [
         { label: 'Chat on WhatsApp', action: 'whatsapp', value: '+2348109012192'}
       ]
@@ -522,7 +518,7 @@ api.post('/ai/concierge', async (req: Request, res: Response) => {
   } catch (err: any) {
     console.error('AI Concierge endpoint error:', err);
     res.status(500).json({
-      reply: "Welcome to Selling Ajah. I am your private advisor for verified properties, serviced shortlets, and luxury vehicles across Ajah and Lekki. How may I assist your search today?",
+      reply: "Welcome to Selling Ajah. I am your private advisor for verified properties and serviced shortlets across the Ajah corridor. How may I assist your search today?",
       cards: [],
       actionButtons: [
         { label: 'Connect on WhatsApp', action: 'whatsapp', value: '+2348109012192' }

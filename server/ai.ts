@@ -1,5 +1,5 @@
 import { processConciergeTurn } from './ai/orchestrator.js';
-import { ChatCard, Property, ServicedApartment, LuxuryVehicle } from '../src/types.js';
+import { ChatCard } from '../src/types.js';
 
 export interface AiChatInput {
   message: string;
@@ -38,4 +38,3 @@ export async function processAiMessage(input: AiChatInput): Promise<AiChatRespon
     referenceNumber: result.referenceNumber
   };
 }
-

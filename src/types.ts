@@ -6,7 +6,7 @@ export type VehicleStatus = 'available' | 'booked' | 'maintenance' | 'unavailabl
 
 export type ApartmentStatus = 'available' | 'booked' | 'unavailable';
 
-export type EnquiryStatus = 'new' | 'contacted' | 'in_progress' | 'closed';
+export type EnquiryStatus = 'new' | 'contacted' | 'in_progress' | 'closed' | 'resolved';
 
 export type UserRole = 'super_admin' | 'admin';
 
@@ -70,6 +70,7 @@ export interface ServicedApartment {
   description: string;
   mainImage: string;
   gallery: string[];
+  images?: string[];
   seoTitle?: string;
   seoDescription?: string;
   createdAt: string;
@@ -96,6 +97,7 @@ export interface LuxuryVehicle {
   isFeatured: boolean;
   mainImage: string;
   gallery: string[];
+  images?: string[];
   description: string;
   shortDescription?: string;
   seoTitle?: string;
@@ -113,6 +115,7 @@ export interface Enquiry {
   listingType?: 'property' | 'apartment' | 'vehicle' | 'custom_request';
   listingId?: string;
   listingTitle?: string;
+  propertyTitle?: string;
   message: string;
   budget?: string;
   preferredLocation?: string;

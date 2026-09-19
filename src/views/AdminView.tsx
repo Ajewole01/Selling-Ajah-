@@ -45,11 +45,13 @@ export const AdminView: React.FC = () => {
   const authenticated = Boolean(currentUser?.token);
 
   // Tabs
+  // The legacy vehicle tab is intentionally unreachable while its stored records remain untouched.
   const [activeTab, setActiveTab] = useState<'overview' | 'enquiries' | 'properties' | 'apartments' | 'vehicles' | 'settings'>('overview');
 
   // Data
   const [properties, setProperties] = useState<Property[]>([]);
   const [apartments, setApartments] = useState<ServicedApartment[]>([]);
+  // Retained only to avoid destructive data changes; vehicle administration is no longer reachable.
   const [vehicles, setVehicles] = useState<LuxuryVehicle[]>([]);
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loading, setLoading] = useState(false);
@@ -193,7 +195,6 @@ export const AdminView: React.FC = () => {
       const responses = await Promise.all([
         fetch('/api/properties', { headers: getAdminHeaders(activeToken) }),
         fetch('/api/apartments', { headers: getAdminHeaders(activeToken) }),
-        fetch('/api/vehicles', { headers: getAdminHeaders(activeToken) }),
         fetch('/api/enquiries', { headers: getAdminHeaders(activeToken) })
       ]);
 
@@ -206,13 +207,12 @@ export const AdminView: React.FC = () => {
         throw new Error('One or more dashboard requests failed.');
       }
 
-      const [props, apts, vehs, enqs] = await Promise.all(
+      const [props, apts, enqs] = await Promise.all(
         responses.map(response => response.json())
       );
 
       setProperties(Array.isArray(props) ? props : []);
       setApartments(Array.isArray(apts) ? apts : []);
-      setVehicles(Array.isArray(vehs) ? vehs : []);
       setEnquiries(Array.isArray(enqs) ? enqs : []);
     } catch (err) {
       console.error(err);
@@ -571,7 +571,7 @@ export const AdminView: React.FC = () => {
       <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center p-6 text-neutral-900 dark:text-neutral-100 transition-colors duration-200">
         <div className="w-full max-w-md bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-8 shadow-xl dark:shadow-2xl">
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-brand-green-primary/10 border border-brand-green-primary/25 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage mx-auto mb-4">
               <Lock className="w-7 h-7" />
             </div>
             <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-1">
@@ -594,7 +594,7 @@ export const AdminView: React.FC = () => {
                 value={identifier}
                 onChange={e => setIdentifier(e.target.value)}
                 placeholder="Enter username or email..."
-                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
+                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-green-primary outline-none"
               />
             </div>
 
@@ -609,7 +609,7 @@ export const AdminView: React.FC = () => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter password..."
-                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-gold outline-none"
+                className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:border-brand-green-primary outline-none"
               />
             </div>
 
@@ -620,7 +620,7 @@ export const AdminView: React.FC = () => {
             <button
               type="submit"
               disabled={authLoading}
-              className="w-full py-3.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep disabled:opacity-60 disabled:cursor-not-allowed text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+              className="w-full py-3.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-primary-deep disabled:opacity-60 disabled:cursor-not-allowed text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
             >
               {authLoading ? 'Signing In...' : 'Unlock Console'}
             </button>
@@ -637,7 +637,7 @@ export const AdminView: React.FC = () => {
       {/* Top Admin Bar */}
       <div className="bg-white dark:bg-brand-black-soft border-b border-black/8 dark:border-white/10 px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 transition-colors">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
+          <div className="w-8 h-8 rounded-lg bg-brand-green-primary/15 border border-brand-green-primary/25 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
@@ -655,7 +655,6 @@ export const AdminView: React.FC = () => {
             { id: 'enquiries', label: `Leads (${enquiries.length})`, icon: MessageSquare },
             { id: 'properties', label: `Properties (${properties.length})`, icon: Building2 },
             { id: 'apartments', label: `Shortlets (${apartments.length})`, icon: Key },
-            { id: 'vehicles', label: `Vehicles (${vehicles.length})`, icon: Car },
             { id: 'settings', label: 'Settings', icon: Settings }
           ].map(tab => {
             const Icon = tab.icon;
@@ -666,7 +665,7 @@ export const AdminView: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-brand-gold text-brand-black-deep font-bold shadow-sm'
+                    ? 'bg-brand-green-primary text-white font-bold shadow-sm'
                     : 'text-neutral-600 dark:text-white/60 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200 dark:hover:bg-white/10'
                 }`}
               >
@@ -694,7 +693,7 @@ export const AdminView: React.FC = () => {
               <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
                 <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Portfolio Assets</span>
                 <div className="text-2xl sm:text-3xl font-serif font-bold text-neutral-900 dark:text-white">{properties.length} Listings</div>
-                <span className="text-[11px] text-brand-gold font-mono mt-1 block">Ajah & Lekki Peninsula</span>
+                <span className="text-[11px] text-brand-green-primary dark:text-brand-green-sage font-mono mt-1 block">Ajah & Lekki Peninsula</span>
               </div>
 
               <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
@@ -704,9 +703,9 @@ export const AdminView: React.FC = () => {
               </div>
 
               <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
-                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Serviced Units & Cars</span>
-                <div className="text-2xl sm:text-3xl font-serif font-bold text-brand-gold">{apartments.length + vehicles.length} Units</div>
-                <span className="text-[11px] text-neutral-500 dark:text-white/50 mt-1 block">Shortlets & Fleet</span>
+                <span className="text-xs text-neutral-500 dark:text-white/50 uppercase font-semibold block mb-1">Serviced Units</span>
+                <div className="text-2xl sm:text-3xl font-serif font-bold text-brand-green-primary dark:text-brand-green-sage">{apartments.length} Units</div>
+                <span className="text-[11px] text-neutral-500 dark:text-white/50 mt-1 block">Active shortlet inventory</span>
               </div>
 
               <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
@@ -722,7 +721,7 @@ export const AdminView: React.FC = () => {
                 <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">Recent Client Inquiries</h3>
                 <button
                   onClick={() => setActiveTab('enquiries')}
-                  className="text-xs text-brand-gold hover:underline font-semibold cursor-pointer"
+                  className="text-xs text-brand-green-primary dark:text-brand-green-sage hover:underline font-semibold cursor-pointer"
                 >
                   View All Leads →
                 </button>
@@ -768,11 +767,11 @@ export const AdminView: React.FC = () => {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <h4 className="font-serif text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{enq.name}</h4>
-                      <span className="text-[10px] bg-neutral-100 dark:bg-brand-black-deep text-brand-gold px-2 py-0.5 rounded-full uppercase font-medium border border-black/5 dark:border-white/10">
+                      <span className="text-[10px] bg-neutral-100 dark:bg-brand-black-deep text-brand-green-primary dark:text-brand-green-sage px-2 py-0.5 rounded-full uppercase font-medium border border-black/5 dark:border-white/10">
                         {enq.service}
                       </span>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                        enq.status === 'resolved' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-brand-gold/15 text-brand-gold-deep dark:text-brand-gold border border-brand-gold/30'
+                        enq.status === 'resolved' ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-brand-green-primary/10 text-brand-green-primary dark:text-brand-green-sage-deep dark:text-brand-green-sage border border-brand-green-primary/25'
                       }`}>
                         {enq.status}
                       </span>
@@ -781,7 +780,7 @@ export const AdminView: React.FC = () => {
                     <div className="text-xs text-neutral-500 dark:text-white/60 flex flex-wrap items-center gap-3">
                       <span>Phone: <a href={`tel:${enq.phone}`} className="text-neutral-800 dark:text-white/80 hover:underline">{enq.phone}</a></span>
                       {enq.email && <span>Email: <a href={`mailto:${enq.email}`} className="text-neutral-800 dark:text-white/80 hover:underline">{enq.email}</a></span>}
-                      {enq.propertyTitle && <span className="text-brand-gold font-medium">Listing: {enq.propertyTitle}</span>}
+                      {enq.propertyTitle && <span className="text-brand-green-primary dark:text-brand-green-sage font-medium">Listing: {enq.propertyTitle}</span>}
                     </div>
 
                     <p className="text-xs sm:text-sm text-neutral-700 dark:text-white/70 pt-1">
@@ -834,7 +833,7 @@ export const AdminView: React.FC = () => {
               <button
                 id="admin-add-property-btn"
                 onClick={() => setShowAddProperty(!showAddProperty)}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 {showAddProperty ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 <span>{showAddProperty ? 'Close Form' : 'Add New Property'}</span>
@@ -843,7 +842,7 @@ export const AdminView: React.FC = () => {
 
             {/* Add Property Form Drawer */}
             {showAddProperty && (
-              <form onSubmit={handleCreateProperty} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-gold/40 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
+              <form onSubmit={handleCreateProperty} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-green-primary/30 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-black/8 dark:border-white/10 pb-3">
                   <div>
                     <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">Create Verified Property Listing</h3>
@@ -868,7 +867,7 @@ export const AdminView: React.FC = () => {
                       value={newTitle}
                       onChange={e => setNewTitle(e.target.value)}
                       placeholder="e.g., 5 Bed Fully Detached Duplex with Swimming Pool & Cinema"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -879,7 +878,7 @@ export const AdminView: React.FC = () => {
                       value={newRefNumber}
                       onChange={e => setNewRefNumber(e.target.value)}
                       placeholder="e.g., SA-AJH-2024"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary font-mono"
                     />
                   </div>
                 </div>
@@ -905,7 +904,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={newPrice}
                       onChange={e => setNewPrice(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1105,7 +1104,7 @@ export const AdminView: React.FC = () => {
                     value={newFeaturesInput}
                     onChange={e => setNewFeaturesInput(e.target.value)}
                     placeholder="e.g. Fitted Kitchen, Ensuite Bedrooms, Water Treatment, Swimming Pool, 24/7 Security, Stamp Concrete, BQ"
-                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                   />
                 </div>
 
@@ -1118,7 +1117,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={newImage}
                       onChange={e => setNewImage(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1129,7 +1128,7 @@ export const AdminView: React.FC = () => {
                       value={newGalleryInput}
                       onChange={e => setNewGalleryInput(e.target.value)}
                       placeholder="https://images.unsplash.com/...&#10;https://images.unsplash.com/..."
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold font-mono"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary font-mono"
                     />
                   </div>
                 </div>
@@ -1143,7 +1142,7 @@ export const AdminView: React.FC = () => {
                     value={newDesc}
                     onChange={e => setNewDesc(e.target.value)}
                     placeholder="Provide a full, engaging description detailing the interior layout, architecture, luxury finishes, estate environment, neighborhood road access, power security, and investment appreciation potential..."
-                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold leading-relaxed"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary leading-relaxed"
                   />
                 </div>
 
@@ -1178,7 +1177,7 @@ export const AdminView: React.FC = () => {
                       type="checkbox"
                       checked={newIsFeatured}
                       onChange={e => setNewIsFeatured(e.target.checked)}
-                      className="rounded accent-brand-gold w-4 h-4"
+                      className="rounded accent-brand-green-primary w-4 h-4"
                     />
                     <span>Highlight as Featured Showcase Listing</span>
                   </label>
@@ -1193,7 +1192,7 @@ export const AdminView: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
+                      className="px-6 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Publish to Supabase</span>
@@ -1212,9 +1211,9 @@ export const AdminView: React.FC = () => {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm truncate">{p.title}</h4>
-                        <span className="text-[10px] text-brand-gold font-mono shrink-0">{p.refNumber}</span>
+                        <span className="text-[10px] text-brand-green-primary dark:text-brand-green-sage font-mono shrink-0">{p.refNumber}</span>
                         {p.isFeatured && (
-                          <span className="text-[9px] px-2 py-0.5 rounded-full bg-brand-gold/15 text-brand-gold font-bold uppercase tracking-wider">Featured</span>
+                          <span className="text-[9px] px-2 py-0.5 rounded-full bg-brand-green-primary/10 text-brand-green-primary dark:text-brand-green-sage font-bold uppercase tracking-wider">Featured</span>
                         )}
                       </div>
                       <p className="text-[11px] text-neutral-500 dark:text-white/60 truncate mt-0.5">
@@ -1259,7 +1258,7 @@ export const AdminView: React.FC = () => {
               <button
                 id="admin-add-apartment-btn"
                 onClick={() => setShowAddApartment(!showAddApartment)}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 {showAddApartment ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 <span>{showAddApartment ? 'Close Form' : 'Add New Shortlet'}</span>
@@ -1268,7 +1267,7 @@ export const AdminView: React.FC = () => {
 
             {/* Add Apartment Form Drawer */}
             {showAddApartment && (
-              <form onSubmit={handleCreateApartment} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-gold/40 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
+              <form onSubmit={handleCreateApartment} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-green-primary/30 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-black/8 dark:border-white/10 pb-3">
                   <div>
                     <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">Register New Serviced Shortlet</h3>
@@ -1292,7 +1291,7 @@ export const AdminView: React.FC = () => {
                       value={aptName}
                       onChange={e => setAptName(e.target.value)}
                       placeholder="e.g., The Sapphire 2-Bed Luxury Shortlet"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1303,7 +1302,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={aptPricePerNight}
                       onChange={e => setAptPricePerNight(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
                 </div>
@@ -1432,7 +1431,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={aptMainImage}
                       onChange={e => setAptMainImage(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1455,7 +1454,7 @@ export const AdminView: React.FC = () => {
                     value={aptDesc}
                     onChange={e => setAptDesc(e.target.value)}
                     placeholder="Describe the apartment layout, serenity, uninterrupted power supply, Netflix and streaming capabilities, security guards, and proximity to Lekki/Ajah hotspots..."
-                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold leading-relaxed"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary leading-relaxed"
                   />
                 </div>
 
@@ -1465,7 +1464,7 @@ export const AdminView: React.FC = () => {
                       type="checkbox"
                       checked={aptIsFeatured}
                       onChange={e => setAptIsFeatured(e.target.checked)}
-                      className="rounded accent-brand-gold w-4 h-4"
+                      className="rounded accent-brand-green-primary w-4 h-4"
                     />
                     <span>Highlight as Featured Shortlet</span>
                   </label>
@@ -1480,7 +1479,7 @@ export const AdminView: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
+                      className="px-6 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Save Shortlet to Supabase</span>
@@ -1499,7 +1498,7 @@ export const AdminView: React.FC = () => {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm truncate">{a.name}</h4>
-                        <span className="text-[10px] text-brand-gold font-medium">{a.bedrooms} Bed • {a.bathrooms} Bath</span>
+                        <span className="text-[10px] text-brand-green-primary dark:text-brand-green-sage font-medium">{a.bedrooms} Bed • {a.bathrooms} Bath</span>
                       </div>
                       <p className="text-[11px] text-neutral-500 dark:text-white/60 truncate mt-0.5">
                         {a.location} • <strong className="text-neutral-900 dark:text-white font-semibold">{formatNaira(a.pricePerNight)}</strong> /night
@@ -1532,7 +1531,7 @@ export const AdminView: React.FC = () => {
         )}
 
         {/* TAB 5: VEHICLES CRUD */}
-        {activeTab === 'vehicles' && (
+        {false && activeTab === 'vehicles' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
@@ -1543,7 +1542,7 @@ export const AdminView: React.FC = () => {
               <button
                 id="admin-add-vehicle-btn"
                 onClick={() => setShowAddVehicle(!showAddVehicle)}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 {showAddVehicle ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 <span>{showAddVehicle ? 'Close Form' : 'Add New Luxury Car'}</span>
@@ -1552,7 +1551,7 @@ export const AdminView: React.FC = () => {
 
             {/* Add Vehicle Form Drawer */}
             {showAddVehicle && (
-              <form onSubmit={handleCreateVehicle} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-gold/40 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
+              <form onSubmit={handleCreateVehicle} className="p-6 bg-white dark:bg-brand-black-soft border border-brand-green-primary/30 rounded-3xl shadow-xl space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-black/8 dark:border-white/10 pb-3">
                   <div>
                     <h3 className="font-serif text-lg font-bold text-neutral-900 dark:text-white">Add Luxury Vehicle to Fleet</h3>
@@ -1576,7 +1575,7 @@ export const AdminView: React.FC = () => {
                       value={vehName}
                       onChange={e => setVehName(e.target.value)}
                       placeholder="e.g., Mercedes-Benz G63 AMG Edition 1"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1588,7 +1587,7 @@ export const AdminView: React.FC = () => {
                       value={vehBrand}
                       onChange={e => setVehBrand(e.target.value)}
                       placeholder="Mercedes-Benz, Rolls-Royce, Range Rover, etc."
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
                 </div>
@@ -1622,7 +1621,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={vehDailyRate}
                       onChange={e => setVehDailyRate(Number(e.target.value))}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1734,7 +1733,7 @@ export const AdminView: React.FC = () => {
                       required
                       value={vehMainImage}
                       onChange={e => setNewImage(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                   </div>
 
@@ -1757,7 +1756,7 @@ export const AdminView: React.FC = () => {
                     value={vehDesc}
                     onChange={e => setVehDesc(e.target.value)}
                     placeholder="Highlight comfort, prestige, chauffeur etiquette, VIP security convoy escort availability, and airport transfer readiness..."
-                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold leading-relaxed"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary leading-relaxed"
                   />
                 </div>
 
@@ -1767,7 +1766,7 @@ export const AdminView: React.FC = () => {
                       type="checkbox"
                       checked={vehIsFeatured}
                       onChange={e => setVehIsFeatured(e.target.checked)}
-                      className="rounded accent-brand-gold w-4 h-4"
+                      className="rounded accent-brand-green-primary w-4 h-4"
                     />
                     <span>Highlight as Featured Fleet Vehicle</span>
                   </label>
@@ -1782,7 +1781,7 @@ export const AdminView: React.FC = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
+                      className="px-6 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider shadow-md cursor-pointer flex items-center gap-2"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Save Vehicle to Fleet</span>
@@ -1801,7 +1800,7 @@ export const AdminView: React.FC = () => {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h4 className="font-bold text-neutral-900 dark:text-white text-xs sm:text-sm truncate">{v.name}</h4>
-                        <span className="text-[10px] text-brand-gold font-medium">{v.year} • {v.category}</span>
+                        <span className="text-[10px] text-brand-green-primary dark:text-brand-green-sage font-medium">{v.year} • {v.category}</span>
                       </div>
                       <p className="text-[11px] text-neutral-500 dark:text-white/60 truncate mt-0.5">
                         {v.transmission} • {v.seats} Seats • <strong className="text-neutral-900 dark:text-white font-semibold">{formatNaira(v.dailyRate)}</strong> /day
@@ -1844,7 +1843,7 @@ export const AdminView: React.FC = () => {
                   type="text"
                   value={companyName}
                   onChange={e => setCompanyName(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                 />
               </div>
 
@@ -1854,7 +1853,7 @@ export const AdminView: React.FC = () => {
                   type="text"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                 />
               </div>
 
@@ -1864,7 +1863,7 @@ export const AdminView: React.FC = () => {
                   type="text"
                   value={whatsapp}
                   onChange={e => setWhatsapp(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                 />
               </div>
 
@@ -1874,7 +1873,7 @@ export const AdminView: React.FC = () => {
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                 />
               </div>
 
@@ -1884,13 +1883,13 @@ export const AdminView: React.FC = () => {
                   rows={3}
                   value={address}
                   onChange={e => setAddress(e.target.value)}
-                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                  className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
+                className="w-full py-3 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md cursor-pointer"
               >
                 Save Changes
               </button>
@@ -1901,4 +1900,3 @@ export const AdminView: React.FC = () => {
     </div>
   );
 };
-

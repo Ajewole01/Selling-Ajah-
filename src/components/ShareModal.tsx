@@ -47,7 +47,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       >
         <div className="flex items-center justify-between pb-3 border-b border-black/8 dark:border-white/10 mb-4">
           <h3 className="font-serif text-base font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-            <Share2 className="w-4 h-4 text-brand-gold" />
+            <Share2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
             Share Listing
           </h3>
           <button
@@ -89,7 +89,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           />
           <button
             onClick={handleCopy}
-            className="p-2 rounded-lg bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-semibold transition-colors shrink-0 cursor-pointer"
+            className="p-2 rounded-lg bg-brand-green-primary hover:bg-brand-green-deep text-white font-semibold transition-colors shrink-0 cursor-pointer"
             title="Copy link"
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}

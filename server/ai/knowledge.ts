@@ -14,7 +14,7 @@ export const SELLING_AJAH_KNOWLEDGE = {
     whatsapp: '+234 810 901 2192',
     email: 'info@sellingajah.com',
     officeHours: 'Monday – Saturday: 8:00 AM – 6:00 PM (WAT)',
-    focus: 'Property sales, rentals, serviced shortlets, and vehicle hire across Ajah and the Lekki corridor.'
+    focus: 'Property sales, residential rentals, and serviced shortlets across the Ajah corridor.'
   },
 
   services: [
@@ -25,10 +25,6 @@ export const SELLING_AJAH_KNOWLEDGE = {
     {
       title: 'Serviced Shortlets',
       description: 'Furnished apartments available for short-term stays. Specific amenities, power arrangements, and rules are detailed in each listing.'
-    },
-    {
-      title: 'Vehicle Rentals',
-      description: 'Rental vehicles available in Lagos. Daily rates, driver options, and vehicle features are specified on each vehicle record.'
     }
   ],
 
@@ -58,9 +54,8 @@ export const SELLING_AJAH_KNOWLEDGE = {
   },
 
   bookingPolicies: {
-    requestNotice: 'All booking inquiries for shortlets and vehicles are submitted as pending requests awaiting availability and calendar confirmation by staff.',
-    shortlets: 'Check-in, check-out times, security deposits, and specific amenities (including electricity and internet) are determined by each individual listing record.',
-    vehicles: 'Rental rates, driver/chauffeur terms, fuel terms, and security deposits are determined by each individual vehicle listing record.'
+    requestNotice: 'All shortlet booking inquiries are submitted as pending requests awaiting availability and calendar confirmation by staff.',
+    shortlets: 'Check-in, check-out times, security deposits, and specific amenities (including electricity and internet) are determined by each individual listing record.'
   },
 
   humanHandoffTriggers: [

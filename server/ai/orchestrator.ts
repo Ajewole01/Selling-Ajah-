@@ -12,6 +12,7 @@ import {
   saveSession,
   ConversationSession
 } from './sessionState.js';
+import { routeConciergeIntent } from './intentRouter.js';
 
 let aiClient: GoogleGenAI | null = null;
 
@@ -209,7 +210,7 @@ export async function processConciergeTurn(input: OrchestratorInput): Promise<Or
     } else if (/\b(?:bye|goodbye|talk later|see ya)\b/i.test(lower)) {
       reply = "You're welcome! Thank you for contacting Selling Ajah. Have a wonderful day!";
     } else {
-      reply = "You're welcome! If you need anything else regarding properties, serviced stays, or vehicle rentals in Ajah, I'm here to help.";
+      reply = "You're welcome! If you need anything else regarding properties or serviced stays in Ajah, I'm here to help.";
     }
 
     return {
@@ -218,6 +219,43 @@ export async function processConciergeTurn(input: OrchestratorInput): Promise<Or
       channel,
       selectedListingId: session.selectedListingId,
       lastResultIds: session.lastResultIds
+    };
+  }
+
+  // 4b. CONCIERGE INTENT ROUTING & GROUNDED KNOWLEDGE
+  // Intercept greetings, acknowledgements, business profile, real estate education, and off-topic queries.
+  // NEVER triggers inventory searches or returns unrequested property cards.
+  const conciergeRouting = routeConciergeIntent(userText, {
+    lastIntent: session.lastResultType,
+    hasActiveInspection: session.flowState !== 'idle',
+    hasSelectedListing: Boolean(session.selectedListingId),
+    selectedListingTitle: session.selectedListingTitle
+  });
+
+  if (conciergeRouting.directAnswer && !conciergeRouting.requiresInventorySearch) {
+    await repo.saveConversation({
+      id: convId,
+      channel,
+      customerName,
+      customerPhone,
+      intent: conciergeRouting.intent,
+      outcome: 'information_provided',
+      humanHandoffRequested: conciergeRouting.intent === 'HUMAN_HANDOFF',
+      summary: `User asked: "${userText}". Handled by concierge knowledge routing (${conciergeRouting.intent}).`,
+      messageCount: (input.history?.length || 0) + 1,
+      relatedListingIds: session.lastResultIds
+    });
+
+    return {
+      reply: conciergeRouting.directAnswer,
+      actionButtons: conciergeRouting.directActionButtons || [
+        { label: 'View Verified Properties', action: 'query', value: 'Show verified properties for sale in Ajah' },
+        { label: 'WhatsApp Concierge', action: 'whatsapp', value: settings.whatsapp || '+2348109012192' }
+      ],
+      conversationId: convId,
+      channel,
+      lastResultIds: session.lastResultIds,
+      selectedListingId: session.selectedListingId
     };
   }
 
@@ -410,27 +448,16 @@ export async function processConciergeTurn(input: OrchestratorInput): Promise<Or
 
   saveSession(session);
 
-  // 9. CAR / VEHICLE SEARCH
+  // Selling Ajah no longer offers vehicle rentals. Keep this guard before any inventory lookup.
   if (/\b(?:car|vehicle|fleet|suv|sedan|drive|driver)\b/i.test(lower) && !/\b(?:duplex|house|terrace|land|bedroom)\b/i.test(lower)) {
-    const vehResult = await executeTool('search_vehicles', { query: userText });
-    session.lastResultIds = vehResult.cards?.map(c => c.id) || [];
-    session.lastResultType = 'vehicle';
-    saveSession(session);
-
-    const reply = channel === 'voice' || channel === 'phone'
-      ? `Here are executive rental vehicles from our current database. Inclusions and daily rates are detailed per vehicle. Would you like to submit a booking request for your preferred dates?`
-      : `Here are executive rental vehicles available in our active database. Daily rates, specifications, and driver inclusions are specified on each vehicle record.`;
-
     return {
-      reply,
-      cards: vehResult.cards,
+      reply: 'Selling Ajah currently focuses on property sales, residential rentals and serviced shortlets.',
       actionButtons: [
-        { label: 'Request Vehicle Reservation', action: 'query', value: 'I want to submit a vehicle booking request' },
-        { label: 'Inquire on WhatsApp', action: 'whatsapp', value: settings.whatsapp || '+2348109012192' }
+        { label: 'Browse Properties', action: 'query', value: 'Show verified properties for sale in Ajah' },
+        { label: 'Serviced Shortlets', action: 'query', value: 'Show serviced shortlets in Ajah' }
       ],
       conversationId: convId,
-      channel,
-      lastResultIds: session.lastResultIds
+      channel
     };
   }
 

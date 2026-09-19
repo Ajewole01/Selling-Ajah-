@@ -786,6 +786,23 @@
   ],
   "inspectionRequests": [
     {
+      "id": "insp-1789804887269",
+      "type": "inspection",
+      "referenceNumber": "INSP-55236",
+      "customerName": "Emeka",
+      "customerPhone": "08031234567",
+      "listingId": "prop-7",
+      "listingTitle": "Prime 600sqm Dry Residential Land with Governor's Consent",
+      "listingType": "property",
+      "preferredDate": "Tomorrow",
+      "preferredTime": "11:00 AM",
+      "notes": "Scheduled via chat session: \"Emeka, 08031234567\"",
+      "status": "pending",
+      "source": "AI Chat",
+      "createdAt": "2026-09-19T08:01:27.269Z",
+      "updatedAt": "2026-09-19T08:01:27.269Z"
+    },
+    {
       "id": "insp-1789721546524",
       "type": "inspection",
       "referenceNumber": "INSP-63144",
@@ -910,6 +927,122 @@
     }
   ],
   "conversations": [
+    {
+      "id": "test-session-1",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:01:14.191Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"my budget is 50 million naira\". Criteria: in Ajah around ₦50M. Found: 2.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-7"
+      ],
+      "createdAt": "2026-09-19T08:01:14.191Z"
+    },
+    {
+      "id": "conv-1789804871283",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:01:11.459Z",
+      "intent": "Property Search",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User query: \"i need property in Ajah\". Criteria: in Ajah. Found: 6.",
+      "messageCount": 1,
+      "relatedListingIds": [
+        "prop-6",
+        "prop-7",
+        "prop-3",
+        "prop-2"
+      ],
+      "createdAt": "2026-09-19T08:01:11.459Z"
+    },
+    {
+      "id": "conv-1789804867684",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:01:07.739Z",
+      "intent": "INVESTMENT_EDUCATION",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"is Ajah good for investment?\". Handled by concierge knowledge routing (INVESTMENT_EDUCATION).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:01:07.739Z"
+    },
+    {
+      "id": "conv-1789804864908",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:01:04.961Z",
+      "intent": "BUYING_GUIDANCE_DUE_DILIGENCE",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"what due diligence should I do before buying land in Lagos?\". Handled by concierge knowledge routing (BUYING_GUIDANCE_DUE_DILIGENCE).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:01:04.961Z"
+    },
+    {
+      "id": "conv-1789804862583",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:01:02.748Z",
+      "intent": "GENERAL_REAL_ESTATE_TITLE",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"what is the difference between C of O and Governor consent?\". Handled by concierge knowledge routing (GENERAL_REAL_ESTATE_TITLE).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:01:02.749Z"
+    },
+    {
+      "id": "conv-1789804848822",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:00:48.876Z",
+      "intent": "GENERAL_REAL_ESTATE_TITLE",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"what is the difference between C of O and Governor consent?\". Handled by concierge knowledge routing (GENERAL_REAL_ESTATE_TITLE).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:00:48.876Z"
+    },
+    {
+      "id": "conv-1789804846159",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:00:46.224Z",
+      "intent": "GENERAL_REAL_ESTATE_TITLE",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"what is a C of O?\". Handled by concierge knowledge routing (GENERAL_REAL_ESTATE_TITLE).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:00:46.224Z"
+    },
+    {
+      "id": "conv-1789804842476",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:00:42.610Z",
+      "intent": "FOUNDER_CEO_INFO",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"who is the CEO?\". Handled by concierge knowledge routing (FOUNDER_CEO_INFO).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:00:42.610Z"
+    },
+    {
+      "id": "conv-1789804837421",
+      "channel": "chat",
+      "startedAt": "2026-09-19T08:00:38.095Z",
+      "intent": "GREETING",
+      "outcome": "information_provided",
+      "humanHandoffRequested": false,
+      "summary": "User asked: \"hello\". Handled by concierge knowledge routing (GREETING).",
+      "messageCount": 1,
+      "relatedListingIds": [],
+      "createdAt": "2026-09-19T08:00:38.095Z"
+    },
     {
       "id": "test-session-6-1789721547228",
       "channel": "chat",

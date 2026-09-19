@@ -97,8 +97,8 @@ export const ContactView: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3 font-mono">
-              <span className="w-6 h-[1.5px] bg-brand-gold" />
-              <span className="text-xs font-bold uppercase tracking-widest text-brand-gold">
+              <span className="w-6 h-[1.5px] bg-brand-green-primary" />
+              <span className="text-xs font-bold uppercase tracking-widest text-brand-green-primary dark:text-brand-green-sage">
                 Connect With Selling Ajah
               </span>
             </div>
@@ -149,7 +149,7 @@ export const ContactView: React.FC = () => {
           {/* 2. Direct Call Card */}
           <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-green-primary/15 border border-brand-green-primary/30 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage mb-4">
                 <PhoneCall className="w-6 h-6" />
               </div>
               <span className="text-[10px] font-bold font-mono uppercase tracking-widest text-neutral-500 dark:text-white/50 block mb-1">
@@ -168,7 +168,7 @@ export const ContactView: React.FC = () => {
               href={`tel:${settings.phone}`}
               className="w-full py-3 px-4 rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15 text-neutral-900 dark:text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors font-mono cursor-pointer"
             >
-              <Phone className="w-4 h-4 text-brand-gold" />
+              <Phone className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
               <span>{settings.phone}</span>
             </a>
           </div>
@@ -177,7 +177,7 @@ export const ContactView: React.FC = () => {
           <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-7 shadow-sm flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-black/5 dark:bg-white/10 border border-black/8 dark:border-white/10 flex items-center justify-center text-neutral-700 dark:text-white/80 mb-4">
-                <MapPin className="w-6 h-6 text-brand-gold" />
+                <MapPin className="w-6 h-6 text-brand-green-primary dark:text-brand-green-sage" />
               </div>
               <span className="text-[10px] font-bold font-mono uppercase tracking-widest text-neutral-500 dark:text-white/50 block mb-1">
                 Office Location
@@ -201,7 +201,7 @@ export const ContactView: React.FC = () => {
           
           {/* Left Context Narrative */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="text-xs uppercase font-bold tracking-widest text-brand-gold font-mono">
+            <div className="text-xs uppercase font-bold tracking-widest text-brand-green-primary dark:text-brand-green-sage font-mono">
               Private Inquiry Desk
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-light text-neutral-900 dark:text-white leading-tight">
@@ -213,15 +213,15 @@ export const ContactView: React.FC = () => {
 
             <div className="p-6 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 space-y-4">
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                 <span>Prompt callback from a designated Ajah advisor</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                 <span>Complete confidentiality for private acquisitions</span>
               </div>
               <div className="flex items-center gap-3 text-xs text-neutral-700 dark:text-white/80">
-                <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                 <span>Digital brochures and coordinates sent via WhatsApp/Email</span>
               </div>
             </div>
@@ -242,7 +242,7 @@ export const ContactView: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="px-6 py-2.5 rounded-full bg-brand-gold text-brand-black-deep font-bold text-xs uppercase tracking-wider font-mono cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-brand-green-primary text-white font-bold text-xs uppercase tracking-wider font-mono cursor-pointer"
                 >
                   Send Another Inquiry
                 </button>
@@ -260,7 +260,7 @@ export const ContactView: React.FC = () => {
                       value={name}
                       onChange={e => setName(e.target.value)}
                       placeholder="e.g. Adeyemi Adeleke"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary transition-colors"
                     />
                   </div>
 
@@ -274,7 +274,7 @@ export const ContactView: React.FC = () => {
                       value={phone}
                       onChange={e => setPhone(e.target.value)}
                       placeholder="e.g. +234 801 234 5678"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary transition-colors"
                     />
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export const ContactView: React.FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="e.g. adeyemi@example.com"
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary transition-colors"
                     />
                   </div>
 
@@ -300,12 +300,11 @@ export const ContactView: React.FC = () => {
                     <select
                       value={service}
                       onChange={e => setService(e.target.value)}
-                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary transition-colors"
                     >
                       <option value="property_sale">Buying a Property</option>
                       <option value="property_lease">Renting a Property</option>
                       <option value="shortlet">Serviced Shortlet Booking</option>
-                      <option value="car_rental">Luxury Car Rental</option>
                       <option value="consultation">Bespoke Advisory / Inspection</option>
                     </select>
                   </div>
@@ -320,7 +319,7 @@ export const ContactView: React.FC = () => {
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     placeholder="Tell us about the property, preferred neighborhood (e.g. Badore, Abraham Adesanya), budget, or inspection timeline..."
-                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold transition-colors resize-none"
+                    className="w-full bg-neutral-100 dark:bg-brand-black-deep border border-black/10 dark:border-white/15 rounded-xl px-4 py-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary transition-colors resize-none"
                   />
                 </div>
 
@@ -328,7 +327,7 @@ export const ContactView: React.FC = () => {
                   id="submit-contact-form-btn"
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3.5 px-6 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-md shadow-brand-gold/20 disabled:opacity-50 cursor-pointer font-mono"
+                  className="w-full py-3.5 px-6 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-md shadow-brand-green-primary/20 disabled:opacity-50 cursor-pointer font-mono"
                 >
                   {submitting ? (
                     <>
@@ -351,7 +350,7 @@ export const ContactView: React.FC = () => {
         {faqs.length > 0 && (
           <div className="pt-12 border-t border-black/8 dark:border-white/10 max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <div className="text-xs uppercase font-bold tracking-widest text-brand-gold mb-2 font-mono">
+              <div className="text-xs uppercase font-bold tracking-widest text-brand-green-primary dark:text-brand-green-sage mb-2 font-mono">
                 Clarifications & Guidance
               </div>
               <h2 className="font-serif text-3xl font-light text-neutral-900 dark:text-white">
@@ -375,7 +374,7 @@ export const ContactView: React.FC = () => {
                         {faq.question}
                       </span>
                       {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-brand-gold shrink-0" />
+                        <ChevronUp className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                       ) : (
                         <ChevronDown className="w-4 h-4 text-neutral-400 shrink-0" />
                       )}

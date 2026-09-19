@@ -54,9 +54,9 @@ const DEFAULT_SETTINGS: SiteSettings = {
     youtube: 'https://youtube.com/@sellingajah'
   },
   defaultSeoTitle: 'Selling Ajah | Premium Properties, Shortlets & Luxury Rentals in Lagos',
-  defaultSeoDescription: 'Verified properties for sale, long-term rentals, serviced shortlets, and executive car rentals in Ajah, Lekki, and Lagos.',
+  defaultSeoDescription: 'Verified properties for sale, long-term rentals, and serviced shortlets across the Ajah corridor.',
   heroHeadline: 'Find Your Place in Ajah.',
-  heroSubheadline: 'Discover verified luxury properties, premium serviced shortlets, and executive car rentals across Ajah, Lekki, and greater Lagos.'
+  heroSubheadline: 'Discover verified properties, premium serviced shortlets, and real-estate opportunities across the Ajah corridor.'
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

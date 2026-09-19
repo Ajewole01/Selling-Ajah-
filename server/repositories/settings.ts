@@ -13,10 +13,10 @@ function mapRowToSettings(row: any): SiteSettings {
     address: row.office_address || 'Ajah, Lagos, Nigeria',
     businessHours: row.business_hours || 'Mon - Sat: 8:00 AM - 6:00 PM',
     socialLinks: row.social_links || { instagram: '', facebook: '', twitter: '', linkedin: '' },
-    defaultSeoTitle: row.default_seo_title || 'Selling Ajah | Premium Properties, Shortlets & Luxury Cars',
+    defaultSeoTitle: row.default_seo_title || 'Selling Ajah | Properties & Serviced Shortlets',
     defaultSeoDescription: row.default_seo_description || 'Find luxury duplexes, serviced shortlets, and premium car hire in Ajah & Lekki.',
     heroHeadline: row.hero_headline || 'Luxury Properties & Lifestyle in Ajah',
-    heroSubheadline: row.hero_subheadline || 'Discover curated duplexes, shortlets, and luxury car rentals.'
+    heroSubheadline: row.hero_subheadline || 'Discover curated duplexes, rentals, and serviced shortlets.'
   };
 }
 

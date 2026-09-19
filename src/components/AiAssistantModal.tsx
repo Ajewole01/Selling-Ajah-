@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Markdown from 'react-markdown';
 import { useApp } from '../context/AppContext';
+import { formatTextForSpeech, getBestSpeechVoice } from '../utils/pronunciation';
 import { ChatMessage, ChatCard, ChatActionButton, InspectionRequest } from '../types';
 import {
   X,
@@ -10,7 +12,6 @@ import {
   ArrowUpRight,
   MessageSquare,
   Building2,
-  Car,
   Key,
   Calendar,
   Loader2,
@@ -41,18 +42,16 @@ export const AiAssistantModal: React.FC = () => {
     {
       id: 'welcome',
       sender: 'assistant',
-      text: `Welcome to Selling Ajah Concierge. I am your assistant for property inquiries, serviced shortlets, and vehicle rentals across the Ajah and Lekki corridor.
+      text: `Welcome to Selling Ajah Concierge. I am your assistant for property inquiries and serviced shortlets across the Ajah corridor.
 
 How may I assist you today?
 • Finding properties for sale or rent with verified database records
 • Inquiring about serviced shortlet apartments
-• Inquiring about rental vehicles
 • Submitting an inspection request for any listing`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       actionButtons: [
         { label: '4-Bed Duplex in Ajah', action: 'query', value: 'Find me a 4 bedroom duplex in Ajah' },
         { label: 'Serviced Shortlets', action: 'query', value: 'Show me available serviced shortlet apartments' },
-        { label: 'Vehicle Rentals', action: 'query', value: 'Show me available vehicles for hire' },
         { label: 'Request Property Inspection', action: 'open_inspection_modal', value: 'inspection' },
         { label: 'WhatsApp Representative', action: 'whatsapp', value: settings.whatsapp }
       ]
@@ -108,32 +107,29 @@ How may I assist you today?
     }
     window.speechSynthesis.cancel();
 
-    // Clean markdown and symbols for clean spoken voice
-    const cleanSpeech = text
+    // Clean markdown and symbols for clean spoken voice and phonetic Nigerian pronunciations
+    const cleanDisplaySpeech = text
       .replace(/[*#_`]/g, '')
       .replace(/₦(\d+)/g, '$1 Naira')
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
       .trim();
 
-    const utterance = new SpeechSynthesisUtterance(cleanSpeech);
+    // Spoken utterance with Nigerian phonetic lexicon
+    const phoneticSpeech = formatTextForSpeech(text);
+    const utterance = new SpeechSynthesisUtterance(phoneticSpeech);
     utterance.rate = 0.96;
     utterance.pitch = 1.0;
 
-    // Pick best English voice (prefer Natural / British / South African / West African / American female voice)
+    // Pick best English voice (prefer genuine Nigerian English en-NG or African voice, then natural voices)
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v =>
-      /natural|neural/i.test(v.name) && /female|libby|sonia|jenny|aria|samantha/i.test(v.name)
-    ) || voices.find(v =>
-      (v.name.includes('Amina') || v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Karen') || v.name.includes('Google UK English Female')) &&
-      v.lang.startsWith('en')
-    ) || voices.find(v => v.lang.startsWith('en-GB') || v.lang.startsWith('en-ZA') || v.lang.startsWith('en-NG') || v.lang.startsWith('en-US')) || voices[0];
+    const { voice: preferredVoice } = getBestSpeechVoice(voices);
 
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
 
     setVoiceStatus('speaking');
-    setVoiceAiSpeech(cleanSpeech);
+    setVoiceAiSpeech(cleanDisplaySpeech);
     isSpeakingRef.current = true;
 
     utterance.onend = () => {
@@ -258,7 +254,7 @@ How may I assist you today?
     setVoiceStatus('thinking');
 
     // Welcome speech
-    const welcome = "Welcome to Selling Ajah. I am your AI Concierge. How may I assist you with properties, serviced shortlets, or vehicle rentals today?";
+    const welcome = "Welcome to Selling Ajah. I am your AI Concierge. How may I assist you with properties or serviced shortlets today?";
     speakText(welcome, () => {
       startSpeechRecognition();
     });
@@ -406,8 +402,6 @@ How may I assist you today?
       navigate(`/properties/${card.slug}`);
     } else if (card.type === 'shortlet' || card.type === 'apartment') {
       navigate(`/shortlets/${card.slug}`);
-    } else if (card.type === 'car' || card.type === 'vehicle') {
-      navigate(`/cars/${card.slug}`);
     }
   };
 
@@ -567,13 +561,13 @@ How may I assist you today?
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="sa-concierge-modal w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-brand-black border border-black/10 dark:border-brand-gold/20 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
+        className="sa-concierge-modal w-full sm:max-w-xl md:max-w-2xl bg-white dark:bg-brand-black border border-black/10 dark:border-brand-green-primary/20 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[92vh] sm:h-[84vh] animate-in slide-in-from-bottom sm:zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Editorial Header with Voice / Chat Mode Switcher */}
         <div className="p-3.5 sm:p-5 border-b border-black/8 dark:border-white/10 bg-neutral-50 dark:bg-brand-black-deep flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-brand-green-primary/10 border border-brand-green-primary/25 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage shrink-0">
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="min-w-0">
@@ -602,7 +596,7 @@ How may I assist you today?
                 }}
                 className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-medium transition-all flex items-center gap-1 cursor-pointer ${
                   activeTab === 'chat'
-                    ? 'bg-white dark:bg-brand-charcoal text-neutral-900 dark:text-brand-gold shadow-sm font-bold'
+                    ? 'bg-white dark:bg-brand-charcoal text-neutral-900 dark:text-brand-green-sage shadow-sm font-bold'
                     : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
                 }`}
               >
@@ -619,8 +613,8 @@ How may I assist you today?
                 }}
                 className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-medium transition-all flex items-center gap-1 cursor-pointer ${
                   activeTab === 'voice'
-                    ? 'bg-brand-gold text-brand-black-deep shadow-sm font-bold'
-                    : 'text-neutral-500 dark:text-neutral-400 hover:text-brand-gold'
+                    ? 'bg-brand-green-primary text-white shadow-sm font-bold'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-brand-green-primary dark:text-brand-green-sage'
                 }`}
               >
                 <PhoneCall className="w-3.5 h-3.5" />
@@ -647,7 +641,7 @@ How may I assist you today?
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                 <span className="font-semibold text-neutral-900 dark:text-white">AI Voice Concierge (Amina)</span>
               </div>
-              <div className="flex items-center gap-1 text-brand-gold font-bold">
+              <div className="flex items-center gap-1 text-brand-green-primary dark:text-brand-green-sage font-bold">
                 <Clock className="w-3.5 h-3.5" />
                 <span>{formatTimer(callDuration)}</span>
               </div>
@@ -661,19 +655,19 @@ How may I assist you today?
                     voiceStatus === 'listening'
                       ? 'bg-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.4)] scale-105 ring-4 ring-emerald-500/30'
                       : voiceStatus === 'speaking'
-                      ? 'bg-brand-gold/25 shadow-[0_0_60px_rgba(198,161,91,0.5)] scale-110 ring-4 ring-brand-gold/40'
+                      ? 'bg-brand-green-primary/25 shadow-[0_0_60px_rgba(37,61,43,0.35)] scale-110 ring-4 ring-brand-green-primary/40'
                       : voiceStatus === 'thinking'
-                      ? 'bg-brand-gold/15 animate-pulse shadow-[0_0_30px_rgba(198,161,91,0.2)]'
+                      ? 'bg-brand-green-primary/10 animate-pulse shadow-[0_0_30px_rgba(37,61,43,0.2)]'
                       : 'bg-neutral-200 dark:bg-brand-charcoal'
                   }`}
                 >
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white dark:bg-brand-black-deep border-2 border-brand-gold/40 flex items-center justify-center text-brand-gold shadow-inner">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white dark:bg-brand-black-deep border-2 border-brand-green-primary/30 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage shadow-inner">
                     {voiceStatus === 'listening' ? (
                       <Mic className="w-10 h-10 text-emerald-500 animate-bounce" />
                     ) : voiceStatus === 'speaking' ? (
-                      <Volume2 className="w-10 h-10 text-brand-gold animate-pulse" />
+                      <Volume2 className="w-10 h-10 text-brand-green-primary dark:text-brand-green-sage animate-pulse" />
                     ) : voiceStatus === 'thinking' ? (
-                      <Loader2 className="w-10 h-10 text-brand-gold animate-spin" />
+                      <Loader2 className="w-10 h-10 text-brand-green-primary dark:text-brand-green-sage animate-spin" />
                     ) : (
                       <Headphones className="w-10 h-10 text-neutral-400 dark:text-neutral-500" />
                     )}
@@ -682,18 +676,18 @@ How may I assist you today?
 
                 {/* Animated soundwave bars when speaking */}
                 {voiceStatus === 'speaking' && (
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-brand-gold/40">
-                    <span className="w-1 h-3 bg-brand-gold rounded animate-pulse" />
-                    <span className="w-1 h-5 bg-brand-gold rounded animate-pulse delay-75" />
-                    <span className="w-1 h-4 bg-brand-gold rounded animate-pulse delay-150" />
-                    <span className="w-1 h-6 bg-brand-gold rounded animate-pulse delay-100" />
-                    <span className="w-1 h-3 bg-brand-gold rounded animate-pulse delay-200" />
+                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-brand-green-primary/30">
+                    <span className="w-1 h-3 bg-brand-green-primary rounded animate-pulse" />
+                    <span className="w-1 h-5 bg-brand-green-primary rounded animate-pulse delay-75" />
+                    <span className="w-1 h-4 bg-brand-green-primary rounded animate-pulse delay-150" />
+                    <span className="w-1 h-6 bg-brand-green-primary rounded animate-pulse delay-100" />
+                    <span className="w-1 h-3 bg-brand-green-primary rounded animate-pulse delay-200" />
                   </div>
                 )}
               </div>
 
               {/* Status text */}
-              <p className="text-xs uppercase font-mono font-bold tracking-widest text-brand-gold mb-2">
+              <p className="text-xs uppercase font-mono font-bold tracking-widest text-brand-green-primary dark:text-brand-green-sage mb-2">
                 {voiceStatus === 'listening'
                   ? 'Listening to you...'
                   : voiceStatus === 'speaking'
@@ -724,7 +718,7 @@ How may I assist you today?
 
               {/* Voice Disclosure Notice */}
               <div className="mt-4 flex items-center gap-1.5 text-[10px] text-neutral-400 dark:text-white/40 bg-black/5 dark:bg-white/5 px-3 py-1.5 rounded-full font-mono">
-                <Info className="w-3 h-3 text-brand-gold shrink-0" />
+                <Info className="w-3 h-3 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                 <span>AI Spoken Audio • Grounded in verified Lagos land registry titles</span>
               </div>
             </div>
@@ -737,7 +731,7 @@ How may I assist you today?
                 className={`p-4 rounded-full border transition-all cursor-pointer ${
                   isMuted
                     ? 'bg-rose-500/10 border-rose-500/30 text-rose-500 hover:bg-rose-500/20'
-                    : 'bg-white dark:bg-brand-charcoal border-black/10 dark:border-white/10 text-neutral-700 dark:text-white hover:border-brand-gold'
+                    : 'bg-white dark:bg-brand-charcoal border-black/10 dark:border-white/10 text-neutral-700 dark:text-white hover:border-brand-green-primary'
                 }`}
                 title={isMuted ? 'Unmute microphone' : 'Mute microphone'}
               >
@@ -759,7 +753,7 @@ How may I assist you today?
               {/* Switch to Chat */}
               <button
                 onClick={() => setActiveTab('chat')}
-                className="p-4 rounded-full bg-white dark:bg-brand-charcoal border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white hover:border-brand-gold transition-all cursor-pointer"
+                className="p-4 rounded-full bg-white dark:bg-brand-charcoal border border-black/10 dark:border-white/10 text-neutral-700 dark:text-white hover:border-brand-green-primary transition-all cursor-pointer"
                 title="Open text view"
               >
                 <MessageSquare className="w-5 h-5" />
@@ -780,7 +774,7 @@ How may I assist you today?
                     className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}
                   >
                     {!isUser && (
-                      <div className="w-7 h-7 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center shrink-0 mt-0.5 text-brand-gold">
+                      <div className="w-7 h-7 rounded-lg bg-brand-green-primary/10 border border-brand-green-primary/25 flex items-center justify-center shrink-0 mt-0.5 text-brand-green-primary dark:text-brand-green-sage">
                         <Bot className="w-4 h-4" />
                       </div>
                     )}
@@ -790,11 +784,44 @@ How may I assist you today?
                       <div
                         className={`rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
                           isUser
-                            ? 'bg-brand-gold text-brand-black-deep font-semibold rounded-tr-none shadow-md shadow-brand-gold/15'
-                            : 'bg-neutral-100 dark:bg-brand-charcoal text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-white/10 rounded-tl-none whitespace-pre-line font-light'
+                            ? 'bg-brand-green-primary text-white font-semibold rounded-tr-none shadow-md shadow-brand-green-primary/15 whitespace-pre-wrap'
+                            : 'bg-neutral-100 dark:bg-brand-charcoal text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-white/10 rounded-tl-none font-normal'
                         }`}
                       >
-                        {msg.text}
+                        {isUser ? (
+                          msg.text
+                        ) : (
+                          <div className="prose-assistant">
+                            <Markdown
+                              components={{
+                                p: ({ children }) => <p className="mb-2.5 last:mb-0 leading-relaxed">{children}</p>,
+                                strong: ({ children }) => <strong className="font-semibold text-neutral-900 dark:text-white">{children}</strong>,
+                                em: ({ children }) => <em className="italic">{children}</em>,
+                                ul: ({ children }) => <ul className="list-disc pl-4 space-y-1 mb-2.5 last:mb-0">{children}</ul>,
+                                ol: ({ children }) => <ol className="list-decimal pl-4 space-y-1 mb-2.5 last:mb-0">{children}</ol>,
+                                li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                                h1: ({ children }) => <h1 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white mb-2">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white mb-1.5">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-xs font-bold text-neutral-900 dark:text-white mb-1">{children}</h3>,
+                                a: ({ href, children }) => {
+                                  const safeHref = href && /^(https?:\/\/|mailto:|tel:)/i.test(href) ? href : '#';
+                                  return (
+                                    <a
+                                      href={safeHref}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-brand-green-primary dark:text-brand-green-sage hover:underline font-medium inline-flex items-center gap-0.5"
+                                    >
+                                      {children}
+                                    </a>
+                                  );
+                                }
+                              }}
+                            >
+                              {msg.text}
+                            </Markdown>
+                          </div>
+                        )}
                       </div>
 
                       {/* Timestamp & channel flag */}
@@ -803,7 +830,7 @@ How may I assist you today?
                           {msg.timestamp}
                         </span>
                         {msg.isVoiceTranscript && (
-                          <span className="text-[9px] font-mono font-semibold text-brand-gold bg-brand-gold/10 px-1.5 py-0.2 rounded border border-brand-gold/20">
+                          <span className="text-[9px] font-mono font-semibold text-brand-green-primary dark:text-brand-green-sage bg-brand-green-primary/10 px-1.5 py-0.2 rounded border border-brand-green-primary/20">
                             Spoken
                           </span>
                         )}
@@ -811,8 +838,8 @@ How may I assist you today?
 
                       {/* Human Handoff Highlight Card */}
                       {msg.handoffRequested && (
-                        <div className="mt-3 p-4 rounded-2xl bg-brand-gold/10 border border-brand-gold/40 w-full">
-                          <div className="flex items-center gap-2 text-brand-gold font-bold text-xs mb-1">
+                        <div className="mt-3 p-4 rounded-2xl bg-brand-green-primary/10 border border-brand-green-primary/30 w-full">
+                          <div className="flex items-center gap-2 text-brand-green-primary dark:text-brand-green-sage font-bold text-xs mb-1">
                             <ShieldCheck className="w-4 h-4" />
                             <span>Executive Human Advisory Handoff</span>
                           </div>
@@ -825,30 +852,30 @@ How may I assist you today?
                                 const url = formatWhatsAppUrl(settings.whatsapp, "Hello Senior Partner, I am requesting immediate consultation via the Selling Ajah AI Concierge.");
                                 window.open(url, '_blank', 'noopener,noreferrer');
                               }}
-                              className="px-3.5 py-1.5 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-[11px] font-mono flex items-center gap-1.5 shadow-sm cursor-pointer"
+                              className="px-3.5 py-1.5 rounded-full bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-[11px] font-mono flex items-center gap-1.5 shadow-sm cursor-pointer"
                             >
                               <MessageSquare className="w-3 h-3" />
                               <span>WhatsApp Senior Partner</span>
                             </button>
                             <a
                               href={`tel:${settings.phone || '+2348109012192'}`}
-                              className="px-3.5 py-1.5 rounded-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 hover:border-brand-gold text-neutral-900 dark:text-white text-[11px] font-mono flex items-center gap-1.5 cursor-pointer"
+                              className="px-3.5 py-1.5 rounded-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 hover:border-brand-green-primary text-neutral-900 dark:text-white text-[11px] font-mono flex items-center gap-1.5 cursor-pointer"
                             >
-                              <Phone className="w-3 h-3 text-brand-gold" />
+                              <Phone className="w-3 h-3 text-brand-green-primary dark:text-brand-green-sage" />
                               <span>Call Direct Line</span>
                             </a>
                           </div>
                         </div>
                       )}
 
-                      {/* Interactive Property / Apartment / Vehicle Cards inside chat */}
+                      {/* Interactive Property and Apartment Cards inside chat */}
                       {msg.listingCards && msg.listingCards.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3 w-full">
                           {msg.listingCards.map(card => (
                             <div
                               key={card.id}
                               onClick={() => handleCardClick(card)}
-                              className="bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 hover:border-brand-gold rounded-2xl overflow-hidden cursor-pointer group transition-all shadow-md flex flex-col"
+                              className="bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 hover:border-brand-green-primary rounded-2xl overflow-hidden cursor-pointer group transition-all shadow-md flex flex-col"
                             >
                               <div className="relative aspect-[16/9] overflow-hidden bg-neutral-900">
                                 <img
@@ -856,13 +883,13 @@ How may I assist you today?
                                   alt=""
                                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
-                                <div className="absolute top-2 left-2 bg-black/85 text-[10px] uppercase font-bold text-brand-gold px-2 py-0.5 rounded font-mono">
+                                <div className="absolute top-2 left-2 bg-black/85 text-[10px] uppercase font-bold text-brand-green-primary dark:text-brand-green-sage px-2 py-0.5 rounded font-mono">
                                   {card.type}
                                 </div>
                               </div>
                               <div className="p-3 flex-1 flex flex-col justify-between">
                                 <div>
-                                  <h5 className="font-serif text-xs font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold line-clamp-1 mb-1">
+                                  <h5 className="font-serif text-xs font-bold text-neutral-900 dark:text-white group-hover:text-brand-green-primary dark:group-hover:text-brand-green-sage line-clamp-1 mb-1">
                                     {card.title}
                                   </h5>
                                   <p className="text-[10px] text-neutral-500 dark:text-white/50 truncate mb-1">
@@ -875,11 +902,11 @@ How may I assist you today?
                                   )}
                                 </div>
                                 <div className="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/10">
-                                  <span className="text-xs font-bold text-brand-gold font-mono">
+                                  <span className="text-xs font-bold text-brand-green-primary dark:text-brand-green-sage font-mono">
                                     {card.formattedPrice}
                                   </span>
                                   <span className="text-[10px] text-neutral-600 dark:text-neutral-300 flex items-center gap-0.5 font-medium">
-                                    View <ArrowUpRight className="w-3 h-3 text-brand-gold" />
+                                    View <ArrowUpRight className="w-3 h-3 text-brand-green-primary dark:text-brand-green-sage" />
                                   </span>
                                 </div>
                               </div>
@@ -895,7 +922,7 @@ How may I assist you today?
                             <button
                               key={idx}
                               onClick={() => handleActionClick(btn)}
-                              className="text-[11px] bg-white hover:bg-neutral-50 dark:bg-brand-charcoal dark:hover:bg-brand-graphite text-neutral-800 dark:text-brand-gold px-3.5 py-1.5 rounded-full border border-black/10 dark:border-brand-gold/30 transition-all shadow-sm font-mono cursor-pointer"
+                              className="text-[11px] bg-white hover:bg-neutral-50 dark:bg-brand-charcoal dark:hover:bg-brand-graphite text-neutral-800 dark:text-brand-green-sage px-3.5 py-1.5 rounded-full border border-black/10 dark:border-brand-green-primary/25 transition-all shadow-sm font-mono cursor-pointer"
                             >
                               {btn.label}
                             </button>
@@ -905,7 +932,7 @@ How may I assist you today?
                     </div>
 
                     {isUser && (
-                      <div className="w-7 h-7 rounded-lg bg-brand-gold/20 border border-brand-gold/30 flex items-center justify-center shrink-0 mt-0.5 text-brand-gold">
+                      <div className="w-7 h-7 rounded-lg bg-brand-green-primary/15 border border-brand-green-primary/25 flex items-center justify-center shrink-0 mt-0.5 text-brand-green-primary dark:text-brand-green-sage">
                         <User className="w-4 h-4" />
                       </div>
                     )}
@@ -915,11 +942,11 @@ How may I assist you today?
 
               {loading && (
                 <div className="flex gap-3">
-                  <div className="w-7 h-7 rounded-lg bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center shrink-0 text-brand-gold">
+                  <div className="w-7 h-7 rounded-lg bg-brand-green-primary/10 border border-brand-green-primary/25 flex items-center justify-center shrink-0 text-brand-green-primary dark:text-brand-green-sage">
                     <Bot className="w-4 h-4" />
                   </div>
                   <div className="bg-neutral-100 dark:bg-brand-charcoal text-neutral-600 dark:text-neutral-300 border border-black/5 dark:border-white/10 rounded-2xl rounded-tl-none px-4 py-3 text-xs flex items-center gap-2 font-mono">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-gold" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-green-primary dark:text-brand-green-sage" />
                     <span>Verifying active Ajah & Lekki inventory...</span>
                   </div>
                 </div>
@@ -927,10 +954,10 @@ How may I assist you today?
 
               {/* Dedicated Inspection Booking Form Modal Inside Chat */}
               {showInspectionModal && (
-                <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-brand-black-soft border border-brand-gold/50 shadow-2xl my-3 animate-in fade-in zoom-in-95">
+                <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-brand-black-soft border border-brand-green-primary/40 shadow-2xl my-3 animate-in fade-in zoom-in-95">
                   <div className="flex items-center justify-between mb-3 border-b border-black/5 dark:border-white/10 pb-2">
                     <h4 className="font-serif text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-brand-gold" />
+                      <Calendar className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
                       Schedule Private Inspection
                     </h4>
                     <button
@@ -942,7 +969,7 @@ How may I assist you today?
                   </div>
 
                   <p className="text-[11px] text-neutral-500 dark:text-white/60 mb-3">
-                    Target: <strong className="text-brand-gold">{inspectionTargetTitle}</strong>
+                    Target: <strong className="text-brand-green-primary dark:text-brand-green-sage">{inspectionTargetTitle}</strong>
                   </p>
 
                   <form onSubmit={handleInspectionSubmit} className="space-y-3">
@@ -952,7 +979,7 @@ How may I assist you today?
                       placeholder="Your Full Name"
                       value={inspName}
                       onChange={e => setInspName(e.target.value)}
-                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input
@@ -961,14 +988,14 @@ How may I assist you today?
                         placeholder="WhatsApp Phone"
                         value={inspPhone}
                         onChange={e => setInspPhone(e.target.value)}
-                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
                       <input
                         type="email"
                         placeholder="Email (optional)"
                         value={inspEmail}
                         onChange={e => setInspEmail(e.target.value)}
-                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -979,7 +1006,7 @@ How may I assist you today?
                           required
                           value={inspDate}
                           onChange={e => setInspDate(e.target.value)}
-                          className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                          className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                         />
                       </div>
                       <div>
@@ -987,7 +1014,7 @@ How may I assist you today?
                         <select
                           value={inspTime}
                           onChange={e => setInspTime(e.target.value)}
-                          className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                          className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                         >
                           <option value="10:00 AM">10:00 AM (Morning)</option>
                           <option value="11:30 AM">11:30 AM (Midday)</option>
@@ -1002,12 +1029,12 @@ How may I assist you today?
                       placeholder="Special notes (e.g., coming with family, gate pass requirements)"
                       value={inspNotes}
                       onChange={e => setInspNotes(e.target.value)}
-                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                     <button
                       type="submit"
                       disabled={inspSubmitting}
-                      className="w-full py-3 px-4 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer shadow-md shadow-brand-gold/20"
+                      className="w-full py-3 px-4 rounded-full bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer shadow-md shadow-brand-green-primary/20"
                     >
                       {inspSubmitting ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -1022,10 +1049,10 @@ How may I assist you today?
 
               {/* Inline Lead Capture Box */}
               {showLeadForm && (
-                <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-brand-black-soft border border-brand-gold/40 shadow-xl my-3">
+                <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-brand-black-soft border border-brand-green-primary/30 shadow-xl my-3">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-serif text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-brand-gold" />
+                      <ShieldCheck className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
                       Request Private Advisor Callback
                     </h4>
                     <button
@@ -1043,7 +1070,7 @@ How may I assist you today?
                       placeholder="Your Full Name"
                       value={leadName}
                       onChange={e => setLeadName(e.target.value)}
-                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                      className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input
@@ -1052,20 +1079,20 @@ How may I assist you today?
                         placeholder="WhatsApp Phone"
                         value={leadPhone}
                         onChange={e => setLeadPhone(e.target.value)}
-                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
                       <input
                         type="email"
                         placeholder="Email (optional)"
                         value={leadEmail}
                         onChange={e => setLeadEmail(e.target.value)}
-                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-white dark:bg-brand-black-deep border border-black/10 dark:border-white/10 rounded-xl px-3 py-2.5 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={leadSubmitting}
-                      className="w-full py-3 px-4 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer"
+                      className="w-full py-3 px-4 rounded-full bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 font-mono cursor-pointer"
                     >
                       {leadSubmitting ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -1095,15 +1122,15 @@ How may I assist you today?
                   type="text"
                   value={inputText}
                   onChange={e => setInputText(e.target.value)}
-                  placeholder="Inquire on duplexes, shortlets, or luxury mobility..."
-                  className="flex-1 bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-brand-gold transition-colors"
+                  placeholder="Inquire on duplexes, property sales, rentals or shortlets..."
+                  className="flex-1 bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 outline-none focus:border-brand-green-primary transition-colors"
                 />
 
                 {/* Voice Call Trigger in text input */}
                 <button
                   type="button"
                   onClick={startVoiceCall}
-                  className="p-3 rounded-xl bg-neutral-200 hover:bg-brand-gold/20 text-neutral-700 dark:bg-brand-charcoal dark:hover:bg-brand-gold/20 dark:text-brand-gold transition-colors shrink-0 cursor-pointer"
+                  className="p-3 rounded-xl bg-neutral-200 hover:bg-brand-green-primary/15 text-neutral-700 dark:bg-brand-charcoal dark:hover:bg-brand-green-primary/15 dark:text-brand-green-sage transition-colors shrink-0 cursor-pointer"
                   title="Start live voice conversation"
                 >
                   <PhoneCall className="w-4 h-4" />
@@ -1113,7 +1140,7 @@ How may I assist you today?
                   id="send-ai-message-btn"
                   type="submit"
                   disabled={!inputText.trim() || loading}
-                  className="p-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep disabled:opacity-40 disabled:hover:bg-brand-gold text-brand-black-deep transition-colors shrink-0 cursor-pointer"
+                  className="p-3 rounded-xl bg-brand-green-primary hover:bg-brand-green-primary-deep disabled:opacity-40 disabled:hover:bg-brand-green-primary text-white transition-colors shrink-0 cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>

@@ -38,14 +38,6 @@ const brands = [
     isCurrent: false,
   },
   {
-    number: '05',
-    name: 'Dolyn Luxury Car Rentals',
-    description: 'Premium vehicles for weddings, corporate events, airport transfers, and special occasions.',
-    handle: '@Thedolynglobal',
-    link: 'https://instagram.com/thedolynglobal',
-    isCurrent: false,
-  },
-  {
     number: '06',
     name: 'Dolyn Lagos Land',
     description: 'Verified land acquisition across prime Lagos corridors, including the fast-growing Ajah axis.',

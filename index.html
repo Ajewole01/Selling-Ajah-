@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Selling Ajah | Premium Properties, Shortlets & Luxury Rentals in Lagos</title>
-    <meta name="description" content="Discover verified luxury homes for sale, properties for rent, serviced shortlets, and executive car rentals across Ajah, Lekki, and Lagos." />
-    <meta property="og:title" content="Selling Ajah | Premium Properties, Shortlets & Luxury Rentals" />
-    <meta property="og:description" content="Discover verified luxury homes for sale, properties for rent, serviced shortlets, and executive car rentals across Ajah, Lekki, and Lagos." />
+    <title>Selling Ajah | Ajah Properties — Buy Smart. Own Smart.</title>
+    <meta name="description" content="Ajah Properties: Buy Smart. Own Smart. Verified homes for sale, affordable developments, payment-plan opportunities, rentals, serviced shortlets, and car hire across the Ajah corridor." />
+    <meta property="og:title" content="Selling Ajah | Ajah Properties — Buy Smart. Own Smart." />
+    <meta property="og:description" content="Ajah Properties: Buy Smart. Own Smart. Verified homes for sale, affordable developments, payment-plan opportunities, rentals, serviced shortlets, and car hire across the Ajah corridor." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/png" href="/assets/images/selling_ajah_logo_transparent.png" />
@@ -16,27 +16,16 @@
     <script>
       (function() {
         try {
-          var stored = localStorage.getItem('selling_ajah_theme');
-          var theme = stored;
-          if (!theme || (theme !== 'dark' && theme !== 'light')) {
-            theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
-          }
-          if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.documentElement.style.colorScheme = 'dark';
-          } else {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-            document.documentElement.setAttribute('data-theme', 'light');
-            document.documentElement.style.colorScheme = 'light';
-          }
+          localStorage.removeItem('selling_ajah_theme');
         } catch (e) {}
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.colorScheme = 'dark';
       })();
     </script>
   </head>
-  <body class="bg-canvas text-primary font-sans antialiased selection:bg-brand-gold selection:text-brand-black-deep transition-colors duration-200">
+  <body class="bg-canvas text-primary font-sans antialiased selection:bg-brand-green-primary selection:text-white transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

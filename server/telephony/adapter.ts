@@ -34,7 +34,7 @@ export class TelephonyAdapter {
     }
 
     const greeting = settings.phoneGreeting ||
-      "Thank you for calling Selling Ajah. You are speaking with Selling Ajah's AI Concierge. I can assist with property inquiries, serviced shortlets, vehicle rentals, or taking an inspection request. How can I direct your inquiry today?";
+      "Thank you for calling Selling Ajah. You are speaking with Selling Ajah's AI Concierge. I can assist with property inquiries, serviced shortlets, or taking an inspection request. How can I direct your inquiry today?";
 
     // Returns standard TwiML XML with speech gathering
     return `<?xml version="1.0" encoding="UTF-8"?>

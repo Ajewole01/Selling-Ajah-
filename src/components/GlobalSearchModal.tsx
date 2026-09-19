@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
-import { Search, X, Building2, Key, Car, ArrowRight, Loader2 } from 'lucide-react';
+import { Search, X, Building2, Key, Car, Loader2 } from 'lucide-react';
 import { Property, ServicedApartment, LuxuryVehicle } from '../types';
 import { formatNaira } from '../utils/formatters';
 
@@ -55,26 +55,26 @@ export const GlobalSearchModal: React.FC = () => {
     navigate(path);
   };
 
-  const totalResults = results.properties.length + results.apartments.length + results.vehicles.length;
+  const totalResults = results.properties.length + results.apartments.length;
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-6 md:p-20 bg-black/60 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="w-full max-w-2xl bg-white dark:bg-brand-black border border-black/10 dark:border-brand-gold/20 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200"
+        className="w-full max-w-2xl bg-white dark:bg-brand-black border border-black/10 dark:border-brand-green-primary/25 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Search Input Bar */}
         <div className="p-4 border-b border-black/8 dark:border-white/10 flex items-center gap-3 bg-neutral-50 dark:bg-brand-black-deep">
-          <Search className="w-5 h-5 text-brand-gold shrink-0" />
+          <Search className="w-5 h-5 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Search Ajah, Lekki, Sangotedo, Duplex, Shortlet, G-Wagon..."
+            placeholder="Search Ajah, Sangotedo, duplexes and shortlets..."
             className="w-full bg-transparent text-neutral-900 dark:text-white placeholder-neutral-400 dark:placeholder-white/40 text-sm sm:text-base outline-none"
           />
-          {loading && <Loader2 className="w-4 h-4 text-brand-gold animate-spin shrink-0" />}
+          {loading && <Loader2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage animate-spin shrink-0" />}
           <button
             id="close-search-modal-btn"
             onClick={closeSearchModal}
@@ -92,7 +92,7 @@ export const GlobalSearchModal: React.FC = () => {
                 Quick Suggestions
               </p>
               <div className="flex flex-wrap items-center justify-center gap-2 max-w-md mx-auto">
-                {['5 Bed Duplex Ajah', 'Abraham Adesanya', 'VGC Mansion', 'Onyx Shortlet', 'G63 AMG Rental', 'Sangotedo Land', 'Chevron Toll Gate'].map(tag => (
+                {['5 Bed Duplex Ajah', 'Abraham Adesanya', 'VGC Mansion', 'Onyx Shortlet', 'Sangotedo Land', 'Chevron Toll Gate'].map(tag => (
                   <button
                     key={tag}
                     onClick={() => setQuery(tag)}
@@ -115,7 +115,7 @@ export const GlobalSearchModal: React.FC = () => {
               {/* Properties */}
               {results.properties.length > 0 && (
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-semibold text-brand-gold uppercase tracking-wider mb-2 font-mono">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-brand-green-primary dark:text-brand-green-sage uppercase tracking-wider mb-2 font-mono">
                     <Building2 className="w-3.5 h-3.5" />
                     <span>Properties ({results.properties.length})</span>
                   </div>
@@ -133,7 +133,7 @@ export const GlobalSearchModal: React.FC = () => {
                             className="w-12 h-12 rounded-lg object-cover bg-neutral-900 shrink-0"
                           />
                           <div className="min-w-0">
-                            <h4 className="text-xs sm:text-sm font-medium text-neutral-900 dark:text-white group-hover:text-brand-gold truncate">
+                            <h4 className="text-xs sm:text-sm font-medium text-neutral-900 dark:text-white group-hover:text-brand-green-primary dark:group-hover:text-brand-green-sage truncate">
                               {p.title}
                             </h4>
                             <p className="text-[11px] text-neutral-500 dark:text-white/50 truncate">
@@ -145,7 +145,7 @@ export const GlobalSearchModal: React.FC = () => {
                           <span className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-white font-serif block">
                             {formatNaira(p.price)}
                           </span>
-                          <span className="text-[10px] text-brand-gold uppercase font-medium font-mono">
+                          <span className="text-[10px] text-brand-green-primary dark:text-brand-green-sage uppercase font-medium font-mono">
                             {p.listingType === 'sale' ? 'For Sale' : 'For Rent'}
                           </span>
                         </div>
@@ -197,7 +197,7 @@ export const GlobalSearchModal: React.FC = () => {
               )}
 
               {/* Luxury Vehicles */}
-              {results.vehicles.length > 0 && (
+              {false && results.vehicles.length > 0 && (
                 <div>
                   <div className="flex items-center gap-2 text-xs font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-2">
                     <Car className="w-3.5 h-3.5" />

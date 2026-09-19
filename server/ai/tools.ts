@@ -193,19 +193,19 @@ export const GEMINI_TOOL_DECLARATIONS = [
   },
   {
     name: 'create_booking_request',
-    description: 'Submit a booking request for a serviced shortlet apartment or rental vehicle. All requests are received as pending confirmation by staff.',
+    description: 'Submit a booking request for a serviced shortlet apartment. All requests are received as pending confirmation by staff.',
     parameters: {
       type: 'OBJECT' as const,
       properties: {
-        bookingType: { type: 'STRING' as const, description: "'shortlet' or 'vehicle'" },
+        bookingType: { type: 'STRING' as const, description: "Use 'shortlet'" },
         customerName: { type: 'STRING' as const, description: 'Full name of client' },
         customerPhone: { type: 'STRING' as const, description: 'Phone or WhatsApp contact' },
         customerEmail: { type: 'STRING' as const, description: 'Optional email' },
         listingId: { type: 'STRING' as const, description: 'Listing ID' },
         listingTitle: { type: 'STRING' as const, description: 'Listing name' },
-        startDate: { type: 'STRING' as const, description: 'Check-in or rental start date' },
-        endDate: { type: 'STRING' as const, description: 'Check-out or return date' },
-        guestsOrDays: { type: 'NUMBER' as const, description: 'Number of guests (for shortlet) or rental days (for vehicle)' },
+        startDate: { type: 'STRING' as const, description: 'Check-in date' },
+        endDate: { type: 'STRING' as const, description: 'Check-out date' },
+        guestsOrDays: { type: 'NUMBER' as const, description: 'Number of guests' },
         notes: { type: 'STRING' as const, description: 'Optional special requests' }
       },
       required: ['bookingType', 'customerName', 'customerPhone', 'listingTitle', 'startDate']
@@ -249,15 +249,15 @@ export const GEMINI_TOOL_DECLARATIONS = [
         email: { type: 'STRING' as const, description: 'Optional email address' },
         service: {
           type: 'STRING' as const,
-          description: "Service category: 'property_sale', 'property_rent', 'shortlet', 'car_rental', or 'consultation'"
+          description: "Service category: 'property_sale', 'property_rent', 'shortlet', or 'consultation'"
         },
-        listingTitle: { type: 'STRING' as const, description: 'Optional title of property, shortlet, or vehicle' },
+        listingTitle: { type: 'STRING' as const, description: 'Optional title of property or shortlet' },
         message: { type: 'STRING' as const, description: 'Client inquiry message' }
       },
       required: ['name', 'phone', 'message']
     }
   }
-];
+].filter(tool => !['search_vehicles', 'get_vehicle_details'].includes(tool.name));
 
 // Tool Executors with Strict Input Validation & Database Grounding
 export async function executeTool(name: string, rawArgs: any): Promise<{ result: any; cards?: ChatCard[]; actionButtons?: any[] }> {
@@ -627,10 +627,8 @@ export async function executeTool(name: string, rawArgs: any): Promise<{ result:
     case 'create_booking_request': {
       const rawType = sanitizeText(args.bookingType, 20).toLowerCase();
       const isShortlet = rawType === 'shortlet';
-      const isVehicle = rawType === 'vehicle';
-
-      if (!isShortlet && !isVehicle) {
-        return { result: { error: "Booking type must be either 'shortlet' or 'vehicle'." } };
+      if (!isShortlet) {
+        return { result: { error: "Selling Ajah currently accepts booking requests for serviced shortlets only." } };
       }
 
       const customerName = sanitizeText(args.customerName, 80);
@@ -650,38 +648,28 @@ export async function executeTool(name: string, rawArgs: any): Promise<{ result:
 
       // Check listing ID against inventory
       const rawListingId = sanitizeText(args.listingId, 50);
-      let verifiedListingTitle = sanitizeText(args.listingTitle, 120) || (isShortlet ? 'Shortlet Booking' : 'Vehicle Booking');
+      let verifiedListingTitle = sanitizeText(args.listingTitle, 120) || 'Shortlet Booking';
       let verifiedListingId: string | undefined = rawListingId || undefined;
 
-      if (isShortlet) {
-        const apartments = await repo.getApartments();
-        const matchedApt = apartments.find(a => a.id === rawListingId || a.slug === rawListingId);
-        if (matchedApt) {
-          verifiedListingTitle = matchedApt.name;
-          verifiedListingId = matchedApt.id;
-        }
-      } else {
-        const vehicles = await repo.getVehicles();
-        const matchedVeh = vehicles.find(v => v.id === rawListingId || v.slug === rawListingId);
-        if (matchedVeh) {
-          verifiedListingTitle = matchedVeh.name;
-          verifiedListingId = matchedVeh.id;
-        }
+      const apartments = await repo.getApartments();
+      const matchedApt = apartments.find(a => a.id === rawListingId || a.slug === rawListingId);
+      if (matchedApt) {
+        verifiedListingTitle = matchedApt.name;
+        verifiedListingId = matchedApt.id;
       }
 
       const created = await repo.createInspectionRequest({
-        type: isShortlet ? 'shortlet_booking' : 'vehicle_booking',
+        type: 'shortlet_booking',
         customerName,
         customerPhone,
         customerEmail,
         listingId: verifiedListingId,
         listingTitle: verifiedListingTitle,
-        listingType: isShortlet ? 'shortlet' : 'vehicle',
+        listingType: 'shortlet',
         preferredDate: startDate,
         checkInDate: startDate,
         checkOutDate: endDate,
-        numberOfGuests: isShortlet ? guestsOrDays : undefined,
-        rentalDays: !isShortlet ? guestsOrDays : undefined,
+        numberOfGuests: guestsOrDays,
         notes,
         status: 'pending',
         source: 'AI Chat'
@@ -692,9 +680,9 @@ export async function executeTool(name: string, rawArgs: any): Promise<{ result:
         phone: customerPhone,
         email: customerEmail || 'booking@sellingajah.com',
         whatsapp: customerPhone,
-        service: isShortlet ? 'shortlet' : 'car_rental',
+        service: 'shortlet',
         listingTitle: verifiedListingTitle,
-        message: `Booking Request (${created.referenceNumber}): ${isShortlet ? 'Shortlet' : 'Vehicle'} from ${startDate} to ${endDate}. Contact: ${customerPhone}`
+        message: `Shortlet booking request (${created.referenceNumber}) from ${startDate} to ${endDate}. Contact: ${customerPhone}`
       });
 
       return {
@@ -702,7 +690,7 @@ export async function executeTool(name: string, rawArgs: any): Promise<{ result:
           success: true,
           referenceNumber: created.referenceNumber,
           listingTitle: created.listingTitle,
-          bookingType: isShortlet ? 'shortlet' : 'vehicle',
+          bookingType: 'shortlet',
           startDate,
           endDate,
           status: 'pending',

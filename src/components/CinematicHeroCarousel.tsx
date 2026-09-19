@@ -173,12 +173,46 @@ export const CinematicHeroCarousel: React.FC = () => {
       <div className="sa-hero__shade" />
       <div className="sa-hero__grid" aria-hidden="true" />
       <div className="sa-hero__content">
-        <p className="sa-kicker"><Sparkles size={14} /> Curated property & lifestyle</p>
-        <h1>Find your place<br />in <em>Ajah.</em></h1>
-        <p className="sa-hero__intro">Exceptional homes, serviced stays and executive mobility across Ajah, Lekki and greater Lagos.</p>
+        <p className="sa-kicker"><Sparkles size={14} /> Ajah Properties</p>
+        <h1>Find your <em>Dream Home</em><br />in Ajah.</h1>
+        <p className="sa-hero__intro">Property sales, rentals and investment opportunities—plus affordable homes, payment plans and mortgage guidance where available—across the Ajah corridor.</p>
         <div className="sa-hero__actions">
-          <form className="sa-discovery" onSubmit={discover}><div className="sa-discovery__tabs" role="tablist" aria-label="Discovery type">{([['sale', 'Buy'], ['rent', 'Rent'], ['shortlet', 'Stay']] as const).map(([value, label], index) => <button type="button" role="tab" aria-selected={mode === value} key={value} onClick={() => setMode(value)} className={mode === value ? 'is-active' : ''} style={{ color: '#000000', ...(index === 0 ? { backgroundColor: '#c6a15b' } : {}) }}>{label}</button>)}</div><label><span>Where</span><select value={area} onChange={event => setArea(event.target.value)} style={{ color: '#000000' }}><option value="all">Ajah & Lagos</option><option value="Ajah">Ajah</option><option value="Badore">Badore</option><option value="Sangotedo">Sangotedo</option><option value="Chevron">Chevron</option><option value="VGC">VGC</option></select></label><button className="sa-discovery__submit" type="submit" style={{ backgroundColor: '#c6a15b' }}><Search size={17} /><span>Explore</span></button></form>
-          <a className="sa-hero__whatsapp" href={formatWhatsAppUrl(settings.whatsapp, 'Hello Selling Ajah, I would like to speak with an advisor.')} target="_blank" rel="noreferrer"><MessageSquare size={15} /> Talk to an advisor</a>
+          <form className="sa-discovery" onSubmit={discover}>
+            <div className="sa-discovery__tabs" role="tablist" aria-label="Discovery type">
+              {([['sale', 'Buy'], ['rent', 'Rent'], ['shortlet', 'Stay']] as const).map(([value, label]) => (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === value}
+                  key={value}
+                  onClick={() => setMode(value)}
+                  className={mode === value ? 'is-active' : ''}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <label>
+              <span>Where</span>
+              <select value={area} onChange={event => setArea(event.target.value)}>
+                <option value="all">All Ajah Corridor</option>
+                <option value="Ajah">Ajah</option>
+                <option value="Abraham Adesanya">Abraham Adesanya</option>
+                <option value="Sangotedo">Sangotedo</option>
+                <option value="Ikota">Ikota</option>
+                <option value="Chevron">Chevron</option>
+                <option value="VGC">Victoria Garden City</option>
+                <option value="Orchid Road">Orchid Road</option>
+              </select>
+            </label>
+            <button className="sa-discovery__submit" type="submit">
+              <Search size={17} />
+              <span>Explore</span>
+            </button>
+          </form>
+          <a className="sa-hero__whatsapp" href={formatWhatsAppUrl(settings.whatsapp, 'Hello Selling Ajah, I would like to speak with an advisor.')} target="_blank" rel="noreferrer">
+            <MessageSquare size={15} /> Talk to an advisor
+          </a>
         </div>
       </div>
       <div className="sa-hero__footer"><span>Scroll to discover</span><ArrowDownRight size={19} /><div className="sa-hero__controls"><button type="button" aria-label="Previous hero image" onClick={() => goTo(activeIndex - 1)}><ArrowLeft size={15} /></button><div className="sa-hero__progress" aria-label={`Slide ${activeIndex + 1} of ${heroSlides.length}`}>{heroSlides.map((slide, index) => <span key={slide.image}><i ref={element => { progressRefs.current[index] = element; }} /><b>{String(index + 1).padStart(2, '0')}</b></span>)}</div><button type="button" aria-label="Next hero image" onClick={() => goTo(activeIndex + 1)}><ArrowRight size={15} /></button></div></div>

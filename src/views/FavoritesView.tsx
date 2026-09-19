@@ -96,7 +96,7 @@ export const FavoritesView: React.FC = () => {
             </p>
             <button
               onClick={() => navigate('/properties')}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
             >
               <Building2 className="w-4 h-4" />
               <span>Explore Ajah Properties</span>

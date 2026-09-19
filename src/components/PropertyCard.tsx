@@ -56,9 +56,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       return <span className="bg-amber-600/90 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">Rented</span>;
     }
     if (property.listingType === 'sale') {
-      return <span className="bg-brand-gold text-brand-black-deep text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">For Sale</span>;
+      return <span className="bg-brand-green-primary text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">For Sale</span>;
     }
-    return <span className="bg-brand-gold text-brand-black-deep text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">For Rent</span>;
+    return <span className="bg-brand-green-muted text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">For Rent</span>;
   };
 
   if (layout === 'list') {
@@ -66,7 +66,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       <div
         id={`property-card-${property.id}`}
         onClick={handleCardClick}
-        className="group relative bg-white dark:bg-brand-black-soft hover:bg-neutral-50/80 dark:hover:bg-brand-charcoal border border-black/8 dark:border-white/10 hover:border-brand-gold/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col md:flex-row cursor-pointer"
+        className="group relative bg-white dark:bg-[#0E1710] hover:bg-neutral-50/80 dark:hover:bg-[#121E14] border border-black/8 dark:border-white/10 hover:border-brand-green-primary/50 dark:hover:border-brand-green-sage/40 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col md:flex-row cursor-pointer"
       >
         {/* Image side */}
         <div className="md:w-72 lg:w-80 h-60 md:h-auto relative shrink-0 overflow-hidden bg-neutral-900">
@@ -83,7 +83,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
             {statusBadge()}
             {property.isFeatured && (
-              <span className="bg-black/75 backdrop-blur-md border border-brand-gold/50 text-brand-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
+              <span className="bg-black/75 backdrop-blur-md border border-brand-green-sage/50 text-brand-green-sage text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
                 Featured
               </span>
             )}
@@ -95,7 +95,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             aria-label="Save to favorites"
             className="absolute top-3.5 right-3.5 z-10 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95"
           >
-            <Heart className={`w-4 h-4 ${liked ? 'text-brand-gold fill-brand-gold' : 'text-white'}`} />
+            <Heart className={`w-4 h-4 ${liked ? 'text-brand-green-primary dark:text-brand-green-sage fill-brand-green-primary dark:fill-brand-green-sage' : 'text-white'}`} />
           </button>
         </div>
 
@@ -103,16 +103,16 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <div className="p-5 sm:p-6 flex-1 flex flex-col gap-3 justify-center">
           <div>
             <div className="flex items-center justify-between gap-2 mb-1.5 text-xs text-neutral-500 dark:text-white/50">
-              <span className="font-mono text-brand-gold text-[11px] font-bold tracking-wider">{property.refNumber}</span>
+              <span className="font-mono text-brand-green-primary dark:text-brand-green-sage text-[11px] font-bold tracking-wider">{property.refNumber}</span>
               <span className="bg-black/5 dark:bg-white/5 text-neutral-700 dark:text-white/70 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-semibold">{property.propertyType}</span>
             </div>
 
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 mb-1.5">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-brand-green-primary dark:group-hover:text-brand-green-sage transition-colors line-clamp-2 mb-1.5">
               {property.title}
             </h3>
 
             <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60 mb-2">
-              <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
               <span className="line-clamp-1">{property.location}</span>
             </div>
 
@@ -149,7 +149,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             <div className="flex items-center gap-3">
               <div className="text-right">
                 <span className="text-[10px] text-neutral-400 dark:text-white/40 block font-bold uppercase tracking-wider">Guide Price</span>
-                <div className="text-lg sm:text-xl font-bold text-brand-gold font-serif">
+                <div className="text-lg sm:text-xl font-bold text-brand-green-primary dark:text-brand-green-sage font-serif">
                   {formatNaira(property.price)}
                   {property.pricePeriod && (
                     <span className="text-xs font-sans text-neutral-500 dark:text-white/50 font-normal"> /{property.pricePeriod}</span>
@@ -161,7 +161,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 id={`whatsapp-card-list-${property.id}`}
                 onClick={handleWhatsAppClick}
                 title="Chat with agent on WhatsApp"
-                className="p-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95 transition-all"
+                className="p-2.5 rounded-full bg-brand-green-primary hover:bg-brand-green-deep text-white shadow-md hover:scale-105 active:scale-95 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
               </button>
@@ -177,7 +177,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     <div
       id={`property-card-${property.id}`}
       onClick={handleCardClick}
-      className="group relative self-start h-auto bg-white dark:bg-brand-black-soft hover:bg-neutral-50/80 dark:hover:bg-brand-charcoal border border-black/8 dark:border-white/10 hover:border-brand-gold/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col cursor-pointer"
+      className="group relative self-start h-auto bg-white dark:bg-[#0E1710] hover:bg-neutral-50/80 dark:hover:bg-[#121E14] border border-black/8 dark:border-white/10 hover:border-brand-green-primary/50 dark:hover:border-brand-green-sage/40 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 flex flex-col cursor-pointer"
     >
       {/* 1. Image */}
       <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 shrink-0">
@@ -194,7 +194,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
           {statusBadge()}
           {property.isFeatured && (
-            <span className="bg-black/75 backdrop-blur-md border border-brand-gold/50 text-brand-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
+            <span className="bg-black/75 backdrop-blur-md border border-brand-green-sage/50 text-brand-green-sage text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
               Featured
             </span>
           )}
@@ -207,7 +207,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           aria-label="Save to favorites"
           className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95"
         >
-          <Heart className={`w-4 h-4 ${liked ? 'text-brand-gold fill-brand-gold' : 'text-white'}`} />
+          <Heart className={`w-4 h-4 ${liked ? 'text-brand-green-primary dark:text-brand-green-sage fill-brand-green-primary dark:fill-brand-green-sage' : 'text-white'}`} />
         </button>
       </div>
 
@@ -219,14 +219,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 dark:text-white/40 block leading-tight">
               Guide Price
             </span>
-            <div className="text-xl sm:text-2xl font-bold text-brand-gold font-serif tracking-tight">
+            <div className="text-xl sm:text-2xl font-bold text-brand-green-primary dark:text-brand-green-sage font-serif tracking-tight">
               {formatNaira(property.price)}
               {property.pricePeriod && (
                 <span className="text-xs font-sans text-neutral-500 dark:text-white/50 font-normal"> /{property.pricePeriod}</span>
               )}
             </div>
           </div>
-          <span className="font-mono text-[11px] font-bold text-brand-gold px-2 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/30 shrink-0">
+          <span className="font-mono text-[11px] font-bold text-brand-green-primary dark:text-brand-green-sage px-2 py-0.5 rounded bg-brand-green-primary/10 border border-brand-green-primary/25 shrink-0">
             {property.refNumber}
           </span>
         </div>
@@ -243,13 +243,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         </div>
 
         {/* Title */}
-        <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-gold dark:group-hover:text-brand-gold transition-colors line-clamp-2 leading-snug">
+        <h3 className="font-serif text-base sm:text-lg font-bold text-neutral-900 dark:text-white group-hover:text-brand-green-primary dark:group-hover:text-brand-green-sage transition-colors line-clamp-2 leading-snug">
           {property.title}
         </h3>
 
         {/* Location */}
         <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-white/60">
-          <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+          <MapPin className="w-3.5 h-3.5 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
           <span className="truncate">{property.location}</span>
         </div>
 
@@ -265,13 +265,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="flex items-center gap-3">
             {property.bedrooms > 0 && (
               <div className="flex items-center gap-1" title={`${property.bedrooms} Bedrooms`}>
-                <Bed className="w-3.5 h-3.5 text-brand-gold" />
+                <Bed className="w-3.5 h-3.5 text-brand-green-primary dark:text-brand-green-sage" />
                 <span>{property.bedrooms} Beds</span>
               </div>
             )}
             {property.bathrooms > 0 && (
               <div className="flex items-center gap-1" title={`${property.bathrooms} Bathrooms`}>
-                <Bath className="w-3.5 h-3.5 text-brand-gold" />
+                <Bath className="w-3.5 h-3.5 text-brand-green-primary dark:text-brand-green-sage" />
                 <span>{property.bathrooms} Baths</span>
               </div>
             )}
@@ -286,17 +286,17 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <div className="flex items-center gap-2 pt-1">
           <button
             onClick={handleCardClick}
-            className="flex-1 py-2 px-3.5 rounded-xl bg-black/5 hover:bg-brand-gold hover:text-brand-black-deep dark:bg-white/10 dark:hover:bg-brand-gold dark:hover:text-brand-black-deep text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
+            className="flex-1 py-2 px-3.5 rounded-xl bg-black/5 hover:bg-brand-green-primary hover:text-white dark:bg-white/10 dark:hover:bg-brand-green-primary dark:hover:text-white text-neutral-900 dark:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all uppercase tracking-wider group/btn"
           >
             <span>Explore</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/50 group-hover/btn:text-brand-black-deep group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400 dark:text-white/50 group-hover/btn:text-white group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
           </button>
 
           <button
             id={`card-whatsapp-${property.id}`}
             onClick={handleWhatsAppClick}
             title="Chat on WhatsApp"
-            className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95"
+            className="p-2 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white transition-all shadow-md hover:scale-105 active:scale-95"
           >
             <MessageSquare className="w-4 h-4" />
           </button>

@@ -71,7 +71,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#FAF9F5] dark:bg-brand-black-deep flex items-center justify-center text-neutral-500 dark:text-white/50">
-        <Loader2 className="w-8 h-8 animate-spin text-brand-gold" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-green-primary dark:text-brand-green-sage" />
       </div>
     );
   }
@@ -83,7 +83,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
           <h2 className="font-serif text-2xl font-bold text-neutral-900 dark:text-white mb-2">Apartment Not Found</h2>
           <button
             onClick={() => navigate('/shortlets')}
-            className="px-5 py-2.5 rounded-full bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
+            className="px-5 py-2.5 rounded-full bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors"
           >
             Browse All Shortlets
           </button>
@@ -164,12 +164,12 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
           <button
             onClick={() => navigate('/shortlets')}
-            className="flex items-center gap-1 hover:text-brand-gold transition-colors"
+            className="flex items-center gap-1 hover:text-brand-green-primary dark:text-brand-green-sage transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Back to all shortlets</span>
           </button>
-          <span className="text-brand-gold font-medium">Verified 24/7 Power Shortlet</span>
+          <span className="text-brand-green-primary dark:text-brand-green-sage font-medium">Verified 24/7 Power Shortlet</span>
         </div>
       </div>
 
@@ -178,7 +178,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-brand-gold text-brand-black-deep text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <span className="bg-brand-green-primary text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                 Serviced Shortlet
               </span>
               <span className="text-xs bg-black/5 dark:bg-white/10 text-neutral-700 dark:text-neutral-300 px-2.5 py-0.5 rounded-full font-medium">
@@ -191,7 +191,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
             </h1>
 
             <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-              <MapPin className="w-4 h-4 text-brand-gold shrink-0" />
+              <MapPin className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
               <span>{apartment.location}</span>
             </div>
           </div>
@@ -201,7 +201,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
               onClick={() => setIsShareModalOpen(true)}
               className="p-3 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/10 dark:border-white/10 text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
             >
-              <Share2 className="w-4 h-4 text-brand-gold" />
+              <Share2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
               <span>Share</span>
             </button>
           </div>
@@ -247,8 +247,8 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                   onClick={() => setActiveImageIndex(idx)}
                   className={`w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 cursor-pointer ${
                     activeImageIndex === idx
-                      ? 'border-brand-gold ring-2 ring-brand-gold/50 shadow-md opacity-100'
-                      : 'border-black/20 dark:border-white/20 bg-neutral-200 dark:bg-neutral-800 opacity-85 hover:opacity-100 hover:border-brand-gold/70 shadow-xs'
+                      ? 'border-brand-green-primary ring-2 ring-brand-green-primary/50 shadow-md opacity-100'
+                      : 'border-black/20 dark:border-white/20 bg-neutral-200 dark:bg-neutral-800 opacity-85 hover:opacity-100 hover:border-brand-green-primary/70 shadow-xs'
                   }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -265,7 +265,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
             {/* Quick Specs */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 shadow-sm dark:shadow-none">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-green-primary/10 border border-brand-green-primary/20 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage shrink-0">
                   <Users className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
@@ -275,7 +275,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-green-primary/10 border border-brand-green-primary/20 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage shrink-0">
                   <Bed className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
@@ -285,7 +285,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-green-primary/10 border border-brand-green-primary/20 flex items-center justify-center text-brand-green-primary dark:text-brand-green-sage shrink-0">
                   <Bath className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
@@ -316,7 +316,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                     key={idx}
                     className="flex items-center gap-2 p-3 rounded-xl bg-neutral-50 dark:bg-brand-black border border-black/5 dark:border-white/10 text-xs text-neutral-800 dark:text-neutral-200"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage shrink-0" />
                     <span>{amenity}</span>
                   </div>
                 ))}
@@ -326,7 +326,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
             {/* House Rules & Policies */}
             <div className="bg-white dark:bg-brand-black-soft border border-black/8 dark:border-white/10 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-none">
               <h3 className="font-serif text-xl font-bold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
-                <Info className="w-5 h-5 text-brand-gold" />
+                <Info className="w-5 h-5 text-brand-green-primary dark:text-brand-green-sage" />
                 House Rules & Policies
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-700 dark:text-neutral-300">
@@ -375,7 +375,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                 {/* Direct Booking Form */}
                 <div className="pt-4 border-t border-black/8 dark:border-white/10">
                   <h4 className="font-serif text-sm font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-brand-gold" />
+                    <Calendar className="w-4 h-4 text-brand-green-primary dark:text-brand-green-sage" />
                     Reserve Online
                   </h4>
 
@@ -397,7 +397,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                             required
                             value={checkIn}
                             onChange={e => setCheckIn(e.target.value)}
-                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-gold"
+                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-green-primary"
                           />
                         </div>
                         <div>
@@ -407,7 +407,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                             required
                             value={checkOut}
                             onChange={e => setCheckOut(e.target.value)}
-                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-gold"
+                            className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-2 text-xs text-neutral-900 dark:text-neutral-200 outline-none focus:border-brand-green-primary"
                           />
                         </div>
                       </div>
@@ -417,7 +417,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         <select
                           value={guestCount}
                           onChange={e => setGuestCount(e.target.value)}
-                          className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                          className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                         >
                           {[...Array(apartment.maxGuests)].map((_, i) => (
                             <option key={i + 1} value={i + 1}>
@@ -433,7 +433,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         placeholder="Your Full Name"
                         value={guestName}
                         onChange={e => setGuestName(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
 
                       <input
@@ -442,7 +442,7 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         placeholder="WhatsApp Phone Number"
                         value={guestPhone}
                         onChange={e => setGuestPhone(e.target.value)}
-                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-gold"
+                        className="w-full bg-neutral-100 dark:bg-brand-black border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-brand-green-primary"
                       />
 
                       {/* Pricing calculation summary */}
@@ -453,14 +453,14 @@ export const ShortletDetailView: React.FC<ShortletDetailViewProps> = ({ slug }) 
                         </div>
                         <div className="flex justify-between text-neutral-900 dark:text-white font-bold pt-1 border-t border-black/8 dark:border-white/10">
                           <span>Total</span>
-                          <span className="text-brand-gold">{formatNaira(totalPrice)}</span>
+                          <span className="text-brand-green-primary dark:text-brand-green-sage">{formatNaira(totalPrice)}</span>
                         </div>
                       </div>
 
                       <button
                         type="submit"
                         disabled={submittingBooking}
-                        className="w-full py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-deep text-brand-black-deep font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-brand-gold/20"
+                        className="w-full py-3 rounded-xl bg-brand-green-primary hover:bg-brand-green-deep text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-brand-green-primary/20"
                       >
                         {submittingBooking ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                         <span>Request Reservation</span>

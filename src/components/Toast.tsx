@@ -18,8 +18,8 @@ export const ToastContainer: React.FC = () => {
           icon = <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />;
           borderClass = 'border-rose-500/30';
         } else if (toast.type === 'info') {
-          icon = <Info className="w-5 h-5 text-brand-gold shrink-0" />;
-          borderClass = 'border-brand-gold/30';
+          icon = <Info className="w-5 h-5 text-brand-green-primary dark:text-brand-green-sage shrink-0" />;
+          borderClass = 'border-brand-green-primary/30';
         }
 
         return (
